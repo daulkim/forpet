@@ -33,9 +33,11 @@ public class Pet {
     private List<BathReservation> bathReservations;
 
     @Builder
-    public Pet(String name, String memo){
+    public Pet(String name, String furType, String memo, Member member) {
         this.name = name;
+        this.furType = furType;
         this.memo = memo;
+        this.member = member;
     }
 }
 
