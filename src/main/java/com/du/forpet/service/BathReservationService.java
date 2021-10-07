@@ -22,9 +22,9 @@ public class BathReservationService {
     @Transactional
     public void cancel(Long id) {
         BathReservation bathReservation = bathReservationRepository
-                .findById(id)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("해당 예약을 찾을 수 없습니다. id: " + id));
+                                                .findById(id)
+                                                .orElseThrow(() ->
+                                                        new IllegalArgumentException("해당 예약을 찾을 수 없습니다. id: " + id));
 
         bathReservation.cancel();
 
