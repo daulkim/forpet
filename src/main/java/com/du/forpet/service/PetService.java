@@ -1,14 +1,13 @@
 package com.du.forpet.service;
 
-import com.du.forpet.dto.PetResponseDto;
-import com.du.forpet.dto.PetSaveRequestDto;
-import com.du.forpet.entity.Pet;
+import com.du.forpet.domain.dto.PetResponseDto;
+import com.du.forpet.domain.dto.PetSaveRequestDto;
+import com.du.forpet.domain.entity.Pet;
 import com.du.forpet.repository.PetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor

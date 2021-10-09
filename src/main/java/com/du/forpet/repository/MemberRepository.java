@@ -1,6 +1,6 @@
 package com.du.forpet.repository;
 
-import com.du.forpet.entity.Member;
+import com.du.forpet.domain.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

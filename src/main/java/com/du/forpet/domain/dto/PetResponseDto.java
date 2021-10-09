@@ -1,6 +1,6 @@
-package com.du.forpet.dto;
+package com.du.forpet.domain.dto;
 
-import com.du.forpet.entity.Pet;
+import com.du.forpet.domain.entity.Pet;
 import lombok.Getter;
 
 @Getter

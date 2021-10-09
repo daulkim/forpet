@@ -1,10 +1,11 @@
-package com.du.forpet.entity;
+package com.du.forpet.domain.entity;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -26,6 +27,9 @@ public class Helper {
 
     @Column(name = "HELPER_TYPE")
     private String helperType;
+
+    @OneToMany(mappedBy = "helper")
+    private List<BathReservation> bathReservations;
 
     @Builder
     public Helper(String email,

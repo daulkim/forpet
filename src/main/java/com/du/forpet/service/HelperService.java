@@ -1,6 +1,6 @@
 package com.du.forpet.service;
 
-import com.du.forpet.dto.HelperSaveRequestDto;
+import com.du.forpet.domain.dto.HelperSaveRequestDto;
 import com.du.forpet.repository.HelperRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.du.forpet.entity;
+package com.du.forpet.domain.entity;
 
 
 import javax.persistence.*;

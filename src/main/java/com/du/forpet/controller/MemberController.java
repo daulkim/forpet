@@ -1,7 +1,6 @@
 package com.du.forpet.controller;
 
-import com.du.forpet.dto.MemberResponseDto;
-import com.du.forpet.dto.MemberSaveRequestDto;
+import com.du.forpet.domain.dto.MemberSaveRequestDto;
 import com.du.forpet.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

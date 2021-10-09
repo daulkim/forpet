@@ -1,10 +1,10 @@
 package com.du.forpet.service;
 
-import com.du.forpet.dto.PetSaveRequestDto;
+import com.du.forpet.domain.dto.PetSaveRequestDto;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.du.forpet.entity.Member;
-import com.du.forpet.entity.Pet;
+import com.du.forpet.domain.entity.Member;
+import com.du.forpet.domain.entity.Pet;
 import com.du.forpet.repository.MemberRepository;
 import com.du.forpet.repository.PetRepository;
 import org.junit.jupiter.api.Test;

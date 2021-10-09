@@ -1,7 +1,7 @@
 package com.du.forpet.service;
 
-import com.du.forpet.dto.BathReservationSaveRequestDto;
-import com.du.forpet.entity.BathReservation;
+import com.du.forpet.domain.dto.BathReservationSaveRequestDto;
+import com.du.forpet.domain.entity.BathReservation;
 import com.du.forpet.repository.BathReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

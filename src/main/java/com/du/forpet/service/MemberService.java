@@ -1,15 +1,12 @@
 package com.du.forpet.service;
 
-import com.du.forpet.dto.MemberResponseDto;
-import com.du.forpet.dto.MemberSaveRequestDto;
-import com.du.forpet.dto.MemberUpdateRequestDto;
-import com.du.forpet.entity.Member;
+import com.du.forpet.domain.dto.MemberResponseDto;
+import com.du.forpet.domain.dto.MemberSaveRequestDto;
+import com.du.forpet.domain.dto.MemberUpdateRequestDto;
+import com.du.forpet.domain.entity.Member;
 import com.du.forpet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service

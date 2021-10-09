@@ -1,6 +1,6 @@
-package com.du.forpet.dto;
+package com.du.forpet.domain.dto;
 
-import com.du.forpet.entity.Helper;
+import com.du.forpet.domain.entity.Helper;
 import lombok.Builder;
 import lombok.Getter;
 
