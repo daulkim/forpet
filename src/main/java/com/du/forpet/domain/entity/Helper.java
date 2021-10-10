@@ -29,7 +29,7 @@ public class Helper {
     private String helperType;
 
     @OneToMany(mappedBy = "helper")
-    private List<BathReservation> bathReservations;
+    private List<Reservation> reservations;
 
     @Builder
     public Helper(String email,

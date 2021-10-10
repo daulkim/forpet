@@ -1,19 +1,19 @@
 package com.du.forpet.service;
 
-import com.du.forpet.domain.dto.BathReservationSaveRequestDto;
-import com.du.forpet.domain.entity.BathReservation;
-import com.du.forpet.repository.BathReservationRepository;
+import com.du.forpet.domain.dto.ReservationSaveRequestDto;
+import com.du.forpet.domain.entity.Reservation;
+import com.du.forpet.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class BathReservationService {
+public class ReservationService {
 
-    private final BathReservationRepository bathReservationRepository;
+    private final ReservationRepository bathReservationRepository;
 
-    public Long save(BathReservationSaveRequestDto requestDto) {
+    public Long save(ReservationSaveRequestDto requestDto) {
 
         return bathReservationRepository.save(requestDto.toEntity()).getId();
 
@@ -21,12 +21,12 @@ public class BathReservationService {
 
     @Transactional
     public void cancel(Long id) {
-        BathReservation bathReservation = bathReservationRepository
+        Reservation reservation = bathReservationRepository
                                                 .findById(id)
                                                 .orElseThrow(() ->
                                                         new IllegalArgumentException("해당 예약을 찾을 수 없습니다. id: " + id));
 
-        bathReservation.cancel();
+        reservation.cancel();
 
     }
 

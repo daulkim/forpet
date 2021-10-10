@@ -30,7 +30,7 @@ public class Pet {
     private Member member;
 
     @OneToMany(mappedBy = "pet")
-    private List<BathReservation> bathReservations;
+    private List<Reservation> reservations;
 
     @Builder
     public Pet(String name, String furType, String memo, Member member) {

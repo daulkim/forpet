@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class BathReservation {
+public class Reservation {
 
     @Id @GeneratedValue
-    @Column(name="BATH_RESERVATION_ID")
+    @Column(name="RESERVATION_ID")
     private Long id;
 
     @Column(name="SERVICE_TYPE")
@@ -28,7 +28,7 @@ public class BathReservation {
     @Column(name="END_TIME")
     private LocalDateTime endTime;
 
-    private PetStatus status;
+    private ReservationStatus status;
 
     @ManyToOne
     @JoinColumn(name="PET_ID")
@@ -39,11 +39,11 @@ public class BathReservation {
     private Helper helper;
 
     @Builder
-    public BathReservation(String serviceType,
-                           LocalDateTime startTime,
-                           LocalDateTime endTime,
-                           PetStatus status,
-                           Pet pet) {
+    public Reservation(String serviceType,
+                       LocalDateTime startTime,
+                       LocalDateTime endTime,
+                       ReservationStatus status,
+                       Pet pet) {
 
         this.serviceType = serviceType;
         this.startTime = startTime;
@@ -60,15 +60,15 @@ public class BathReservation {
             throw new RuntimeException("예약 하루전에는 취소가 불가합니다.");
         }
 
-        this.setStatus(PetStatus.C);
+        this.setStatus(ReservationStatus.C);
     }
 
-    private void setStatus(PetStatus status) {
+    private void setStatus(ReservationStatus status) {
         this.status = status;
     }
 }
 
-enum PetStatus{
+enum ReservationStatus{
     /**
      * P: 예약 승인 전
      * R: 예약 승인 완료
