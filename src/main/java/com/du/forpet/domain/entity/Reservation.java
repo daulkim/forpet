@@ -1,11 +1,10 @@
 package com.du.forpet.domain.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import javax.persistence.*;
 
+import com.du.forpet.domain.ReservationStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Reservation {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="RESERVATION_ID")
     private Long id;
 
@@ -28,6 +27,8 @@ public class Reservation {
     @Column(name="END_TIME")
     private LocalDateTime endTime;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="STATUS")
     private ReservationStatus status;
 
     @ManyToOne
@@ -68,13 +69,3 @@ public class Reservation {
     }
 }
 
-enum ReservationStatus{
-    /**
-     * P: 예약 승인 전
-     * R: 예약 승인 완료
-     * D: 완료
-     * C: 취소
-     */
-
-    P,R,D,C
-}

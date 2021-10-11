@@ -12,14 +12,17 @@ import java.util.List;
 @Entity
 public class Helper {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "HELPER_ID")
     private Long id;
 
+    @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "NAME")
     private String name;
 
     @Column(name = "PHONE_NUMBER")

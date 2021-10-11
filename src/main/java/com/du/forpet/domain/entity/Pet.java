@@ -14,15 +14,17 @@ import java.util.List;
 @Entity
 public class Pet {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="PET_ID")
     private Long id;
 
+    @Column(name="NAME")
     private String name;
 
     @Column( name="FUR_TYPE" )
     private String furType;
 
+    @Column(name="MEMO")
     private String memo;
 
     @ManyToOne
