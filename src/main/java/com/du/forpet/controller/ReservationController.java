@@ -14,7 +14,7 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @PostMapping("/reservation")
+    @PostMapping("/")
     public Long reserve(ReservationSaveRequestDto requestDto) {
         return reservationService.save(requestDto);
     }

@@ -56,12 +56,28 @@ public class Reservation {
     public void cancel() {
 
         final LocalDateTime REVOCABLEDATE = LocalDateTime.now().plusDays(1);
-        
+
         if(startTime.isAfter(REVOCABLEDATE)) {
             throw new RuntimeException("예약 하루전에는 취소가 불가합니다.");
         }
 
         this.setStatus(ReservationStatus.C);
+    }
+
+    public void update(LocalDateTime startTime, LocalDateTime endTime) {
+
+        final LocalDateTime REVOCABLEDATE = LocalDateTime.now().plusDays(1);
+
+        if(!ReservationStatus.updatableStatus(status)) {
+            throw new RuntimeException("예약시간 변경이 불가능한 상태입니다.");
+        };
+
+        if(startTime.isAfter(REVOCABLEDATE)) {
+            throw new RuntimeException("예약 하루전에는 시간 변경이 불가합니다.");
+        }
+        this.startTime = this.endTime;
+        this.status = ReservationStatus.P;
+
     }
 
     private void setStatus(ReservationStatus status) {
