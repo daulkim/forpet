@@ -2,10 +2,12 @@ package com.du.forpet.service;
 
 import com.du.forpet.domain.dto.PetResponseDto;
 import com.du.forpet.domain.dto.PetSaveRequestDto;
+import com.du.forpet.domain.dto.PetUpdateRequestDto;
 import com.du.forpet.domain.entity.Pet;
 import com.du.forpet.repository.PetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,14 +38,28 @@ public class PetService {
                     .stream()
                     .map(PetResponseDto::new)
                     .collect(Collectors.toList());
+
     }
 
+    @Transactional
+    public Long update(Long id, PetUpdateRequestDto requestDto) {
+        Pet pet = petRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("pet 을 찾을 수 없습니다. id: " + id));
+
+        pet.update(requestDto.getName(), requestDto.getMemo());
+
+        return id;
+
+    }
+
+    @Transactional
     public void delete(Long id) {
         Pet pet = petRepository
                     .findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("pet 을 찾을 수 없습니다. id: " + id));
 
-        petRepository.delete(pet);
+        pet.inactivate();
 
     }
 }
