@@ -33,8 +33,8 @@ public class PetController {
     }
 
     @PutMapping("/{id}")
-    public Long updateInfo(@PathVariable Long id, PetUpdateRequestDto requestDto) {
-        return petService.update(id, requestDto);
+    public Long update(@PathVariable Long id, PetUpdateRequestDto requestDto) {
+        return petService.updateInfo(id, requestDto);
 
     }
 

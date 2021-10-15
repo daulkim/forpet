@@ -42,7 +42,7 @@ public class PetService {
     }
 
     @Transactional
-    public Long update(Long id, PetUpdateRequestDto requestDto) {
+    public Long updateInfo(Long id, PetUpdateRequestDto requestDto) {
         Pet pet = petRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("pet 을 찾을 수 없습니다. id: " + id));

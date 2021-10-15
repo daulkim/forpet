@@ -20,14 +20,16 @@ public class PetSaveRequestDto {
     public PetSaveRequestDto(String name, String memo, Member member){
         this.name = name;
         this.memo = memo;
+        this.status = PetStatus.ACTIVE;
         this.member = member;
     }
 
     public Pet toEntity(){
         return Pet.builder()
-                .name(name)
-                .memo(memo)
-                .member(member)
-                .build();
+                    .name(name)
+                    .memo(memo)
+                    .status(status)
+                    .member(member)
+                    .build();
     }
 }
