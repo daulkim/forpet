@@ -17,7 +17,7 @@ public class PetController {
     private final PetService petService;
 
     @PostMapping("/")
-    public Long regist(PetSaveRequestDto requestDto) {
+    public Long register(PetSaveRequestDto requestDto) {
         return petService.save(requestDto);
     }
 
