@@ -1,6 +1,6 @@
 package com.du.forpet.domain.dto;
 
-import com.du.forpet.domain.PetStatus;
+import com.du.forpet.domain.ActivityStatus;
 import com.du.forpet.domain.entity.Pet;
 import lombok.Getter;
 
@@ -11,7 +11,7 @@ public class PetResponseDto {
     private String name;
     private String furType;
     private String memo;
-    private PetStatus status;
+    private ActivityStatus status;
 
     public PetResponseDto(Pet entity) {
         this.id = entity.getId();

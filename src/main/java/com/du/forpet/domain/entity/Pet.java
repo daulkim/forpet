@@ -3,6 +3,7 @@ package com.du.forpet.domain.entity;
 
 import javax.persistence.*;
 
+import com.du.forpet.domain.ActivityStatus;
 import com.du.forpet.domain.PetStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class Pet {
     private String memo;
 
     @Column(name="STATUS")
-    private PetStatus status;
+    private ActivityStatus status;
 
     @ManyToOne
     @JoinColumn(name="MEMBER_ID")
@@ -40,7 +41,7 @@ public class Pet {
     private List<Reservation> reservations;
 
     @Builder
-    public Pet(String name, String furType, String memo, PetStatus status, Member member) {
+    public Pet(String name, String furType, String memo, ActivityStatus status, Member member) {
         this.name = name;
         this.furType = furType;
         this.memo = memo;
@@ -54,13 +55,9 @@ public class Pet {
     }
 
     public void inactivate() {
-        if (status == PetStatus.ACTIVE) {
-            this.setStatus(PetStatus.INACTIVE);
+        if (status == ActivityStatus.ACTIVE) {
+            this.status = ActivityStatus.INACTIVE;
         }
-    }
-
-    private void setStatus(PetStatus status) {
-        this.status = status;
     }
 }
 
