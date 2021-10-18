@@ -1,5 +1,6 @@
 package com.du.forpet.domain.dto;
 
+import com.du.forpet.domain.ActivityStatus;
 import com.du.forpet.domain.entity.Helper;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +13,7 @@ public class HelperSaveRequestDto {
     private String name;
     private String phoneNumber;
     private String helperType;
+    private ActivityStatus status;
 
     @Builder
     public HelperSaveRequestDto(String email,
@@ -24,6 +26,7 @@ public class HelperSaveRequestDto {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
+        this.status = ActivityStatus.ACTIVE;
     }
 
     public Helper toEntity() {
@@ -33,6 +36,7 @@ public class HelperSaveRequestDto {
                 .name(name)
                 .phoneNumber(phoneNumber)
                 .helperType(helperType)
+                .status(status)
                 .build();
     }
 }

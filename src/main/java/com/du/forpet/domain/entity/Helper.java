@@ -1,5 +1,6 @@
 package com.du.forpet.domain.entity;
 
+import com.du.forpet.domain.ActivityStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,9 @@ public class Helper {
     @Column(name = "HELPER_TYPE")
     private String helperType;
 
+    @Column(name="STATUS")
+    private ActivityStatus status;
+
     @OneToMany(mappedBy = "helper")
     private List<Reservation> reservations;
 
@@ -39,13 +43,25 @@ public class Helper {
                   String password,
                   String name,
                   String phoneNumber,
-                  String helperType) {
+                  String helperType,
+                  ActivityStatus status) {
 
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
+        this.status = status;
     }
 
+    public void update(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void resign(Long id) {
+        if (status == ActivityStatus.ACTIVE) {
+            this.status = ActivityStatus.INACTIVE;
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.du.forpet.controller;
 
 import com.du.forpet.domain.dto.HelperResponseDto;
 import com.du.forpet.domain.dto.HelperSaveRequestDto;
+import com.du.forpet.domain.dto.HelperUpdateRequestDto;
 import com.du.forpet.service.HelperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,5 +24,13 @@ public class HelperController {
         return helperService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public Long update(@PathVariable Long id, HelperUpdateRequestDto requestDto) {
+        return helperService.update(id, requestDto);
+    }
 
+    @PatchMapping("/status/{id}")
+    public void resign(@PathVariable Long id) {
+        helperService.delete(id);
+    }
 }
