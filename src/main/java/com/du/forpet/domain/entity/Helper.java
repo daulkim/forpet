@@ -63,5 +63,8 @@ public class Helper {
         if (status == ActivityStatus.ACTIVE) {
             this.status = ActivityStatus.INACTIVE;
         }
+        else {
+            throw new IllegalStateException("해당 회원은 탈퇴할 수 없는 상태입니다."+id);
+        }
     }
 }
