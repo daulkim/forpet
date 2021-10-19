@@ -2,6 +2,7 @@ package com.du.forpet.domain.entity;
 
 import javax.persistence.*;
 
+import com.du.forpet.domain.ActivityStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,9 @@ public class Member {
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
+    @Column(name = "STATUS")
+    private ActivityStatus status;
+
     @OneToMany(mappedBy = "member")
     private List<Pet> pets;
 
@@ -44,5 +48,14 @@ public class Member {
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
+    }
+
+    public void resign(Long id) {
+        if (status == ActivityStatus.ACTIVE) {
+            this.status = ActivityStatus.INACTIVE;
+        }
+        else {
+            throw new IllegalStateException("해당 회원은 탈퇴할 수 없는 상태입니다."+id);
+        }
     }
 }
