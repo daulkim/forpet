@@ -1,5 +1,6 @@
 package com.du.forpet.service;
 
+import com.du.forpet.domain.dto.ReservationListResponseDto;
 import com.du.forpet.domain.dto.ReservationResponseDto;
 import com.du.forpet.domain.dto.ReservationSaveRequestDto;
 import com.du.forpet.domain.dto.ReservationUpdateRequestDto;
@@ -8,6 +9,9 @@ import com.du.forpet.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -21,6 +25,7 @@ public class ReservationService {
 
     }
 
+    @Transactional
     public ReservationResponseDto findById(Long id) {
 
         Reservation reservation = reservationRepository
@@ -29,6 +34,15 @@ public class ReservationService {
                         new IllegalArgumentException("해당 아이디의 예약이 존재하지 않습니다." + id));
 
         return new ReservationResponseDto(reservation);
+    }
+
+    @Transactional
+    public List<ReservationListResponseDto> findByHelperId(Long id) {
+
+        return reservationRepository.findByHelper_id(id)
+                                    .stream()
+                                    .map(ReservationListResponseDto::new)
+                                    .collect(Collectors.toList());
     }
 
     @Transactional

@@ -3,25 +3,22 @@ package com.du.forpet.domain.dto;
 import com.du.forpet.domain.ReservationStatus;
 import com.du.forpet.domain.entity.Pet;
 import com.du.forpet.domain.entity.Reservation;
-import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class ReservationResponseDto {
+public class ReservationListResponseDto {
 
-    private String serviceType;
+    private Long id;
     private LocalDateTime startTime;
-    private LocalDateTime endTime;
     private ReservationStatus status;
-    private Pet pet;
+    private String memberName;
 
-    public ReservationResponseDto(Reservation entity) {
-        this.serviceType = entity.getServiceType();
+    public ReservationListResponseDto(Reservation entity) {
+        this.id = entity.getId();
         this.startTime = entity.getStartTime();
-        this.endTime = entity.getEndTime();
         this.status = entity.getStatus();
-        this.pet = entity.getPet();
+        this.memberName = entity.getPet().getMember().getName();
     }
 }

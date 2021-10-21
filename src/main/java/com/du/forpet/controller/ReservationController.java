@@ -1,11 +1,14 @@
 package com.du.forpet.controller;
 
+import com.du.forpet.domain.dto.ReservationListResponseDto;
 import com.du.forpet.domain.dto.ReservationResponseDto;
 import com.du.forpet.domain.dto.ReservationSaveRequestDto;
 import com.du.forpet.domain.dto.ReservationUpdateRequestDto;
 import com.du.forpet.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/reservation")
 @RequiredArgsConstructor
@@ -32,6 +35,11 @@ public class ReservationController {
     @PatchMapping("/status/{id}")
     public void cancel(@PathVariable Long id) {
         reservationService.cancel(id);
+    }
+
+    @GetMapping("/helper/{id}")
+    public List<ReservationListResponseDto> findByHelper(@PathVariable Long helperId) {
+        return reservationService.findByHelperId(helperId);
     }
 
 }
