@@ -4,7 +4,6 @@ package com.du.forpet.domain.entity;
 import javax.persistence.*;
 
 import com.du.forpet.domain.ActivityStatus;
-import com.du.forpet.domain.PetStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +31,7 @@ public class Pet {
     @Column(name="STATUS")
     private ActivityStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 

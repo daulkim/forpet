@@ -1,6 +1,6 @@
 package com.du.forpet.service;
 
-import com.du.forpet.domain.PetStatus;
+import com.du.forpet.domain.ActivityStatus;
 import com.du.forpet.domain.dto.PetSaveRequestDto;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -85,11 +85,11 @@ public class PetServiceTest {
         Long savedId = petService.save(dto);
 
         assertThat(petService.findById(savedId).getName()).isEqualTo("test");
-        assertThat(petService.findById(savedId).getStatus()).isEqualTo(PetStatus.ACTIVE);
+        assertThat(petService.findById(savedId).getStatus()).isEqualTo(ActivityStatus.ACTIVE);
 
         petService.delete(savedId);
 
-        assertThat(petService.findById(savedId).getStatus()).isEqualTo(PetStatus.INACTIVE);
+        assertThat(petService.findById(savedId).getStatus()).isEqualTo(ActivityStatus.INACTIVE);
 
     }
 }

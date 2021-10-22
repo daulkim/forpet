@@ -31,11 +31,11 @@ public class Reservation {
     @Column(name="STATUS")
     private ReservationStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="PET_ID")
     private Pet pet;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="HELPER_ID")
     private Helper helper;
 
