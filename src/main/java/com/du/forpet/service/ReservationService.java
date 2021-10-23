@@ -37,9 +37,9 @@ public class ReservationService {
     }
 
     @Transactional
-    public List<ReservationListResponseDto> findByHelperId(Long id) {
+    public List<ReservationListResponseDto> findByHelperEmail(String email) {
 
-        return reservationRepository.findByHelper_id(id)
+        return reservationRepository.findByHelper_email(email)
                                     .stream()
                                     .map(ReservationListResponseDto::new)
                                     .collect(Collectors.toList());

@@ -37,9 +37,8 @@ public class ReservationController {
         reservationService.cancel(id);
     }
 
-    @GetMapping("/helper/{id}")
-    public List<ReservationListResponseDto> findByHelper(@PathVariable Long helperId) {
-        return reservationService.findByHelperId(helperId);
+    @GetMapping("/{email}")
+    public List<ReservationListResponseDto> findReservations(@PathVariable String email) {
+        return reservationService.findByHelperEmail(email);
     }
-
 }
