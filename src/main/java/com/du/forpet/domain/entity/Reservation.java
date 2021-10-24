@@ -44,13 +44,15 @@ public class Reservation {
                        LocalDateTime startTime,
                        LocalDateTime endTime,
                        ReservationStatus status,
-                       Pet pet) {
+                       Pet pet,
+                       Helper helper) {
 
         this.serviceType = serviceType;
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = status;
         this.pet = pet;
+        this.helper = helper;
     }
 
     public void cancel() {
