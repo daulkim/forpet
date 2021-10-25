@@ -2,6 +2,7 @@ package com.du.forpet.controller;
 
 import com.du.forpet.domain.dto.HelperResponseDto;
 import com.du.forpet.domain.dto.HelperSaveRequestDto;
+import com.du.forpet.domain.dto.HelperScheduleSaveRequestDto;
 import com.du.forpet.domain.dto.HelperUpdateRequestDto;
 import com.du.forpet.service.HelperService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class HelperController {
     private final HelperService helperService;
 
     @PostMapping("/")
-    public Long join(HelperSaveRequestDto requestDto) {
-        return helperService.save(requestDto);
+    public Long join(HelperSaveRequestDto requestDto, HelperScheduleSaveRequestDto scheduleRequestDto) {
+        return helperService.save(requestDto, scheduleRequestDto);
     }
 
     @GetMapping("/{id}")

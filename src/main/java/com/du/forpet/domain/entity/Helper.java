@@ -1,6 +1,7 @@
 package com.du.forpet.domain.entity;
 
 import com.du.forpet.domain.ActivityStatus;
+import com.du.forpet.domain.dto.HelperScheduleSaveRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,13 +39,17 @@ public class Helper {
     @OneToMany(mappedBy = "helper")
     private List<Reservation> reservations;
 
+    @OneToOne(mappedBy = "helper", cascade = CascadeType.ALL)
+    private HelperSchedule helperSchedule;
+
     @Builder
     public Helper(String email,
                   String password,
                   String name,
                   String phoneNumber,
                   String helperType,
-                  ActivityStatus status) {
+                  ActivityStatus status,
+                  HelperSchedule helperSchedule) {
 
         this.email = email;
         this.password = password;
@@ -52,6 +57,7 @@ public class Helper {
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
         this.status = status;
+        this.helperSchedule = helperSchedule;
     }
 
     public void update(String name, String phoneNumber) {
@@ -66,5 +72,10 @@ public class Helper {
         else {
             throw new IllegalStateException("해당 회원은 탈퇴할 수 없는 상태입니다."+id);
         }
+    }
+
+    public void setHelperSchedule(Helper helper, HelperScheduleSaveRequestDto scheduleRequestDto) {
+        scheduleRequestDto.setHelper(helper);
+        this.helperSchedule = scheduleRequestDto.toEntity();
     }
 }
