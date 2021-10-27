@@ -1,6 +1,7 @@
 package com.du.forpet.service;
 
 import com.du.forpet.domain.dto.*;
+import com.du.forpet.domain.entity.HelperSchedule;
 import com.du.forpet.domain.entity.Reservation;
 import com.du.forpet.repository.HelperScheduleRepository;
 import com.du.forpet.repository.ReservationRepository;
@@ -16,11 +17,14 @@ import java.util.stream.Collectors;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final HelperScheduleRepository helperScheduleRepository;
 
     @Transactional
     public Long save(ReservationSaveRequestDto requestDto) {
 
-        boolean isReserved = requestDto.isReserved();
+        HelperSchedule helperSchedule = helperScheduleRepository.findByHelper_id(requestDto.getHelper().getId());
+
+        boolean isReserved = !helperSchedule.checkTimeAvailability(requestDto.getStartTime(), requestDto.getEndTime());
 
         if (isReserved) {
             throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");

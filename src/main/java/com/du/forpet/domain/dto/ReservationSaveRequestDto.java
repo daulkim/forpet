@@ -48,9 +48,4 @@ public class ReservationSaveRequestDto {
                         .helper(helper)
                         .build();
     }
-
-    public boolean isReserved() {
-        HelperSchedule helperSchedule = helper.getHelperSchedule();
-        return helperSchedule.checkTimeAvailability(this.startTime, this.endTime)? false:true;
-    }
 }

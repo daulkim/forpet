@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @NoArgsConstructor
@@ -69,7 +71,37 @@ public class HelperSchedule {
     public boolean checkTimeAvailability(LocalDateTime startTime, LocalDateTime endTime) {
         int startHour = startTime.getHour();
         int endHour = endTime.getHour();
-        // 해당 시간의 컬럼값이 Y일 떄 예약가능함
-        return false;
+
+        for (int i=0; i < (endHour - startHour); i++) {
+
+            String keyFromStartHour =(0<startHour && startHour<10)? "t0"+startHour+"00":"t"+startHour+"00";
+            String checkYN = getTimeYNMap().get(keyFromStartHour);
+
+            if(checkYN.equals("N"))
+                return false;
+
+            startHour++;
+        }
+
+        return true;
+    }
+
+    public Map<String, String> getTimeYNMap(){
+        Map<String, String> yNMap = new HashMap<>();
+
+        yNMap.put("t0900",this.t0900);
+        yNMap.put("t1000",this.t1000);
+        yNMap.put("t1100",this.t1100);
+        yNMap.put("t1200",this.t1200);
+        yNMap.put("t1300",this.t1300);
+        yNMap.put("t1400",this.t1400);
+        yNMap.put("t1500",this.t1500);
+        yNMap.put("t1600",this.t1600);
+        yNMap.put("t1700",this.t1700);
+        yNMap.put("t1800",this.t1800);
+        yNMap.put("t1900",this.t1900);
+        yNMap.put("t2000",this.t2000);
+
+        return yNMap;
     }
 }
