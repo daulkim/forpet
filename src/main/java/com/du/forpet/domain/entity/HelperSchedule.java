@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -63,5 +64,12 @@ public class HelperSchedule {
         this.t1900 = t1900;
         this.t2000 = t2000;
         this.helper = helper;
+    }
+
+    public boolean checkTimeAvailability(LocalDateTime startTime, LocalDateTime endTime) {
+        int startHour = startTime.getHour();
+        int endHour = endTime.getHour();
+        // 해당 시간의 컬럼값이 Y일 떄 예약가능함
+        return false;
     }
 }

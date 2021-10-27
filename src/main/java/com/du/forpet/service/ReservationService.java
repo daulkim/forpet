@@ -2,6 +2,7 @@ package com.du.forpet.service;
 
 import com.du.forpet.domain.dto.*;
 import com.du.forpet.domain.entity.Reservation;
+import com.du.forpet.repository.HelperScheduleRepository;
 import com.du.forpet.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,14 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
 
+    @Transactional
     public Long save(ReservationSaveRequestDto requestDto) {
+
+        boolean isReserved = requestDto.isReserved();
+
+        if (isReserved) {
+            throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
+        }
 
         return reservationRepository.save(requestDto.toEntity()).getId();
 
@@ -26,9 +34,9 @@ public class ReservationService {
     public ReservationResponseDto findById(Long id) {
 
         Reservation reservation = reservationRepository
-                .findById(id)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("해당 아이디의 예약이 존재하지 않습니다." + id));
+                                        .findById(id)
+                                        .orElseThrow(() ->
+                                                new IllegalArgumentException("해당 아이디의 예약이 존재하지 않습니다." + id));
 
         return new ReservationResponseDto(reservation);
     }

@@ -1,5 +1,7 @@
 package com.du.forpet.domain.dto;
 
+import com.du.forpet.domain.entity.Helper;
+import com.du.forpet.domain.entity.HelperSchedule;
 import com.du.forpet.domain.entity.Reservation;
 import com.du.forpet.domain.entity.Pet;
 import com.du.forpet.domain.ReservationStatus;
@@ -16,18 +18,21 @@ public class ReservationSaveRequestDto {
     private LocalDateTime endTime;
     private ReservationStatus status;
     private Pet pet;
+    private Helper helper;
 
     @Builder
     public ReservationSaveRequestDto(String serviceType,
                                      LocalDateTime startTime,
                                      LocalDateTime endTime,
-                                     Pet pet) {
+                                     Pet pet,
+                                     Helper helper) {
 
         this.serviceType = serviceType;
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = ReservationStatus.P;
         this.pet = pet;
+        this.helper = helper;
 
     }
 
@@ -40,6 +45,12 @@ public class ReservationSaveRequestDto {
                         .endTime(endTime)
                         .status(status)
                         .pet(pet)
+                        .helper(helper)
                         .build();
+    }
+
+    public boolean isReserved() {
+        HelperSchedule helperSchedule = helper.getHelperSchedule();
+        return helperSchedule.checkTimeAvailability(this.startTime, this.endTime)? false:true;
     }
 }
