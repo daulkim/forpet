@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +15,12 @@ import java.util.Map;
 @Entity
 public class HelperSchedule {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "HELPERSCHEDULE_ID")
     private Long id;
+
+    private LocalDate date;
 
     private String t0900;
 
@@ -43,16 +47,17 @@ public class HelperSchedule {
     private String t2000;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="HELPER_ID")
+    @JoinColumn(name = "HELPER_ID")
     private Helper helper;
 
 
     @Builder
-    public HelperSchedule(String t0900, String t1000, String t1100,
+    public HelperSchedule(LocalDate date, String t0900, String t1000, String t1100,
                           String t1200, String t1300, String t1400,
                           String t1500, String t1600, String t1700,
                           String t1800, String t1900, String t2000,
                           Helper helper) {
+        this.date = date;
         this.t0900 = t0900;
         this.t1000 = t1000;
         this.t1100 = t1100;

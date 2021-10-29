@@ -22,7 +22,9 @@ public class ReservationService {
     @Transactional
     public Long save(ReservationSaveRequestDto requestDto) {
 
-        HelperSchedule helperSchedule = helperScheduleRepository.findByHelper_id(requestDto.getHelper().getId());
+        HelperSchedule helperSchedule = helperScheduleRepository
+                                            .findByHelper_id(requestDto.getHelper().getId(),
+                                                            requestDto.getStartTime().toLocalDate());
 
         boolean isReserved = !helperSchedule.checkTimeAvailability(requestDto.getStartTime(), requestDto.getEndTime());
 
