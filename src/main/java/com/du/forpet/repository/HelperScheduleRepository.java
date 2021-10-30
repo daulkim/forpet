@@ -7,5 +7,5 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 
 public interface HelperScheduleRepository extends JpaRepository<HelperSchedule, Long> {
-    HelperSchedule findByHelper_id(@Param(value = "helperId") Long id, @Param(value = "date") LocalDate reserveDate);
+    HelperSchedule findByHelper_idAndDate(@Param(value = "helperId") Long id, @Param(value = "date") LocalDate reserveDate);
 }

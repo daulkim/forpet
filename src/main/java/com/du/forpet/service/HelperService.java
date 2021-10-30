@@ -17,8 +17,6 @@ public class HelperService {
 
     private final HelperRepository helperRepository;
 
-    private final HelperScheduleRepository helperScheduleRepository;
-
     @Transactional
     public Long save(HelperSaveRequestDto requestDto, HelperScheduleSaveRequestDto scheduleRequestDto) {
         Helper helper = helperRepository.save(requestDto.toEntity());
