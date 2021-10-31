@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -39,8 +40,8 @@ public class Helper {
     @OneToMany(mappedBy = "helper")
     private List<Reservation> reservations;
 
-    @OneToOne(mappedBy = "helper", cascade = CascadeType.ALL)
-    private HelperSchedule helperSchedule;
+    @OneToMany(mappedBy = "helper")
+    private List<HelperSchedule> helperSchedules = new ArrayList<>();
 
     @Builder
     public Helper(String email,
@@ -49,7 +50,7 @@ public class Helper {
                   String phoneNumber,
                   String helperType,
                   ActivityStatus status,
-                  HelperSchedule helperSchedule) {
+                  List<HelperSchedule> helperSchedules) {
 
         this.email = email;
         this.password = password;
@@ -57,7 +58,7 @@ public class Helper {
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
         this.status = status;
-        this.helperSchedule = helperSchedule;
+        this.helperSchedules = helperSchedules;
     }
 
     public void update(String name, String phoneNumber) {
@@ -72,10 +73,5 @@ public class Helper {
         else {
             throw new IllegalStateException("해당 회원은 탈퇴할 수 없는 상태입니다."+id);
         }
-    }
-
-    public void setHelperSchedule(Helper helper, HelperScheduleSaveRequestDto scheduleRequestDto) {
-        scheduleRequestDto.setHelper(helper);
-        this.helperSchedule = scheduleRequestDto.toEntity();
     }
 }

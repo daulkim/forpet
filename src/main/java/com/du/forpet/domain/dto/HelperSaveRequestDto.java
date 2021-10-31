@@ -6,6 +6,8 @@ import com.du.forpet.domain.entity.HelperSchedule;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 public class HelperSaveRequestDto {
 
@@ -15,22 +17,19 @@ public class HelperSaveRequestDto {
     private String phoneNumber;
     private String helperType;
     private ActivityStatus status;
-    private HelperSchedule helperSchedule;
 
     @Builder
     public HelperSaveRequestDto(String email,
                                 String password,
                                 String name,
                                 String phoneNumber,
-                                String helperType,
-                                HelperSchedule helperSchedule){
+                                String helperType){
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
         this.status = ActivityStatus.ACTIVE;
-        this.helperSchedule = helperSchedule;
     }
 
     public Helper toEntity() {
@@ -41,7 +40,6 @@ public class HelperSaveRequestDto {
                 .phoneNumber(phoneNumber)
                 .helperType(helperType)
                 .status(status)
-                .helperSchedule(helperSchedule)
                 .build();
     }
 }

@@ -16,11 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class HelperService {
 
     private final HelperRepository helperRepository;
+    private final HelperScheduleRepository helperScheduleRepository;
 
     @Transactional
     public Long save(HelperSaveRequestDto requestDto, HelperScheduleSaveRequestDto scheduleRequestDto) {
         Helper helper = helperRepository.save(requestDto.toEntity());
-        helper.setHelperSchedule(helper, scheduleRequestDto);
+        scheduleRequestDto.setHelper(helper);
+        helperScheduleRepository.save(scheduleRequestDto.toEntity());
+
         return helper.getId();
     }
 

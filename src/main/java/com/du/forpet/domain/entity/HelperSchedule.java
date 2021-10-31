@@ -46,7 +46,7 @@ public class HelperSchedule {
 
     private String t2000;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "HELPER_ID")
     private Helper helper;
 
@@ -74,6 +74,9 @@ public class HelperSchedule {
     }
 
     public boolean checkTimeAvailability(LocalDateTime startTime, LocalDateTime endTime) {
+
+        dateValidation(startTime.toLocalDate());
+
         int startHour = startTime.getHour();
         int endHour = endTime.getHour();
 
@@ -89,6 +92,15 @@ public class HelperSchedule {
         }
 
         return true;
+    }
+
+    public void dateValidation(LocalDate requestDate) {
+        if(LocalDate.now().isAfter(requestDate)){
+            throw new RuntimeException("예약일이 오늘보다 전일 수 없습니다.");
+        }
+        if(LocalDate.now().plusWeeks(1).isAfter(requestDate)){
+            throw new RuntimeException("예약은 오늘로부터 1주일 후까지만 가능합니다.");
+        }
     }
 
     public Map<String, String> getTimeYNMap(){
