@@ -40,7 +40,7 @@ public class Helper {
     @OneToMany(mappedBy = "helper")
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "helper")
+    @OneToMany(mappedBy = "helper", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<HelperSchedule> helperSchedules = new ArrayList<>();
 
     @Builder
@@ -49,8 +49,7 @@ public class Helper {
                   String name,
                   String phoneNumber,
                   String helperType,
-                  ActivityStatus status,
-                  List<HelperSchedule> helperSchedules) {
+                  ActivityStatus status) {
 
         this.email = email;
         this.password = password;
@@ -58,7 +57,6 @@ public class Helper {
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
         this.status = status;
-        this.helperSchedules = helperSchedules;
     }
 
     public void update(String name, String phoneNumber) {
@@ -73,5 +71,10 @@ public class Helper {
         else {
             throw new IllegalStateException("해당 회원은 탈퇴할 수 없는 상태입니다."+id);
         }
+    }
+
+    public void add(HelperScheduleSaveRequestDto scheduleSaveRequestDto) {
+        scheduleSaveRequestDto.setHelper(this);
+        helperSchedules.add(scheduleSaveRequestDto.toEntity());
     }
 }

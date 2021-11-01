@@ -6,7 +6,6 @@ import com.du.forpet.domain.dto.HelperResponseDto;
 import com.du.forpet.domain.dto.HelperSaveRequestDto;
 import com.du.forpet.domain.entity.Helper;
 import com.du.forpet.repository.HelperRepository;
-import com.du.forpet.repository.HelperScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class HelperService {
 
     private final HelperRepository helperRepository;
-    private final HelperScheduleRepository helperScheduleRepository;
 
     @Transactional
     public Long save(HelperSaveRequestDto requestDto, HelperScheduleSaveRequestDto scheduleRequestDto) {
         Helper helper = helperRepository.save(requestDto.toEntity());
-        scheduleRequestDto.setHelper(helper);
-        helperScheduleRepository.save(scheduleRequestDto.toEntity());
+        helper.add(scheduleRequestDto);
 
         return helper.getId();
     }
