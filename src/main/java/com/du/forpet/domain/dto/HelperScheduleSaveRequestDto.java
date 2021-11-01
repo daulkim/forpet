@@ -56,7 +56,7 @@ public class HelperScheduleSaveRequestDto {
                                 .t1700(t1700)
                                 .t1800(t1800)
                                 .t1900(t1900)
-                                .t2000(t1000)
+                                .t2000(t2000)
                                 .helper(helper)
                                 .build();
     }

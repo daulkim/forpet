@@ -73,6 +73,35 @@ public class HelperSchedule {
         this.helper = helper;
     }
 
+    @PrePersist
+    public void defaultYORN() {
+        if(t0900== null||t0900.equals(""))
+            this.t0900 = "N";
+        if(t1000== null||t1000.equals(""))
+            this.t1000 = "N";
+        if(t1100== null||t1100.equals(""))
+            this.t1100 = "N";
+        if(t1200== null||t1200.equals(""))
+            this.t1200 = "N";
+        if(t1300== null||t1300.equals(""))
+            this.t1300 = "N";
+        if(t1400== null||t1400.equals(""))
+            this.t1400 = "N";
+        if(t1500== null||t1500.equals(""))
+            this.t1500 = "N";
+        if(t1600== null||t1600.equals(""))
+            this.t1600 = "N";
+        if(t1700== null||t1700.equals(""))
+            this.t1700 = "N";
+        if(t1800== null||t1800.equals(""))
+            this.t1800 = "N";
+        if(t1900== null||t1900.equals(""))
+            this.t1900 = "N";
+        if(t2000== null||t2000.equals(""))
+            this.t2000 = "N";
+
+    }
+
     public boolean checkTimeAvailability(LocalDateTime startTime, LocalDateTime endTime) {
 
         dateValidation(startTime.toLocalDate());
