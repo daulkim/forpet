@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -38,7 +39,6 @@ public class PetService {
                     .stream()
                     .map(PetResponseDto::new)
                     .collect(Collectors.toList());
-
     }
 
     @Transactional

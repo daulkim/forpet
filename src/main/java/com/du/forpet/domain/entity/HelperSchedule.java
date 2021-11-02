@@ -102,6 +102,53 @@ public class HelperSchedule {
 
     }
 
+    public void reserveSchedule(LocalDateTime startTime, LocalDateTime endTime) {
+        int startHour = startTime.getHour();
+        int endHour = endTime.getHour();
+        while (endHour>startHour){
+            switch(startHour){
+                case 9:
+                    this.t0900="N";
+                    break;
+                case 10:
+                    this.t1000="N";
+                    break;
+                case 11:
+                    this.t1100="N";
+                    break;
+                case 12:
+                    this.t1200="N";
+                    break;
+                case 13:
+                    this.t1300="N";
+                    break;
+                case 14:
+                    this.t1400="N";
+                    break;
+                case 15:
+                    this.t1500="N";
+                    break;
+                case 16:
+                    this.t1600="N";
+                    break;
+                case 17:
+                    this.t1700="N";
+                    break;
+                case 18:
+                    this.t1800="N";
+                    break;
+                case 19:
+                    this.t1900="N";
+                    break;
+                case 20:
+                    this.t2000="N";
+                    break;
+            }
+            startHour++;
+        }
+
+    }
+
     public boolean checkTimeAvailability(LocalDateTime startTime, LocalDateTime endTime) {
 
         dateValidation(startTime.toLocalDate());
@@ -127,7 +174,7 @@ public class HelperSchedule {
         if(LocalDate.now().isAfter(requestDate)){
             throw new RuntimeException("예약일이 오늘보다 전일 수 없습니다.");
         }
-        if(LocalDate.now().plusWeeks(1).isAfter(requestDate)){
+        if(LocalDate.now().plusWeeks(1).isBefore(requestDate)){
             throw new RuntimeException("예약은 오늘로부터 1주일 후까지만 가능합니다.");
         }
     }

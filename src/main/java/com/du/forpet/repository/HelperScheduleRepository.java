@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public interface HelperScheduleRepository extends JpaRepository<HelperSchedule, Long> {
-    HelperSchedule findByHelper_idAndDate(@Param(value = "helperId") Long id, @Param(value = "date") LocalDate reserveDate);
+    Optional<HelperSchedule> findByHelper_idAndDate(@Param(value = "helperId") Long id, @Param(value = "date") LocalDate reserveDate);
 }

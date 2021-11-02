@@ -24,13 +24,17 @@ public class ReservationService {
 
         HelperSchedule helperSchedule = helperScheduleRepository
                                             .findByHelper_idAndDate(requestDto.getHelper().getId(),
-                                                            requestDto.getStartTime().toLocalDate());
+                                                            requestDto.getStartTime().toLocalDate())
+                                                            .orElseThrow(()->
+                                                                    new IllegalArgumentException("해당 일은 예약이 불가능합니다."));
 
         boolean isReserved = !helperSchedule.checkTimeAvailability(requestDto.getStartTime(), requestDto.getEndTime());
 
         if (isReserved) {
             throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
         }
+
+        helperSchedule.reserveSchedule(requestDto.getStartTime(), requestDto.getEndTime());
 
         return reservationRepository.save(requestDto.toEntity()).getId();
 
