@@ -5,9 +5,12 @@ import com.du.forpet.domain.entity.HelperSchedule;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 public class HelperScheduleSaveRequestDto {
 
+    private LocalDate date;
     private String t0900;
     private String t1000;
     private String t1100;
@@ -23,11 +26,12 @@ public class HelperScheduleSaveRequestDto {
     private Helper helper;
 
     @Builder
-    public HelperScheduleSaveRequestDto (String t0900, String t1000, String t1100,
+    public HelperScheduleSaveRequestDto (LocalDate date, String t0900, String t1000, String t1100,
                                         String t1200, String t1300, String t1400,
                                         String t1500, String t1600, String t1700,
                                         String t1800, String t1900, String t2000,
                                         Helper helper) {
+        this.date = date;
         this.t0900 = t0900;
         this.t1000 = t1000;
         this.t1100 = t1100;
@@ -45,6 +49,7 @@ public class HelperScheduleSaveRequestDto {
 
     public HelperSchedule toEntity() {
         return HelperSchedule.builder()
+                                .date(date)
                                 .t0900(t0900)
                                 .t1000(t1000)
                                 .t1100(t1100)
