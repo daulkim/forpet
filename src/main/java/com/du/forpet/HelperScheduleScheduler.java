@@ -2,7 +2,6 @@ package com.du.forpet;
 
 import com.du.forpet.domain.dto.HelperScheduleSaveRequestDto;
 import com.du.forpet.domain.entity.Helper;
-import com.du.forpet.domain.entity.HelperSchedule;
 import com.du.forpet.repository.HelperRepository;
 import com.du.forpet.repository.HelperScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,16 +35,24 @@ public class HelperScheduleScheduler {
 
         while(it.hasNext()){
             Helper target = it.next();
-            boolean isExist = helperScheduleRepository.findByHelper_idAndDate(target.getId(),date).isPresent();
+            boolean isExist = helperScheduleRepository
+                                    .findByHelper_idAndDate(target.getId(), date)
+                                    .isPresent();
 
-            if(!isExist){
-                HelperScheduleSaveRequestDto helperSchedule = HelperScheduleSaveRequestDto
-                                                                            .builder()
-                                                                            .date(date)
-                                                                            .helper(target)
-                                                                            .build();
-                target.add(helperSchedule);
-            }
+            if(!isExist) saveSchedule(target, date);
+
         }
     }
+
+    private void saveSchedule(Helper helper, LocalDate date) {
+        HelperScheduleSaveRequestDto helperSchedule = HelperScheduleSaveRequestDto
+                                                                    .builder()
+                                                                    .date(date)
+                                                                    .helper(helper)
+                                                                    .isDefault("N")
+                                                                    .build();
+        helper.add(helperSchedule);
+    }
+
+
 }

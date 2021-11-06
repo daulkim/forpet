@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +75,11 @@ public class Helper {
     }
 
     public void add(HelperScheduleSaveRequestDto scheduleSaveRequestDto) {
+        scheduleSaveRequestDto.setDate(LocalDate.now());
         scheduleSaveRequestDto.setHelper(this);
+        helperSchedules.add(scheduleSaveRequestDto.toEntity());
+        scheduleSaveRequestDto.setDate(LocalDate.of(0000,01,01));
+        scheduleSaveRequestDto.setIsDefault("Y");
         helperSchedules.add(scheduleSaveRequestDto.toEntity());
     }
 }

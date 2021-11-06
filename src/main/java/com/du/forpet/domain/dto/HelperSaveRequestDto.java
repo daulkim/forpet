@@ -2,11 +2,8 @@ package com.du.forpet.domain.dto;
 
 import com.du.forpet.domain.ActivityStatus;
 import com.du.forpet.domain.entity.Helper;
-import com.du.forpet.domain.entity.HelperSchedule;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 public class HelperSaveRequestDto {
