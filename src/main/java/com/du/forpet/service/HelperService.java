@@ -26,18 +26,12 @@ public class HelperService {
 
 
     public HelperResponseDto findById(Long id) {
-        Helper helper = helperRepository
-                            .findById(id)
-                            .orElseThrow(
-                                ()-> new IllegalArgumentException("해당 아이디의 헬퍼가 존재하지 않습니다."+id));
+        Helper helper = findByIdOrElseThrowException(id);
         return new HelperResponseDto(helper);
     }
 
     public Long update(Long id, HelperUpdateRequestDto requestDto) {
-        Helper helper = helperRepository
-                            .findById(id)
-                            .orElseThrow(
-                        ()-> new IllegalArgumentException("해당 아이디의 헬퍼가 존재하지 않습니다."+id));
+        Helper helper = findByIdOrElseThrowException(id);
 
         helper.update(requestDto.getName(), requestDto.getPhoneNumber());
 
@@ -45,10 +39,17 @@ public class HelperService {
     }
 
     public void delete(Long id) {
-        Helper helper = helperRepository
-                            .findById(id)
-                            .orElseThrow(
-                        ()-> new IllegalArgumentException("해당 아이디의 헬퍼가 존재하지 않습니다."+id));
+        Helper helper = findByIdOrElseThrowException(id);
         helper.resign(id);
+    }
+
+    public Long approve(Long id) {
+        Helper helper = findByIdOrElseThrowException(id);
+        helper.approve(id);
+        return id;
+    }
+
+    public Helper findByIdOrElseThrowException(Long id) {
+        return helperRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 아이디의 헬퍼가 존재하지 않습니다."+id));
     }
 }

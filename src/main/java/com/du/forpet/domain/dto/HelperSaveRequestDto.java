@@ -26,7 +26,7 @@ public class HelperSaveRequestDto {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
-        this.status = ActivityStatus.ACTIVE;
+        this.status = ActivityStatus.UNAUTHORIZED;
     }
 
     public Helper toEntity() {

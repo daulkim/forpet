@@ -66,7 +66,7 @@ public class Helper {
     }
 
     public void resign(Long id) {
-        if (status == ActivityStatus.ACTIVE) {
+        if (status == ActivityStatus.ACTIVE || status == ActivityStatus.UNAUTHORIZED ) {
             this.status = ActivityStatus.INACTIVE;
         }
         else {
@@ -75,11 +75,20 @@ public class Helper {
     }
 
     public void add(HelperScheduleSaveRequestDto scheduleSaveRequestDto) {
-        scheduleSaveRequestDto.setDate(LocalDate.now());
         scheduleSaveRequestDto.setHelper(this);
-        helperSchedules.add(scheduleSaveRequestDto.toEntity());
         scheduleSaveRequestDto.setDate(LocalDate.of(0000,01,01));
         scheduleSaveRequestDto.setIsDefault("Y");
         helperSchedules.add(scheduleSaveRequestDto.toEntity());
+    }
+
+    public void approve(Long id) {
+
+        if (status == ActivityStatus.UNAUTHORIZED) {
+            this.status = ActivityStatus.ACTIVE;
+        }
+        else {
+            throw new IllegalStateException("해당 회원은 승인할 수 없는 상태입니다."+id);
+        }
+
     }
 }
