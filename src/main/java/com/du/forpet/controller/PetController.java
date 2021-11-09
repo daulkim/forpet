@@ -17,7 +17,7 @@ public class PetController {
     private final PetService petService;
 
     @PostMapping("/")
-    public Long register(PetSaveRequestDto requestDto) {
+    public Long register(@RequestBody PetSaveRequestDto requestDto) {
         return petService.save(requestDto);
     }
 
@@ -33,7 +33,7 @@ public class PetController {
     }
 
     @PutMapping("/{id}")
-    public Long update(@PathVariable Long id, PetUpdateRequestDto requestDto) {
+    public Long update(@PathVariable Long id, @RequestBody PetUpdateRequestDto requestDto) {
         return petService.updateInfo(id, requestDto);
 
     }

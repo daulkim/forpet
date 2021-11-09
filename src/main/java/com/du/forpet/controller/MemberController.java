@@ -15,12 +15,12 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public Long join(MemberSaveRequestDto requestDto) throws Exception {
+    public Long join(@RequestBody MemberSaveRequestDto requestDto) throws Exception {
         return memberService.save(requestDto);
     }
 
     @PutMapping("/{id}")
-    public Long update(@PathVariable Long id, MemberUpdateRequestDto requestDto) {
+    public Long update(@PathVariable Long id, @RequestBody MemberUpdateRequestDto requestDto) {
         return memberService.update(id, requestDto);
     }
 

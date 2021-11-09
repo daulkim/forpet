@@ -16,7 +16,7 @@ public class HelperController {
     private final HelperService helperService;
 
     @PostMapping("/")
-    public Long join(HelperSaveRequestDto requestDto, HelperScheduleSaveRequestDto scheduleRequestDto) {
+    public Long join(@RequestBody HelperSaveRequestDto requestDto, @RequestBody HelperScheduleSaveRequestDto scheduleRequestDto) {
         return helperService.save(requestDto, scheduleRequestDto);
     }
 
@@ -26,7 +26,7 @@ public class HelperController {
     }
 
     @PutMapping("/{id}")
-    public Long update(@PathVariable Long id, HelperUpdateRequestDto requestDto) {
+    public Long update(@PathVariable Long id, @RequestBody HelperUpdateRequestDto requestDto) {
         return helperService.update(id, requestDto);
     }
 

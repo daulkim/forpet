@@ -18,7 +18,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/")
-    public Long reserve(ReservationSaveRequestDto requestDto) {
+    public Long reserve(@RequestBody ReservationSaveRequestDto requestDto) {
         return reservationService.save(requestDto);
     }
 
@@ -28,7 +28,7 @@ public class ReservationController {
     }
 
     @PutMapping("/{id}")
-    public Long changeTime(@PathVariable Long id, ReservationUpdateRequestDto requestDto) {
+    public Long changeTime(@PathVariable Long id, @RequestBody ReservationUpdateRequestDto requestDto) {
         return reservationService.update(id, requestDto);
     }
 
@@ -37,8 +37,8 @@ public class ReservationController {
         reservationService.cancel(id);
     }
 
-    @GetMapping("/{email}")
-    public List<ReservationListResponseDto> findReservations(@PathVariable String email) {
-        return reservationService.findByHelperEmail(email);
-    }
+//    @GetMapping("/{email}")
+//    public List<ReservationListResponseDto> findReservations(@PathVariable String email) {
+//        return reservationService.findByHelperEmail(email);
+//    }
 }
