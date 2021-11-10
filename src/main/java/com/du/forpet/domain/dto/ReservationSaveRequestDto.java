@@ -1,7 +1,6 @@
 package com.du.forpet.domain.dto;
 
 import com.du.forpet.domain.entity.Helper;
-import com.du.forpet.domain.entity.HelperSchedule;
 import com.du.forpet.domain.entity.Reservation;
 import com.du.forpet.domain.entity.Pet;
 import com.du.forpet.domain.ReservationStatus;

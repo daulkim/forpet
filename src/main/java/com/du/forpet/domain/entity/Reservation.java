@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import com.du.forpet.domain.ReservationStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @NoArgsConstructor
@@ -21,9 +23,11 @@ public class Reservation {
     @Column(name="SERVICE_TYPE")
     private String serviceType;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name="START_TIME")
     private LocalDateTime startTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name="END_TIME")
     private LocalDateTime endTime;
 
