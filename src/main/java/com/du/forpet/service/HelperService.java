@@ -1,14 +1,14 @@
 package com.du.forpet.service;
 
-import com.du.forpet.domain.dto.HelperScheduleSaveRequestDto;
-import com.du.forpet.domain.dto.HelperUpdateRequestDto;
-import com.du.forpet.domain.dto.HelperResponseDto;
-import com.du.forpet.domain.dto.HelperSaveRequestDto;
+import com.du.forpet.domain.dto.*;
 import com.du.forpet.domain.entity.Helper;
 import com.du.forpet.repository.HelperRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -38,18 +38,25 @@ public class HelperService {
         return id;
     }
 
-    public void delete(Long id) {
+    public void withdraw(Long id) {
         Helper helper = findByIdOrElseThrowException(id);
         helper.resign(id);
     }
 
-    public Long approve(Long id) {
-        Helper helper = findByIdOrElseThrowException(id);
-        helper.approve(id);
-        return id;
-    }
-
     public Helper findByIdOrElseThrowException(Long id) {
         return helperRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 아이디의 헬퍼가 존재하지 않습니다."+id));
+    }
+
+    public List<ReservationListResponseDto> findReservationsById(Long id) {
+        Helper helper = helperRepository
+                            .findById(id)
+                            .orElseThrow(() -> new IllegalArgumentException("해당 아이디의 헬퍼가 존재하지 않습니다." + id));
+
+        List<ReservationListResponseDto> reservationList = helper
+                                                            .getReservations()
+                                                            .stream()
+                                                            .map(ReservationListResponseDto::new)
+                                                            .collect(Collectors.toList());
+        return reservationList;
     }
 }

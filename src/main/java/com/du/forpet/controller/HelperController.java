@@ -1,21 +1,20 @@
 package com.du.forpet.controller;
 
-import com.du.forpet.domain.dto.HelperResponseDto;
-import com.du.forpet.domain.dto.HelperSaveRequestDto;
-import com.du.forpet.domain.dto.HelperScheduleSaveRequestDto;
-import com.du.forpet.domain.dto.HelperUpdateRequestDto;
+import com.du.forpet.domain.dto.*;
 import com.du.forpet.service.HelperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/helper")
+import java.util.List;
+
+@RequestMapping("/helpers")
 @RequiredArgsConstructor
 @RestController
 public class HelperController {
 
     private final HelperService helperService;
 
-    @PostMapping("/")
+    @PostMapping()
     public Long join(@RequestBody HelperSaveRequestDto requestDto, @RequestBody HelperScheduleSaveRequestDto scheduleRequestDto) {
         return helperService.save(requestDto, scheduleRequestDto);
     }
@@ -30,8 +29,13 @@ public class HelperController {
         return helperService.update(id, requestDto);
     }
 
-    @PatchMapping("/status/{id}")
-    public void resign(@PathVariable Long id) {
-        helperService.delete(id);
+    @PatchMapping("/{id}/withdrawal")
+    public void withdraw(@PathVariable Long id) {
+        helperService.withdraw(id);
+    }
+
+    @GetMapping("/{id}/reserved-list")
+    public List<ReservationListResponseDto> findReservationsById(@PathVariable Long id) {
+        return helperService.findReservationsById(id);
     }
 }
