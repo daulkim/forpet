@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@NoArgsConstructor
 public class MemberSaveRequestDto {
 
     private String email;

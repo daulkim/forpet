@@ -4,8 +4,10 @@ import com.du.forpet.domain.ActivityStatus;
 import com.du.forpet.domain.entity.Helper;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class HelperSaveRequestDto {
 
     private String email;

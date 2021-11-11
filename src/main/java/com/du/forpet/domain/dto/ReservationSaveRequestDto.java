@@ -6,10 +6,12 @@ import com.du.forpet.domain.entity.Pet;
 import com.du.forpet.domain.ReservationStatus;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public class ReservationSaveRequestDto {
 
     private String serviceType;

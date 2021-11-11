@@ -8,6 +8,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 @Getter
+@NoArgsConstructor
 public class HelperScheduleSaveRequestDto {
 
     private LocalDate date;
