@@ -8,16 +8,15 @@ import com.du.forpet.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
-@RequestMapping("/reservation")
+@RequestMapping("/reservations")
 @RequiredArgsConstructor
 @RestController
 public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @PostMapping("/")
+    @PostMapping("")
     public Long reserve(@RequestBody ReservationSaveRequestDto requestDto) {
         return reservationService.save(requestDto);
     }
@@ -32,13 +31,9 @@ public class ReservationController {
         return reservationService.update(id, requestDto);
     }
 
-    @PatchMapping("/status/{id}")
+    @PatchMapping("/{id}/cancel")
     public void cancel(@PathVariable Long id) {
         reservationService.cancel(id);
     }
 
-//    @GetMapping("/{email}")
-//    public List<ReservationListResponseDto> findReservations(@PathVariable String email) {
-//        return reservationService.findByHelperEmail(email);
-//    }
 }
