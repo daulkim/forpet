@@ -53,7 +53,7 @@ public class Pet {
         this.memo = memo;
     }
 
-    public void inactivate() {
+    public void withdraw() {
         if (status == ActivityStatus.ACTIVE) {
             this.status = ActivityStatus.INACTIVE;
         }

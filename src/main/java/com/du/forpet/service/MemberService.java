@@ -43,7 +43,7 @@ public class MemberService {
         return id;
     }
 
-    public void delete(Long id) {
+    public void withdraw(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("해당 회원이 존재하지 않습니다. id: " + id));

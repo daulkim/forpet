@@ -16,7 +16,7 @@ public class PetController {
 
     private final PetService petService;
 
-    @PostMapping("/")
+    @PostMapping()
     public Long register(@RequestBody PetSaveRequestDto requestDto) {
         return petService.save(requestDto);
     }
@@ -27,7 +27,7 @@ public class PetController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public List<PetResponseDto> findAll() {
         return petService.findAll();
     }
@@ -38,9 +38,9 @@ public class PetController {
 
     }
 
-    @PatchMapping("/status/{id}")
-    public void inactivate(@PathVariable Long id) {
-        petService.delete(id);
+    @PatchMapping("/{id}/withdrawal")
+    public void withdraw(@PathVariable Long id) {
+        petService.withdraw(id);
     }
 
 }

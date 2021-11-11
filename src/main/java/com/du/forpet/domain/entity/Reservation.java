@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import com.du.forpet.domain.ReservationStatus;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

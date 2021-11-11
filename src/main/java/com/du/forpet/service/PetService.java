@@ -54,12 +54,12 @@ public class PetService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void withdraw(Long id) {
         Pet pet = petRepository
                     .findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("pet 을 찾을 수 없습니다. id: " + id));
 
-        pet.inactivate();
+        pet.withdraw();
 
     }
 }

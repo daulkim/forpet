@@ -24,9 +24,9 @@ public class MemberController {
         return memberService.update(id, requestDto);
     }
 
-    @PatchMapping("/status/{id}")
-    public void resign(@PathVariable Long id) {
-        memberService.delete(id);
+    @PatchMapping("/{id}/withdrawal")
+    public void withdraw(@PathVariable Long id) {
+        memberService.withdraw(id);
     }
 
 }
