@@ -4,6 +4,7 @@ import com.du.forpet.domain.entity.Helper;
 import com.du.forpet.domain.entity.HelperSchedule;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 

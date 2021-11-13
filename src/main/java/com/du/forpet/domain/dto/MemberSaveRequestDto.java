@@ -3,6 +3,7 @@ package com.du.forpet.domain.dto;
 import com.du.forpet.domain.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
