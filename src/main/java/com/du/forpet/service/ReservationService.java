@@ -55,8 +55,14 @@ public class ReservationService {
                                     .orElseThrow(() ->
                                             new IllegalArgumentException("해당 예약을 찾을 수 없습니다. id: " + id));
 
-        reservation.cancel();
+        Long helperId = reservation.getHelper().getId();
+        HelperSchedule helperSchedule = helperScheduleRepository
+                                            .findByHelper_idAndDate(helperId, reservation.getStartTime().toLocalDate())
+                                            .orElseThrow(()->
+                                                    new IllegalArgumentException("해당 일은 예약이 불가능합니다."));
+        helperSchedule.cancelSchedule(reservation.getStartTime(), reservation.getEndTime());
 
+        reservation.cancel();
     }
 
     @Transactional

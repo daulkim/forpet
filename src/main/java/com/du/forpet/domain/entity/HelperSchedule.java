@@ -152,7 +152,52 @@ public class HelperSchedule {
             }
             startHour++;
         }
+    }
 
+    public void cancelSchedule(LocalDateTime startTime, LocalDateTime endTime) {
+        int startHour = startTime.getHour();
+        int endHour = endTime.getHour();
+        while (endHour>startHour){
+            switch(startHour){
+                case 9:
+                    this.t0900="Y";
+                    break;
+                case 10:
+                    this.t1000="Y";
+                    break;
+                case 11:
+                    this.t1100="Y";
+                    break;
+                case 12:
+                    this.t1200="Y";
+                    break;
+                case 13:
+                    this.t1300="Y";
+                    break;
+                case 14:
+                    this.t1400="Y";
+                    break;
+                case 15:
+                    this.t1500="Y";
+                    break;
+                case 16:
+                    this.t1600="Y";
+                    break;
+                case 17:
+                    this.t1700="Y";
+                    break;
+                case 18:
+                    this.t1800="Y";
+                    break;
+                case 19:
+                    this.t1900="Y";
+                    break;
+                case 20:
+                    this.t2000="Y";
+                    break;
+            }
+            startHour++;
+        }
     }
 
     public boolean checkTimeAvailability(LocalDateTime startTime, LocalDateTime endTime) {
