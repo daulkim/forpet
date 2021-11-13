@@ -87,7 +87,7 @@ public class PetServiceTest {
         assertThat(petService.findById(savedId).getName()).isEqualTo("test");
         assertThat(petService.findById(savedId).getStatus()).isEqualTo(ActivityStatus.ACTIVE);
 
-        petService.delete(savedId);
+        petService.withdraw(savedId);
 
         assertThat(petService.findById(savedId).getStatus()).isEqualTo(ActivityStatus.INACTIVE);
 
