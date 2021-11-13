@@ -59,7 +59,7 @@ public class ReservationService {
         HelperSchedule helperSchedule = helperScheduleRepository
                                             .findByHelper_idAndDate(helperId, reservation.getStartTime().toLocalDate())
                                             .orElseThrow(()->
-                                                    new IllegalArgumentException("해당 일은 예약이 불가능합니다."));
+                                                    new IllegalArgumentException("해당 일의 예약이 존재하지 않습니다."));
         helperSchedule.cancelSchedule(reservation.getStartTime(), reservation.getEndTime());
 
         reservation.cancel();
