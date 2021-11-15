@@ -1,14 +1,10 @@
 package com.du.forpet.service;
 
 import com.du.forpet.domain.ReservationStatus;
-import com.du.forpet.domain.dto.PetResponseDto;
-import com.du.forpet.domain.dto.ReservationResponseDto;
-import com.du.forpet.domain.dto.ReservationSaveRequestDto;
-import com.du.forpet.domain.dto.ReservationUpdateRequestDto;
+import com.du.forpet.domain.dto.*;
+import com.du.forpet.domain.entity.Helper;
+import com.du.forpet.repository.HelperRepository;
 import com.du.forpet.repository.ReservationRepository;
-import org.apache.tomcat.jni.Local;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +22,9 @@ public class ReservationServiceTest {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private HelperRepository helperRepository;
 
     @AfterEach
     public void tear_down(){
@@ -51,13 +50,15 @@ public class ReservationServiceTest {
 
     @Test
     public void cancelSuccTest() {
-        LocalDateTime reservationTime = LocalDateTime.now().plusDays(3);
+        LocalDateTime reservationTime = LocalDateTime.of(2021,11,15,13,00);
 
+        Helper helper = helperRepository.findById(1L).get();
         ReservationSaveRequestDto requestDto = ReservationSaveRequestDto
                                                     .builder()
                                                     .serviceType("Bath")
                                                     .startTime(reservationTime)
-                                                    .endTime(reservationTime.plusHours(3))
+                                                    .endTime(reservationTime.plusHours(1))
+                                                    .helper(helper)
                                                     .build();
         Long reservationId = reservationService.save(requestDto);
 
@@ -73,11 +74,11 @@ public class ReservationServiceTest {
         LocalDateTime reservationTime = LocalDateTime.now().plusHours(3);
 
         ReservationSaveRequestDto requestDto = ReservationSaveRequestDto
-                .builder()
-                .serviceType("Bath")
-                .startTime(reservationTime)
-                .endTime(reservationTime.plusHours(3))
-                .build();
+                                                    .builder()
+                                                    .serviceType("Bath")
+                                                    .startTime(reservationTime)
+                                                    .endTime(reservationTime.plusHours(3))
+                                                    .build();
         Long reservationId = reservationService.save(requestDto);
 
         reservationService.cancel(reservationId);
