@@ -3,9 +3,11 @@ package com.du.forpet;
 import com.du.forpet.domain.ActivityStatus;
 import com.du.forpet.domain.dto.HelperScheduleSaveRequestDto;
 import com.du.forpet.domain.entity.Helper;
+import com.du.forpet.domain.entity.HelperSchedule;
 import com.du.forpet.repository.HelperRepository;
 import com.du.forpet.repository.HelperScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -44,11 +47,24 @@ public class HelperScheduleScheduler {
     }
 
     private void saveSchedule(Helper helper, LocalDate date) {
+        HelperSchedule defaultSchedule  = getDefaultSchedule(helper.getId());
         HelperScheduleSaveRequestDto helperSchedule = HelperScheduleSaveRequestDto
                                                                     .builder()
                                                                     .date(date)
                                                                     .helper(helper)
                                                                     .isDefault("N")
+                                                                    .t0900(defaultSchedule.getT0900())
+                                                                    .t1000(defaultSchedule.getT1000())
+                                                                    .t1100(defaultSchedule.getT1100())
+                                                                    .t1200(defaultSchedule.getT1200())
+                                                                    .t1300(defaultSchedule.getT1300())
+                                                                    .t1400(defaultSchedule.getT1400())
+                                                                    .t1500(defaultSchedule.getT1500())
+                                                                    .t1600(defaultSchedule.getT1600())
+                                                                    .t1700(defaultSchedule.getT1700())
+                                                                    .t1800(defaultSchedule.getT1800())
+                                                                    .t1900(defaultSchedule.getT1900())
+                                                                    .t2000(defaultSchedule.getT2000())
                                                                     .build();
         helper.add(helperSchedule);
     }
@@ -61,5 +77,11 @@ public class HelperScheduleScheduler {
         boolean isActive = helper.getStatus() == ActivityStatus.ACTIVE;
 
         return  !isExist && isActive;
+    }
+
+    private HelperSchedule getDefaultSchedule(Long helperId) {
+        return helperScheduleRepository
+                .findByHelper_idAndDefault(helperId, "Y")
+                .orElseThrow(() -> new IllegalIdentifierException("해당 헬퍼의 Default Schedule 이 존재하지 않습니다."));
     }
 }

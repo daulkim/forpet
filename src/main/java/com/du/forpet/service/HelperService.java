@@ -24,7 +24,6 @@ public class HelperService {
         return helper.getId();
     }
 
-
     public HelperResponseDto findById(Long id) {
         Helper helper = findByIdOrElseThrowException(id);
         return new HelperResponseDto(helper);
