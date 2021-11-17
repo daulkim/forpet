@@ -74,9 +74,8 @@ public class Helper {
         }
     }
 
-    public void add(HelperScheduleSaveRequestDto scheduleSaveRequestDto) {
+    public void add(HelperScheduleSaveRequestDto scheduleSaveRequestDto, LocalDate date,String isDefault) {
         scheduleSaveRequestDto.setHelper(this);
-        scheduleSaveRequestDto.setDate(LocalDate.of(0000,01,01));
         scheduleSaveRequestDto.setIsDefault("Y");
         helperSchedules.add(scheduleSaveRequestDto.toEntity());
     }
