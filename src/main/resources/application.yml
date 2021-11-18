@@ -1,13 +1,26 @@
 
 spring:
   jpa:
+    properties:
+      hibernate:
+        format_sql: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+
   datasource:
     url: jdbc:mysql://localhost:3306/forpet?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
