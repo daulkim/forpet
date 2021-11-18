@@ -5,10 +5,12 @@ import com.du.forpet.domain.dto.*;
 import com.du.forpet.domain.entity.Helper;
 import com.du.forpet.repository.HelperRepository;
 import com.du.forpet.repository.ReservationRepository;
+import com.du.forpet.repository.ReservationRepositorySupport;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.time.LocalDateTime;
 
@@ -26,20 +28,32 @@ public class ReservationServiceTest {
     @Autowired
     private HelperRepository helperRepository;
 
-    @AfterEach
-    public void tear_down(){
-        reservationRepository.deleteAll();
+    @Autowired
+    private ReservationRepositorySupport reservationRepositorySupport;
+
+//    @AfterEach
+//    public void tear_down(){
+//        reservationRepository.deleteAll();
+//    }
+
+    @Test
+    public void testQuerydsl() {
+        long count = reservationRepositorySupport.countByHelperAndDateTime(5L);
+        assertThat(count).isEqualTo(1L);
     }
 
     @Test
     public void saveTest() {
-        LocalDateTime reservationTime = LocalDateTime.now().plusDays(3);
+        LocalDateTime reservationTime = LocalDateTime.of(2021,11,20,13,00);
+
+        Helper helper = helperRepository.findById(5L).get();
 
         ReservationSaveRequestDto requestDto = ReservationSaveRequestDto
                                                     .builder()
                                                     .serviceType("Bath")
                                                     .startTime(reservationTime)
-                                                    .endTime(reservationTime.plusHours(3))
+                                                    .endTime(reservationTime.plusHours(1))
+                                                    .helper(helper)
                                                     .build();
         Long reservationId = reservationService.save(requestDto);
         ReservationStatus status = reservationService.findById(reservationId).getStatus();
