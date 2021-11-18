@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public interface HelperScheduleRepository extends JpaRepository<HelperSchedule, Long> {
 
+    Optional<HelperSchedule> findByHelper_idAndIsDefault(@Param(value = "helperId") Long id, @Param(value = "isDefault") String isDefault);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Optional<HelperSchedule> findByHelper_idAndDate(@Param(value = "helperId") Long id, @Param(value = "date") LocalDate reserveDate);
 
