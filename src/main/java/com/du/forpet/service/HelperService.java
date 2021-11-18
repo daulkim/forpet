@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class HelperService {
     @Transactional
     public Long save(HelperSaveRequestDto requestDto, HelperScheduleSaveRequestDto scheduleRequestDto) {
         Helper helper = helperRepository.save(requestDto.toEntity());
-        helper.add(scheduleRequestDto, LocalDate.of(0000,01,01), "Y");
+        helper.add(scheduleRequestDto, LocalDate.now());
 
         return helper.getId();
     }

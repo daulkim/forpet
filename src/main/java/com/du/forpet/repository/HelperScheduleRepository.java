@@ -13,8 +13,7 @@ public interface HelperScheduleRepository extends JpaRepository<HelperSchedule, 
 
     Optional<HelperSchedule> findByHelper_idAndIsDefault(@Param(value = "helperId") Long id, @Param(value = "isDefault") String isDefault);
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Optional<HelperSchedule> findByHelper_idAndDate(@Param(value = "helperId") Long id, @Param(value = "date") LocalDate reserveDate);
+    Optional<HelperSchedule> findTopByHelper_idOrderByDateDesc(Long id);
 
     void deleteByHelper_idAndDate(@Param(value="helperId") Long id, @Param(value = "date") LocalDate date);
 }

@@ -33,7 +33,7 @@ public class HelperScheduleSaveRequestDto {
                                         String t1200, String t1300, String t1400,
                                         String t1500, String t1600, String t1700,
                                         String t1800, String t1900, String t2000,
-                                        Helper helper, String isDefault) {
+                                        Helper helper) {
         this.date = date;
         this.t0900 = t0900;
         this.t1000 = t1000;
@@ -48,7 +48,6 @@ public class HelperScheduleSaveRequestDto {
         this.t1900 = t1900;
         this.t2000 = t2000;
         this.helper = helper;
-        this.isDefault = isDefault;
     }
 
     public HelperSchedule toEntity() {
@@ -67,7 +66,6 @@ public class HelperScheduleSaveRequestDto {
                                 .t1900(t1900)
                                 .t2000(t2000)
                                 .helper(helper)
-                                .isDefault(isDefault)
                                 .build();
     }
 
@@ -77,9 +75,5 @@ public class HelperScheduleSaveRequestDto {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public void setIsDefault(String isDefault) {
-        this.isDefault = isDefault;
     }
 }

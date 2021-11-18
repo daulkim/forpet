@@ -22,7 +22,7 @@ public class ReservationService {
     @Transactional
     public Long save(ReservationSaveRequestDto requestDto) {
 
-        HelperSchedule helperSchedule = getHelperSchedule(requestDto.getHelper(), requestDto.getReserveDate(), "F");
+        HelperSchedule helperSchedule = getHelperSchedule(requestDto.getHelper(), "F");
         boolean isReserved = !helperSchedule.checkTimeAvailability(requestDto.getReserveDate(), requestDto.getStartTime(), requestDto.getEndTime());
 
         if (isReserved) throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
@@ -40,7 +40,7 @@ public class ReservationService {
     @Transactional
     public void cancel(Long id) {
         Reservation reservation = getReservation(id);
-        HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(), reservation.getReserveDate(),"C");
+        HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(),"C");
         helperSchedule.cancelSchedule(reservation.getStartTime(), reservation.getEndTime());
         reservation.cancel();
     }
@@ -48,7 +48,7 @@ public class ReservationService {
     @Transactional
     public Long update(Long id, ReservationUpdateRequestDto requestDto) {
         Reservation reservation = getReservation(id);
-        HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(), reservation.getReserveDate(), "F");
+        HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(), "F");
         boolean isReserved = !helperSchedule.checkTimeAvailability(requestDto.getReserveDate(), requestDto.getStartTime(), requestDto.getEndTime());
 
         if (isReserved) throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
@@ -66,11 +66,10 @@ public class ReservationService {
                         new IllegalArgumentException("해당 예약을 찾을 수 없습니다. id: " + id));
     }
 
-    private HelperSchedule getHelperSchedule(Helper helper, LocalDate reserveDate, String type) {
+    private HelperSchedule getHelperSchedule(Helper helper, String type) {
         String errMsg = type.equals("C")?"해당일의 예약이 존재하지 않습니다.":"해당일은 예약이 불가능합니다.";
         return helperScheduleRepository
-                .findByHelper_idAndDate(helper.getId(),
-                                        reserveDate)
+                .findTopByHelper_idOrderByDateDesc(helper.getId())
                                         .orElseThrow(()->
                                             new IllegalArgumentException(errMsg));
     }

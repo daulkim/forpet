@@ -46,9 +46,6 @@ public class HelperSchedule {
 
     private String t2000;
 
-    @Column(name="IS_DEFAULT")
-    private String isDefault;
-
     @ManyToOne
     @JoinColumn(name = "HELPER_ID")
     private Helper helper;
@@ -59,7 +56,7 @@ public class HelperSchedule {
                           String t1200, String t1300, String t1400,
                           String t1500, String t1600, String t1700,
                           String t1800, String t1900, String t2000,
-                          Helper helper, String isDefault) {
+                          Helper helper) {
         this.date = date;
         this.t0900 = t0900;
         this.t1000 = t1000;
@@ -74,7 +71,6 @@ public class HelperSchedule {
         this.t1900 = t1900;
         this.t2000 = t2000;
         this.helper = helper;
-        this.isDefault = isDefault;
     }
 
     @PrePersist
@@ -103,9 +99,6 @@ public class HelperSchedule {
             this.t1900 = "N";
         if(t2000==null||t2000.equals(""))
             this.t2000 = "N";
-        if(isDefault==null||isDefault.equals(""))
-            this.isDefault="N";
-
     }
 
     public void reserveSchedule(LocalTime startTime, LocalTime endTime) {
