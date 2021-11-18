@@ -8,27 +8,31 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor
 public class ReservationSaveRequestDto {
 
     private String serviceType;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDate reserveDate;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private ReservationStatus status;
     private Pet pet;
     private Helper helper;
 
     @Builder
     public ReservationSaveRequestDto(String serviceType,
-                                     LocalDateTime startTime,
-                                     LocalDateTime endTime,
+                                     LocalDate reserveDate,
+                                     LocalTime startTime,
+                                     LocalTime endTime,
                                      Pet pet,
                                      Helper helper) {
 
         this.serviceType = serviceType;
+        this.reserveDate = reserveDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = ReservationStatus.P;
@@ -42,6 +46,7 @@ public class ReservationSaveRequestDto {
         return Reservation
                         .builder()
                         .serviceType(serviceType)
+                        .reserveDate(reserveDate)
                         .startTime(startTime)
                         .endTime(endTime)
                         .status(status)

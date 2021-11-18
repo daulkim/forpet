@@ -1,6 +1,7 @@
 package com.du.forpet.domain.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.*;
 
@@ -8,7 +9,6 @@ import com.du.forpet.domain.ReservationStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @NoArgsConstructor
@@ -22,13 +22,14 @@ public class Reservation {
     @Column(name="SERVICE_TYPE")
     private String serviceType;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @Column(name="START_TIME")
-    private LocalDateTime startTime;
+    @Column(name="RESERVE_DATE")
+    private LocalDate reserveDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @Column(name="START_TIME")
+    private LocalTime startTime;
+
     @Column(name="END_TIME")
-    private LocalDateTime endTime;
+    private LocalTime endTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name="STATUS")
@@ -44,13 +45,15 @@ public class Reservation {
 
     @Builder
     public Reservation(String serviceType,
-                       LocalDateTime startTime,
-                       LocalDateTime endTime,
+                       LocalDate reserveDate,
+                       LocalTime startTime,
+                       LocalTime endTime,
                        ReservationStatus status,
                        Pet pet,
                        Helper helper) {
 
         this.serviceType = serviceType;
+        this.reserveDate = reserveDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = status;
@@ -60,27 +63,28 @@ public class Reservation {
 
     public void cancel() {
 
-        final LocalDateTime REVOCABLEDATE = LocalDateTime.now().plusDays(1);
+        final LocalDate REVOCABLEDATE = LocalDate.now().plusDays(1);
 
-        if(startTime.isBefore(REVOCABLEDATE)) {
+        if(reserveDate.isBefore(REVOCABLEDATE)) {
             throw new RuntimeException("예약 취소는 예약일 기준 하루전까지만 가능합니다.");
         }
 
         this.status = ReservationStatus.C;
     }
 
-    public void update(LocalDateTime startTime, LocalDateTime endTime) {
+    public void update(LocalDate reserveDate, LocalTime startTime, LocalTime endTime) {
 
-        final LocalDateTime REVOCABLEDATE = LocalDateTime.now().plusDays(1);
+        final LocalDate REVOCABLEDATE = LocalDate.now().plusDays(1);
 
         if(!ReservationStatus.updatableStatus(status)) {
             throw new RuntimeException("예약 변경이 불가능한 상태입니다.");
-        };
+        }
 
-        if(this.startTime.isBefore(REVOCABLEDATE)) {
+        if(this.reserveDate.isBefore(REVOCABLEDATE)) {
             throw new RuntimeException("예약 변경은 예약일 기준 하루전까지만 가능합니다.");
         }
 
+        this.reserveDate = reserveDate;
         this.startTime = startTime;
         this.endTime = endTime;
     }

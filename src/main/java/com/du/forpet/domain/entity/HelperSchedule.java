@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,7 +108,7 @@ public class HelperSchedule {
 
     }
 
-    public void reserveSchedule(LocalDateTime startTime, LocalDateTime endTime) {
+    public void reserveSchedule(LocalTime startTime, LocalTime endTime) {
         int startHour = startTime.getHour();
         int endHour = endTime.getHour();
         while (endHour>startHour){
@@ -154,7 +154,7 @@ public class HelperSchedule {
         }
     }
 
-    public void cancelSchedule(LocalDateTime startTime, LocalDateTime endTime) {
+    public void cancelSchedule(LocalTime startTime, LocalTime endTime) {
         int startHour = startTime.getHour();
         int endHour = endTime.getHour();
         while (endHour>startHour){
@@ -200,9 +200,9 @@ public class HelperSchedule {
         }
     }
 
-    public boolean checkTimeAvailability(LocalDateTime startTime, LocalDateTime endTime) {
+    public boolean checkTimeAvailability(LocalDate reserveDate, LocalTime startTime, LocalTime endTime) {
 
-        dateValidation(startTime.toLocalDate());
+        dateValidation(reserveDate);
 
         int startHour = startTime.getHour();
         int endHour = endTime.getHour();

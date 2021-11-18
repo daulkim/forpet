@@ -3,18 +3,20 @@ package com.du.forpet.domain.dto;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 public class ReservationUpdateRequestDto {
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDate reserveDate;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     @Builder
-    public ReservationUpdateRequestDto(LocalDateTime startTime, LocalDateTime endTime) {
+    public ReservationUpdateRequestDto(LocalDate reserveDate, LocalTime startTime, LocalTime endTime) {
+        this.reserveDate = reserveDate;
         this.startTime = startTime;
         this.endTime = endTime;
     }
-
 }
