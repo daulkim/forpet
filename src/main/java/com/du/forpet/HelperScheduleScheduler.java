@@ -25,13 +25,12 @@ public class HelperScheduleScheduler {
     private final HelperScheduleRepository helperScheduleRepository;
 
     @Transactional
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void addHelperScheduleScheduler() {
         List<Helper> helperList = helperRepository
                                             .findAll()
                                             .stream()
                                             .collect(Collectors.toList());
-
 
         Iterator<Helper> it = helperList.iterator();
         LocalDate date = LocalDate.now();
@@ -52,11 +51,24 @@ public class HelperScheduleScheduler {
     }
 
     private void saveSchedule(Helper helper, LocalDate date) {
+        HelperSchedule defaultSchedule  = getDefaultSchedule(helper.getId());
         HelperScheduleSaveRequestDto helperSchedule = HelperScheduleSaveRequestDto
                                                                     .builder()
                                                                     .date(date)
                                                                     .helper(helper)
                                                                     .isDefault("N")
+                                                                    .t0900(defaultSchedule.getT0900())
+                                                                    .t1000(defaultSchedule.getT1000())
+                                                                    .t1100(defaultSchedule.getT1100())
+                                                                    .t1200(defaultSchedule.getT1200())
+                                                                    .t1300(defaultSchedule.getT1300())
+                                                                    .t1400(defaultSchedule.getT1400())
+                                                                    .t1500(defaultSchedule.getT1500())
+                                                                    .t1600(defaultSchedule.getT1600())
+                                                                    .t1700(defaultSchedule.getT1700())
+                                                                    .t1800(defaultSchedule.getT1800())
+                                                                    .t1900(defaultSchedule.getT1900())
+                                                                    .t2000(defaultSchedule.getT2000())
                                                                     .build();
         helper.add(helperSchedule, date, "N");
     }
@@ -72,5 +84,11 @@ public class HelperScheduleScheduler {
                             .findByHelper_idAndDate(helper.getId(), date)
                             .isPresent();
         return isExist;
+    }
+
+    private HelperSchedule getDefaultSchedule(Long helperId) {
+        return helperScheduleRepository
+                .findByHelper_idAndIsDefault(helperId, "Y")
+                .orElseThrow(() -> new IllegalIdentifierException("해당 헬퍼의 Default Schedule 이 존재하지 않습니다."));
     }
 }
