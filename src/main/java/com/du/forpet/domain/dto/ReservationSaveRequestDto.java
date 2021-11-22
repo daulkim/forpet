@@ -35,7 +35,7 @@ public class ReservationSaveRequestDto {
         this.reserveDate = reserveDate;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.status = ReservationStatus.P;
+        this.status = ReservationStatus.PRE;
         this.pet = pet;
         this.helper = helper;
 

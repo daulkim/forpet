@@ -69,7 +69,7 @@ public class Reservation {
             throw new RuntimeException("예약 취소는 예약일 기준 하루전까지만 가능합니다.");
         }
 
-        this.status = ReservationStatus.C;
+        this.status = ReservationStatus.CANCEL;
     }
 
     public void update(LocalDate reserveDate, LocalTime startTime, LocalTime endTime) {

@@ -6,6 +6,7 @@ import com.du.forpet.domain.entity.HelperSchedule;
 import com.du.forpet.domain.entity.Reservation;
 import com.du.forpet.repository.HelperScheduleRepository;
 import com.du.forpet.repository.ReservationRepository;
+import com.du.forpet.repository.ReservationRepositorySupport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,17 +18,28 @@ import java.time.LocalDate;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final ReservationRepositorySupport reservationRepositorySupport;
     private final HelperScheduleRepository helperScheduleRepository;
 
     @Transactional
     public Long save(ReservationSaveRequestDto requestDto) {
 
         HelperSchedule helperSchedule = getHelperSchedule(requestDto.getHelper(), "F");
-        boolean isReserved = !helperSchedule.checkTimeAvailability(requestDto.getReserveDate(), requestDto.getStartTime(), requestDto.getEndTime());
+        boolean isAvailableTime = helperSchedule.checkTimeAvailability(requestDto.getReserveDate(), requestDto.getStartTime(), requestDto.getEndTime());
+        boolean isExist = reservationRepositorySupport.countByHelperAndDateTime(requestDto.getHelper().getId(),
+                                                                                requestDto.getReserveDate(),
+                                                                                requestDto.getStartTime(),
+                                                                                requestDto.getEndTime()) > 0;
+
+        boolean isReserved = !isAvailableTime || isExist;
 
         if (isReserved) throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
 
-        helperSchedule.reserveSchedule(requestDto.getStartTime(), requestDto.getEndTime());
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return reservationRepository.save(requestDto.toEntity()).getId();
     }
 
@@ -41,7 +53,6 @@ public class ReservationService {
     public void cancel(Long id) {
         Reservation reservation = getReservation(id);
         HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(),"C");
-        helperSchedule.cancelSchedule(reservation.getStartTime(), reservation.getEndTime());
         reservation.cancel();
     }
 
@@ -53,7 +64,6 @@ public class ReservationService {
 
         if (isReserved) throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
 
-        helperSchedule.reserveSchedule(requestDto.getStartTime(), requestDto.getEndTime());
         reservation.update(requestDto.getReserveDate(), requestDto.getStartTime(), requestDto.getEndTime());
 
         return id;
