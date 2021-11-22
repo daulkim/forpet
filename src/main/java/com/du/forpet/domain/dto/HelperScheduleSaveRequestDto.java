@@ -71,15 +71,21 @@ public class HelperScheduleSaveRequestDto {
                                 .build();
     }
 
-    public void setHelper(Helper helper) {
+    private void setHelper(Helper helper) {
         this.helper = helper;
     }
 
-    public void setDate(LocalDate date) {
+    private void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public void setIsDefault(String isDefault) {
+    private void setIsDefault(String isDefault) {
         this.isDefault = isDefault;
+    }
+
+    public void addHelperSchedule(Helper helper, LocalDate date, String isDefault) {
+        this.setHelper(helper);
+        this.setDate(date);
+        this.setIsDefault(isDefault);
     }
 }
