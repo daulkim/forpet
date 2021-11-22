@@ -38,6 +38,9 @@ public class Helper {
     @Column(name="STATUS")
     private ActivityStatus status;
 
+    @Column(name="DISTRICT")
+    private String district;
+
     @OneToMany(mappedBy = "helper")
     private List<Reservation> reservations;
 
@@ -50,7 +53,8 @@ public class Helper {
                   String name,
                   String phoneNumber,
                   String helperType,
-                  ActivityStatus status) {
+                  ActivityStatus status,
+                  String district) {
 
         this.email = email;
         this.password = password;
@@ -58,6 +62,7 @@ public class Helper {
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
         this.status = status;
+        this.district = district;
     }
 
     public void update(String name, String phoneNumber) {
@@ -65,7 +70,7 @@ public class Helper {
         this.phoneNumber = phoneNumber;
     }
 
-    public void resign(Long id) {
+    public void withdraw(Long id) {
         if (status == ActivityStatus.ACTIVE || status == ActivityStatus.UNAUTHORIZED ) {
             this.status = ActivityStatus.INACTIVE;
         }

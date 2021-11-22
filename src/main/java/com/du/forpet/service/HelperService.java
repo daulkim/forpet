@@ -40,7 +40,7 @@ public class HelperService {
 
     public void withdraw(Long id) {
         Helper helper = findByIdOrElseThrowException(id);
-        helper.resign(id);
+        helper.withdraw(id);
     }
 
     public Helper findByIdOrElseThrowException(Long id) {

@@ -16,19 +16,22 @@ public class HelperSaveRequestDto {
     private String phoneNumber;
     private String helperType;
     private ActivityStatus status;
+    private String district;
 
     @Builder
     public HelperSaveRequestDto(String email,
                                 String password,
                                 String name,
                                 String phoneNumber,
-                                String helperType){
+                                String helperType,
+                                String district){
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
         this.status = ActivityStatus.UNAUTHORIZED;
+        this.district = district;
     }
 
     public Helper toEntity() {
@@ -39,6 +42,7 @@ public class HelperSaveRequestDto {
                 .phoneNumber(phoneNumber)
                 .helperType(helperType)
                 .status(status)
+                .district(district)
                 .build();
     }
 }
