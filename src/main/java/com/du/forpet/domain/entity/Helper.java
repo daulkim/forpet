@@ -84,14 +84,13 @@ public class Helper {
         helperSchedules.add(scheduleSaveRequestDto.toEntity());
     }
 
-    public void approve(Long id) {
+    public void approve() {
 
         if (status == ActivityStatus.UNAUTHORIZED) {
             this.status = ActivityStatus.ACTIVE;
         }
         else {
-            throw new IllegalStateException("해당 회원은 승인할 수 없는 상태입니다."+id);
+            throw new IllegalStateException("해당 회원은 승인할 수 없는 상태입니다. id: "+this.getId());
         }
-
     }
 }
