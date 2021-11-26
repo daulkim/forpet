@@ -65,9 +65,10 @@ public class Helper {
         this.district = district;
     }
 
-    public void update(String name, String phoneNumber) {
+    public void update(String name, String phoneNumber, String district) {
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.district = district;
     }
 
     public void withdraw(Long id) {
@@ -91,6 +92,7 @@ public class Helper {
         }
         else {
             throw new IllegalStateException("해당 회원은 승인할 수 없는 상태입니다. id: "+this.getId());
+
         }
     }
 }

@@ -10,11 +10,13 @@ public class HelperUpdateRequestDto {
 
     private String name;
     private String phoneNumber;
+    private String district;
 
     @Builder
-    public HelperUpdateRequestDto(String name, String phoneNumber) {
+    public HelperUpdateRequestDto(String name, String phoneNumber, String district) {
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.district = district;
     }
 
 }

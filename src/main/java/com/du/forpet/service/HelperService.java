@@ -33,7 +33,9 @@ public class HelperService {
     public Long update(Long id, HelperUpdateRequestDto requestDto) {
         Helper helper = findByIdOrElseThrowException(id);
 
-        helper.update(requestDto.getName(), requestDto.getPhoneNumber());
+        helper.update(requestDto.getName(),
+                        requestDto.getPhoneNumber(),
+                        requestDto.getDistrict());
 
         return id;
     }
