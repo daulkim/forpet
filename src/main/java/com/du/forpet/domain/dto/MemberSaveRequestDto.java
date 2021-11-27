@@ -13,13 +13,15 @@ public class MemberSaveRequestDto {
     private String name;
     private String password;
     private String phoneNumber;
+    private int penalty;
 
     @Builder
-    public MemberSaveRequestDto(String email, String name, String password, String phoneNumber) {
+    public MemberSaveRequestDto(String email, String name, String password, String phoneNumber, int penalty) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.penalty = 0;
     }
 
     public Member toEntity() {

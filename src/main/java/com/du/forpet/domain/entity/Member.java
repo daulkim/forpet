@@ -33,6 +33,9 @@ public class Member {
     @Column(name = "STATUS")
     private ActivityStatus status;
 
+    @Column(name = "PENALTY")
+    private int penalty;
+
     @OneToMany(mappedBy = "member")
     private List<Pet> pets;
 
