@@ -1,5 +1,6 @@
 package com.du.forpet.domain.dto;
 
+import com.du.forpet.domain.ActivityStatus;
 import com.du.forpet.domain.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,15 +14,16 @@ public class MemberSaveRequestDto {
     private String name;
     private String password;
     private String phoneNumber;
-    private int penalty;
 
     @Builder
-    public MemberSaveRequestDto(String email, String name, String password, String phoneNumber, int penalty) {
+    public MemberSaveRequestDto(String email,
+                                String name,
+                                String password,
+                                String phoneNumber) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.penalty = 0;
     }
 
     public Member toEntity() {
@@ -30,6 +32,8 @@ public class MemberSaveRequestDto {
                 .name(name)
                 .password(password)
                 .phoneNumber(phoneNumber)
+                .status(ActivityStatus.ACTIVE)
+                .penalty(0)
                 .build();
     }
 }

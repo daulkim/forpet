@@ -40,11 +40,18 @@ public class Member {
     private List<Pet> pets;
 
     @Builder
-    public Member(String email, String password, String name, String phoneNumber){
+    public Member(String email,
+                  String password,
+                  String name,
+                  String phoneNumber,
+                  ActivityStatus status,
+                  int penalty){
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.status = status;
+        this.penalty = penalty;
     }
 
     public void update(String password, String name, String phoneNumber) {
