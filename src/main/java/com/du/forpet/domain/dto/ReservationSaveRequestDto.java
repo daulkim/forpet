@@ -17,7 +17,6 @@ public class ReservationSaveRequestDto {
     private String serviceType;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private ReservationStatus status;
     private Pet pet;
     private Helper helper;
 
@@ -31,7 +30,6 @@ public class ReservationSaveRequestDto {
         this.serviceType = serviceType;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.status = ReservationStatus.P;
         this.pet = pet;
         this.helper = helper;
 
@@ -44,7 +42,7 @@ public class ReservationSaveRequestDto {
                         .serviceType(serviceType)
                         .startTime(startTime)
                         .endTime(endTime)
-                        .status(status)
+                        .status(ReservationStatus.P)
                         .pet(pet)
                         .helper(helper)
                         .build();

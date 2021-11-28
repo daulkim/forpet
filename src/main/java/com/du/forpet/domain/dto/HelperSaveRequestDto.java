@@ -15,7 +15,6 @@ public class HelperSaveRequestDto {
     private String name;
     private String phoneNumber;
     private String helperType;
-    private ActivityStatus status;
     private String district;
 
     @Builder
@@ -30,7 +29,6 @@ public class HelperSaveRequestDto {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.helperType = helperType;
-        this.status = ActivityStatus.UNAUTHORIZED;
         this.district = district;
     }
 
@@ -41,7 +39,7 @@ public class HelperSaveRequestDto {
                 .name(name)
                 .phoneNumber(phoneNumber)
                 .helperType(helperType)
-                .status(status)
+                .status(ActivityStatus.UNAUTHORIZED)
                 .district(district)
                 .build();
     }

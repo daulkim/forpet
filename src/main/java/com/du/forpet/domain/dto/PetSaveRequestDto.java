@@ -14,13 +14,11 @@ public class PetSaveRequestDto {
     private String name;
     private String memo;
     private Member member;
-    private ActivityStatus status;
 
     @Builder
     public PetSaveRequestDto(String name, String memo, Member member){
         this.name = name;
         this.memo = memo;
-        this.status = ActivityStatus.ACTIVE;
         this.member = member;
     }
 
@@ -28,7 +26,7 @@ public class PetSaveRequestDto {
         return Pet.builder()
                     .name(name)
                     .memo(memo)
-                    .status(status)
+                    .status(ActivityStatus.ACTIVE)
                     .member(member)
                     .build();
     }
