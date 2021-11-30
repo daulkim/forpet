@@ -1,6 +1,5 @@
 package com.du.forpet.controller;
 
-import com.du.forpet.domain.dto.ReservationListResponseDto;
 import com.du.forpet.domain.dto.ReservationResponseDto;
 import com.du.forpet.domain.dto.ReservationSaveRequestDto;
 import com.du.forpet.domain.dto.ReservationUpdateRequestDto;
@@ -32,8 +31,7 @@ public class ReservationController {
     }
 
     @PatchMapping("/{id}/cancel")
-    public void cancel(@PathVariable Long id) {
-        reservationService.cancel(id);
+    public void cancel(@PathVariable Long id, String memo) {
+        reservationService.cancel(id, memo);
     }
-
 }

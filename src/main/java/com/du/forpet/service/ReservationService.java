@@ -38,11 +38,12 @@ public class ReservationService {
     }
 
     @Transactional
-    public void cancel(Long id) {
+    public void cancel(Long id, String memo) {
         Reservation reservation = getReservation(id);
         HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(), reservation.getStartTime(),"C");
+
         helperSchedule.cancelSchedule(reservation.getStartTime(), reservation.getEndTime());
-        reservation.cancel();
+        reservation.cancel(memo);
     }
 
     @Transactional

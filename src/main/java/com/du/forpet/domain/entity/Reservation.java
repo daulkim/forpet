@@ -34,6 +34,9 @@ public class Reservation {
     @Column(name="STATUS")
     private ReservationStatus status;
 
+    @Column(name="MEMO")
+    private String memo;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="PET_ID")
     private Pet pet;
@@ -47,6 +50,7 @@ public class Reservation {
                        LocalDateTime startTime,
                        LocalDateTime endTime,
                        ReservationStatus status,
+                       String memo,
                        Pet pet,
                        Helper helper) {
 
@@ -54,11 +58,12 @@ public class Reservation {
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = status;
+        this.memo = memo;
         this.pet = pet;
         this.helper = helper;
     }
 
-    public void cancel() {
+    public void cancel(String memo) {
 
         final LocalDateTime REVOCABLEDATE = LocalDateTime.now().plusDays(1);
 
@@ -66,7 +71,8 @@ public class Reservation {
             throw new RuntimeException("예약 취소는 예약일 기준 하루전까지만 가능합니다.");
         }
 
-        this.status = ReservationStatus.C;
+        this.status = ReservationStatus.CANCEL;
+        this.memo = memo;
     }
 
     public void update(LocalDateTime startTime, LocalDateTime endTime) {
@@ -75,7 +81,7 @@ public class Reservation {
 
         if(!ReservationStatus.updatableStatus(status)) {
             throw new RuntimeException("예약 변경이 불가능한 상태입니다.");
-        };
+        }
 
         if(this.startTime.isBefore(REVOCABLEDATE)) {
             throw new RuntimeException("예약 변경은 예약일 기준 하루전까지만 가능합니다.");
@@ -83,6 +89,13 @@ public class Reservation {
 
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public void approve() {
+        if(!(this.status == ReservationStatus.APPROVE)) {
+            throw new RuntimeException("예약 승인이 불가능한 상태입니다.");
+        }
+        this.status = ReservationStatus.REQ;
     }
 }
 
