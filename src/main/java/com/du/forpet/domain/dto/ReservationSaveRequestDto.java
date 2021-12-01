@@ -42,7 +42,7 @@ public class ReservationSaveRequestDto {
                         .serviceType(serviceType)
                         .startTime(startTime)
                         .endTime(endTime)
-                        .status(ReservationStatus.P)
+                        .status(ReservationStatus.REQ)
                         .pet(pet)
                         .helper(helper)
                         .build();

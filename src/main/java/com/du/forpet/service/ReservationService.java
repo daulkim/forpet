@@ -75,4 +75,13 @@ public class ReservationService {
                                         .orElseThrow(()->
                                             new IllegalArgumentException(errMsg));
     }
+
+    public Long approve(Long id) {
+        Reservation reservation = reservationRepository
+                                        .findById(id)
+                                        .orElseThrow(
+                                                () -> new IllegalArgumentException("해당 예약이 존재하지 않습니다. id: " + id));
+        reservation.approve();
+        return id;
+    }
 }

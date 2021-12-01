@@ -2,25 +2,24 @@ package com.du.forpet.domain;
 
 public enum ReservationStatus {
     /**
-     * P: 예약 요청
-     * R: 예약 승인 완료
-     * D: 완료
-     * C: 취소
+     * REQ: 예약 요청
+     * APPROVE: 예약 승인
+     * COMPLETE: 완료
+     * CANCEL: 취소
      */
 
-    P, R, D, C;
+    REQ, APPROVE, COMPLETE, CANCEL;
 
     public static boolean updatableStatus(ReservationStatus currentStatus) {
 
         boolean updatableStatus = false;
 
         switch (currentStatus) {
-            case P:
-            case R:
+            case REQ:
+            case APPROVE:
                 updatableStatus = true;
                 break;
         }
-
 
         return updatableStatus;
     }

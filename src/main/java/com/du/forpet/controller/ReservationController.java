@@ -34,4 +34,9 @@ public class ReservationController {
     public void cancel(@PathVariable Long id, String memo) {
         reservationService.cancel(id, memo);
     }
+
+    @PatchMapping("/{id}/approval")
+    public void approval(@PathVariable Long id) {
+        reservationService.approve(id);
+    }
 }

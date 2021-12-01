@@ -92,10 +92,10 @@ public class Reservation {
     }
 
     public void approve() {
-        if(!(this.status == ReservationStatus.APPROVE)) {
+        if(!(this.status == ReservationStatus.REQ)) {
             throw new RuntimeException("예약 승인이 불가능한 상태입니다.");
         }
-        this.status = ReservationStatus.REQ;
+        this.status = ReservationStatus.APPROVE;
     }
 }
 
