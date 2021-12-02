@@ -5,9 +5,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import static com.du.forpet.domain.entity.QReservation.reservation;
 
 @Repository
