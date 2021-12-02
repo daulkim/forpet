@@ -58,7 +58,7 @@ public class ReservationServiceTest {
         Long reservationId = reservationService.save(requestDto);
         ReservationStatus status = reservationService.findById(reservationId).getStatus();
 
-        assertThat(status).isEqualTo(ReservationStatus.P);
+        assertThat(status).isEqualTo(ReservationStatus.REQ);
 
     }
 
@@ -76,10 +76,10 @@ public class ReservationServiceTest {
                                                     .build();
         Long reservationId = reservationService.save(requestDto);
 
-        reservationService.cancel(reservationId);
+        reservationService.cancel(reservationId, "memo");
 
         ReservationStatus status = reservationService.findById(reservationId).getStatus();
-        assertThat(status).isEqualTo(ReservationStatus.C);
+        assertThat(status).isEqualTo(ReservationStatus.CANCEL);
 
     }
 
@@ -95,7 +95,7 @@ public class ReservationServiceTest {
                                                     .build();
         Long reservationId = reservationService.save(requestDto);
 
-        reservationService.cancel(reservationId);
+        reservationService.cancel(reservationId, "memo");
 
     }
 
@@ -124,7 +124,7 @@ public class ReservationServiceTest {
 
         assertThat(reservationResponseDto.getStartTime()).isBefore(LocalDateTime.now());
         assertThat(reservationResponseDto.getEndTime()).isBefore(LocalDateTime.now().plusHours(3));
-        assertThat(reservationResponseDto.getStatus()).isEqualTo(ReservationStatus.P);
+        assertThat(reservationResponseDto.getStatus()).isEqualTo(ReservationStatus.REQ);
 
     }
 
@@ -142,7 +142,7 @@ public class ReservationServiceTest {
         Long reservationId = reservationService.save(requestDto);
 
         // 예약 변경 불가능한 상태로 변경
-        reservationService.cancel(reservationId);
+        reservationService.cancel(reservationId, "memo");
 
         ReservationUpdateRequestDto updateDto = ReservationUpdateRequestDto
                                                     .builder()

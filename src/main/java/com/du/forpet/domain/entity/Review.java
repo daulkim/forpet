@@ -1,5 +1,6 @@
 package com.du.forpet.domain.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ public class Review {
     private Long id;
 
     @Column(name="RATING")
-    private String rating;
+    private float rating;
 
     @Column(name="COMMENT")
     private String comment;
@@ -25,4 +26,10 @@ public class Review {
     @JoinColumn(name = "reservation", referencedColumnName = "id")
     private Reservation reservation;
 
+    @Builder
+    public Review(float rating, String comment, Reservation reservation) {
+        this.rating = rating;
+        this.comment = comment;
+        this.reservation = reservation;
+    }
 }
