@@ -24,8 +24,9 @@ public class ReservationService {
 
         HelperSchedule helperSchedule = getHelperSchedule(requestDto.getHelper(), requestDto.getStartTime(), "F");
         boolean isReserved = !helperSchedule.checkTimeAvailability(requestDto.getStartTime(), requestDto.getEndTime());
+        boolean isPenaltyMember = requestDto.getPet().checkPenalty();
 
-        if (isReserved) throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
+        if (isReserved||isPenaltyMember) throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
 
         helperSchedule.reserveSchedule(requestDto.getStartTime(), requestDto.getEndTime());
         return reservationRepository.save(requestDto.toEntity()).getId();

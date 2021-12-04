@@ -58,5 +58,9 @@ public class Pet {
             this.status = ActivityStatus.INACTIVE;
         }
     }
+
+    public boolean checkPenalty() {
+        return this.getMember().getPenalty() >= 3;
+    }
 }
 
