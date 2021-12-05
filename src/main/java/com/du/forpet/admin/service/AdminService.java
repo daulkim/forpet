@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class HelperAdminService {
+public class AdminService {
 
     private final HelperRepository helperRepository;
 
