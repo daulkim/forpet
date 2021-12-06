@@ -32,4 +32,9 @@ public class Review {
         this.comment = comment;
         this.reservation = reservation;
     }
+
+    public void update(float rating, String comment) {
+        this.rating = rating;
+        this.comment = comment;
+    }
 }

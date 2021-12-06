@@ -1,12 +1,11 @@
 package com.du.forpet.controller;
 
+import com.du.forpet.domain.dto.ReviewResponseDto;
 import com.du.forpet.domain.dto.ReviewSaveRequestDto;
+import com.du.forpet.domain.dto.ReviewUpdateRequestDto;
 import com.du.forpet.service.ReviewService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/reviews")
 @RequiredArgsConstructor
@@ -18,5 +17,15 @@ public class ReviewController {
     @PostMapping("")
     public Long save(@RequestBody ReviewSaveRequestDto requestDto) {
         return reviewService.save(requestDto);
+    }
+
+    @GetMapping("/{id}")
+    public ReviewResponseDto findById(@PathVariable Long id) {
+        return reviewService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Long update(@PathVariable Long id, @RequestBody ReviewUpdateRequestDto requestDto) {
+        return reviewService.update(id, requestDto);
     }
 }
