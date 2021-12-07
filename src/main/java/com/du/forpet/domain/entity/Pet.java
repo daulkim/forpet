@@ -35,7 +35,6 @@ public class Pet {
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-
     @OneToMany(mappedBy = "pet")
     private List<Reservation> reservations;
 

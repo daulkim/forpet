@@ -1,5 +1,6 @@
 package com.du.forpet.domain.dto;
 
+import com.du.forpet.domain.ReservationStatus;
 import com.du.forpet.domain.entity.Reservation;
 import com.du.forpet.domain.entity.Review;
 import lombok.Builder;
@@ -12,13 +13,13 @@ public class ReviewSaveRequestDto {
     private String comment;
     private Reservation reservation;
 
+    @Builder
     public ReviewSaveRequestDto(float rating, String comment, Reservation reservation) {
         this.rating = rating;
         this.comment = comment;
         this.reservation = reservation;
     }
 
-    @Builder
     public Review toEntity() {
         return Review
                 .builder()
@@ -26,5 +27,9 @@ public class ReviewSaveRequestDto {
                 .comment(comment)
                 .reservation(reservation)
                 .build();
+    }
+
+    public boolean checkComplete() {
+        return this.reservation.getStatus() == ReservationStatus.COMPLETE;
     }
 }

@@ -23,7 +23,7 @@ public class Review {
     private String comment;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reservation", referencedColumnName = "id")
+    @JoinColumn(name = "id")
     private Reservation reservation;
 
     @Builder
