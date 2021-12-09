@@ -28,4 +28,9 @@ public class ReviewController {
     public Long update(@PathVariable Long id, @RequestBody ReviewUpdateRequestDto requestDto) {
         return reviewService.update(id, requestDto);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        reviewService.delete(id);
+    }
 }

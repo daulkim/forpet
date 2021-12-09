@@ -39,4 +39,12 @@ public class ReviewService {
         review.update(requestDto.getRating(), requestDto.getComment());
         return id;
     }
+
+    public void delete(Long id) {
+        Review review = reviewRepository
+                            .findById(id)
+                            .orElseThrow(
+                                    () -> new IllegalArgumentException("헤당 리뷰가 존재하지 않습니다. id: " + id));
+        reviewRepository.delete(review);
+    }
 }
