@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Pet {
+public class Pet extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="PET_ID")

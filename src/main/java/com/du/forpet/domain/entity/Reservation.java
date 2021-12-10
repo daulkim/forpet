@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Reservation {
+public class Reservation extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="RESERVATION_ID")

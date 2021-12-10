@@ -13,7 +13,7 @@ import java.util.Map;
 @Getter
 @NoArgsConstructor
 @Entity
-public class HelperSchedule {
+public class HelperSchedule extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

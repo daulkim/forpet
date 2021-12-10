@@ -23,7 +23,12 @@ public class AdminService {
                             .orElseThrow(()
                                     -> new IllegalIdentifierException("해당 헬퍼는 존재하지 않습니다. id: "+id));
         helper.approve();
-        HelperSchedule defaultSchedule = helper.getHelperSchedules().stream().filter(schedule -> schedule.getIsDefault().equals("Y")).collect(Collectors.toList()).get(0);
+        HelperSchedule defaultSchedule = helper
+                                            .getHelperSchedules()
+                                            .stream()
+                                            .filter(schedule -> schedule.getIsDefault().equals("Y"))
+                                            .collect(Collectors.toList())
+                                            .get(0);
         LocalDate date = LocalDate.now();
         HelperScheduleSaveRequestDto helperSchedule = HelperScheduleSaveRequestDto
                                                             .builder()
