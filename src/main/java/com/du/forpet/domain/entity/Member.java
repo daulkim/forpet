@@ -36,6 +36,9 @@ public class Member extends BaseTimeEntity {
     @Column(name = "PENALTY")
     private int penalty;
 
+    @Embedded
+    private Address address;
+
     @OneToMany(mappedBy = "member")
     private List<Pet> pets;
 
@@ -45,13 +48,15 @@ public class Member extends BaseTimeEntity {
                   String name,
                   String phoneNumber,
                   ActivityStatus status,
-                  int penalty){
+                  int penalty,
+                  Address address){
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.penalty = penalty;
+        this.address = address;
     }
 
     public void update(String password, String name, String phoneNumber) {
