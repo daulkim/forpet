@@ -80,7 +80,7 @@ public class Helper extends BaseTimeEntity {
         }
     }
 
-    public void add(HelperScheduleSaveRequestDto scheduleSaveRequestDto, LocalDate date,String isDefault) {
+    public void add(HelperScheduleSaveRequestDto scheduleSaveRequestDto, LocalDate date, String isDefault) {
         scheduleSaveRequestDto.addHelperSchedule(this, date, isDefault);
         helperSchedules.add(scheduleSaveRequestDto.toEntity());
     }
