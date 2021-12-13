@@ -4,7 +4,9 @@ import com.du.forpet.domain.dto.*;
 import com.du.forpet.domain.entity.Helper;
 import com.du.forpet.domain.entity.HelperSchedule;
 import com.du.forpet.domain.entity.Reservation;
+import com.du.forpet.domain.entity.ReservationHistory;
 import com.du.forpet.repository.HelperScheduleRepository;
+import com.du.forpet.repository.ReservationHistoryRepository;
 import com.du.forpet.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final HelperScheduleRepository helperScheduleRepository;
+    private final ReservationHistoryRepository reservationHistoryRepository;
 
     @Transactional
     public Long save(ReservationSaveRequestDto requestDto) {
@@ -29,7 +32,15 @@ public class ReservationService {
         if (isReserved||isPenaltyMember) throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
 
         helperSchedule.reserveSchedule(requestDto.getStartTime(), requestDto.getEndTime());
-        return reservationRepository.save(requestDto.toEntity()).getId();
+
+        Reservation savedReservation = reservationRepository.save(requestDto.toEntity());
+        savedReservation.addHistory(ReservationHistory
+                                        .builder()
+                                        .status(savedReservation.getStatus())
+                                        .reservation(savedReservation)
+                                        .build());
+
+        return savedReservation.getId();
     }
 
     @Transactional

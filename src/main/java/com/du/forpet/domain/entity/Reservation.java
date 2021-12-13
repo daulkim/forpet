@@ -1,6 +1,8 @@
 package com.du.forpet.domain.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -44,6 +46,9 @@ public class Reservation extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="HELPER_ID")
     private Helper helper;
+
+    @OneToMany(mappedBy = "reservation", cascade=CascadeType.ALL, orphanRemoval = true)
+    private List<ReservationHistory> histories = new ArrayList<>();
 
     @Builder
     public Reservation(String serviceType,
@@ -96,6 +101,11 @@ public class Reservation extends BaseTimeEntity {
             throw new RuntimeException("예약 승인이 불가능한 상태입니다.");
         }
         this.status = ReservationStatus.APPROVE;
+    }
+
+    public void addHistory(ReservationHistory history) {
+        history.setReservation(this);
+        histories.add(history);
     }
 }
 
