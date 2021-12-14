@@ -56,6 +56,11 @@ public class ReservationService {
 
         helperSchedule.cancelSchedule(reservation.getStartTime(), reservation.getEndTime());
         reservation.cancel(memo);
+        reservation.addHistory(ReservationHistory
+                                    .builder()
+                                    .status(reservation.getStatus())
+                                    .reservation(reservation)
+                                    .build());
     }
 
     @Transactional
