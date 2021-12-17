@@ -34,6 +34,8 @@ dependencies {
     implementation group: 'com.querydsl', name: 'querydsl-apt', version: querydslVersion
     implementation group: 'com.querydsl', name: 'querydsl-core', version: querydslVersion
 
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.6.1'
+
     annotationProcessor group: 'com.querydsl', name: 'querydsl-apt', version: querydslVersion
     annotationProcessor group: 'com.querydsl', name: 'querydsl-apt', version: querydslVersion, classifier: 'jpa'
     annotationProcessor("jakarta.persistence:jakarta.persistence-api")
