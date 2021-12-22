@@ -1,6 +1,7 @@
 package com.du.forpet.service;
 
 import com.du.forpet.domain.KakaoReadyRequestDto;
+import com.du.forpet.domain.PayStatus;
 import com.du.forpet.domain.dto.PayResponseDto;
 import com.du.forpet.domain.dto.PaySaveRequestDto;
 import com.du.forpet.domain.entity.Pay;
@@ -23,5 +24,13 @@ public class PayService {
                         .findById(id)
                         .orElseThrow(() -> new IllegalArgumentException("해당 결제 건이 존재 하지 않습니다. id: " + id));
         return new PayResponseDto(entity);
+    }
+
+    public Long cancel(Long id) {
+        Pay pay = payRepository
+                    .findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 결제 건이 존재 하지 않습니다. id: " + id));
+        pay.update();
+        return id;
     }
 }
