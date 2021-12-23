@@ -1,6 +1,7 @@
 package com.du.forpet.service;
 
 import com.du.forpet.domain.KakaoReadyRequestDto;
+import com.du.forpet.domain.KakaoReadyResponseDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -10,7 +11,7 @@ public class KakaoPayService {
                                     .builder()
                                     .baseUrl("https://kapi.kakao.com")
                                     .build();
-    public String ready() {
+    public KakaoReadyResponseDto ready() {
         KakaoReadyRequestDto dto = new KakaoReadyRequestDto();
         dto.setCid("TC0ONETIME");
         dto.setPartner_order_id("orderId");
@@ -28,7 +29,8 @@ public class KakaoPayService {
                 .bodyValue(dto.toString())
                 .header("Authorization","KakaoAK {ADMIN_KEY}")
                 .header("Content-type","application/x-www-form-urlencoded;charset=utf-8")
-                .exchangeToMono(res -> res.bodyToMono(String.class)).block();
+                .retrieve()
+                .bodyToMono(KakaoReadyResponseDto.class).block();
 
     }
 }
