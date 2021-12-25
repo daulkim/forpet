@@ -1,7 +1,5 @@
 package com.du.forpet.service;
 
-import com.du.forpet.domain.KakaoReadyRequestDto;
-import com.du.forpet.domain.PayStatus;
 import com.du.forpet.domain.dto.PayResponseDto;
 import com.du.forpet.domain.dto.PaySaveRequestDto;
 import com.du.forpet.domain.entity.Pay;
