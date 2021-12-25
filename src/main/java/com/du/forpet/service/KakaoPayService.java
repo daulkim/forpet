@@ -2,16 +2,24 @@ package com.du.forpet.service;
 
 import com.du.forpet.domain.KakaoReadyRequestDto;
 import com.du.forpet.domain.KakaoReadyResponseDto;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+@PropertySource("classpath:key.application")
 @Service
 public class KakaoPayService {
+
+    @Value("${kakao.admin}")
+    private String key;
+
     private WebClient webClient = WebClient
                                     .builder()
                                     .baseUrl("https://kapi.kakao.com")
                                     .build();
     public KakaoReadyResponseDto ready() {
+        System.out.println("check key: " +key);
         KakaoReadyRequestDto dto = new KakaoReadyRequestDto();
         dto.setCid("TC0ONETIME");
         dto.setPartner_order_id("orderId");
@@ -27,7 +35,7 @@ public class KakaoPayService {
         return webClient.post()
                 .uri("/v1/payment/ready")
                 .bodyValue(dto.toString())
-                .header("Authorization","KakaoAK {ADMIN_KEY}")
+                .header("Authorization","KakaoAK "+key)
                 .header("Content-type","application/x-www-form-urlencoded;charset=utf-8")
                 .retrieve()
                 .bodyToMono(KakaoReadyResponseDto.class).block();
