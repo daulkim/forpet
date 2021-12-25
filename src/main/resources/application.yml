@@ -1,6 +1,6 @@
 spring:
 #  profiles:
-#    include: key.application
+#    include: key.properties
 
   jpa:
     properties:

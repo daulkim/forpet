@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-@PropertySource("classpath:key.application")
+@PropertySource("classpath:key.properties")
 @Service
 public class KakaoPayService {
 
