@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.du.forpet.domain.ReservationStatus;
+import com.du.forpet.domain.ServiceType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class Reservation extends BaseTimeEntity {
     private Long id;
 
     @Column(name="SERVICE_TYPE")
-    private String serviceType;
+    private ServiceType serviceType;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name="START_TIME")
@@ -51,7 +52,7 @@ public class Reservation extends BaseTimeEntity {
     private List<ReservationHistory> histories = new ArrayList<>();
 
     @Builder
-    public Reservation(String serviceType,
+    public Reservation(ServiceType serviceType,
                        LocalDateTime startTime,
                        LocalDateTime endTime,
                        ReservationStatus status,

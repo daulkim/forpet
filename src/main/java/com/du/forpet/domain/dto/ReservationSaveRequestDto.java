@@ -1,5 +1,6 @@
 package com.du.forpet.domain.dto;
 
+import com.du.forpet.domain.ServiceType;
 import com.du.forpet.domain.entity.Helper;
 import com.du.forpet.domain.entity.Reservation;
 import com.du.forpet.domain.entity.Pet;
@@ -14,14 +15,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ReservationSaveRequestDto {
 
-    private String serviceType;
+    private ServiceType serviceType;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Pet pet;
     private Helper helper;
 
     @Builder
-    public ReservationSaveRequestDto(String serviceType,
+    public ReservationSaveRequestDto(ServiceType serviceType,
                                      LocalDateTime startTime,
                                      LocalDateTime endTime,
                                      Pet pet,
