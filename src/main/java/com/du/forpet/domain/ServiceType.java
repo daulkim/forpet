@@ -1,5 +1,5 @@
 package com.du.forpet.domain;
 
 public enum ServiceType {
-    BATH, WALK
+    BATH, WALK, GROOMING, CARE
 }
