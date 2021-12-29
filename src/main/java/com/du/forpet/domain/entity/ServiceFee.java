@@ -20,8 +20,8 @@ public class ServiceFee extends BaseTimeEntity{
     @Column(name = "SERVICE_TYPE")
     private ServiceType serviceType;
 
-    @Column(name = "PRICE")
-    private Integer price;
+    @Column(name = "FEE")
+    private Integer fee;
 
     @Column(name = "START_DATE")
     private LocalDate startDate;
@@ -31,12 +31,17 @@ public class ServiceFee extends BaseTimeEntity{
 
     @Builder
     public ServiceFee(ServiceType serviceType,
-                      Integer price,
+                      Integer fee,
                       LocalDate startDate,
                       LocalDate endDate) {
         this.serviceType = serviceType;
-        this.price = price;
+        this.fee = fee;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public boolean effectiveDate() {
+        LocalDate now = LocalDate.now();
+        return 0<=this.startDate.compareTo(now)&&this.endDate.compareTo(now)<=0;
     }
 }
