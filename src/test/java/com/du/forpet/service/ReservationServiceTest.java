@@ -1,6 +1,7 @@
 package com.du.forpet.service;
 
 import com.du.forpet.domain.ReservationStatus;
+import com.du.forpet.domain.ServiceType;
 import com.du.forpet.domain.dto.*;
 import com.du.forpet.domain.entity.Helper;
 import com.du.forpet.domain.entity.Pet;
@@ -50,7 +51,7 @@ public class ReservationServiceTest {
 
         ReservationSaveRequestDto requestDto = ReservationSaveRequestDto
                                                     .builder()
-                                                    .serviceType("Bath")
+                                                    .serviceType(ServiceType.BATH)
                                                     .startTime(reservationTime)
                                                     .endTime(reservationTime.plusHours(1))
                                                     .helper(helper)
@@ -70,7 +71,7 @@ public class ReservationServiceTest {
         Helper helper = helperRepository.findById(1L).get();
         ReservationSaveRequestDto requestDto = ReservationSaveRequestDto
                                                     .builder()
-                                                    .serviceType("Bath")
+                                                    .serviceType(ServiceType.BATH)
                                                     .startTime(reservationTime)
                                                     .endTime(reservationTime.plusHours(1))
                                                     .helper(helper)
@@ -90,7 +91,7 @@ public class ReservationServiceTest {
 
         ReservationSaveRequestDto requestDto = ReservationSaveRequestDto
                                                     .builder()
-                                                    .serviceType("Bath")
+                                                    .serviceType(ServiceType.BATH)
                                                     .startTime(reservationTime)
                                                     .endTime(reservationTime.plusHours(3))
                                                     .build();
@@ -106,7 +107,7 @@ public class ReservationServiceTest {
 
         ReservationSaveRequestDto requestDto = ReservationSaveRequestDto
                                                     .builder()
-                                                    .serviceType("Bath")
+                                                    .serviceType(ServiceType.BATH)
                                                     .startTime(reservationTime)
                                                     .endTime(reservationTime.plusHours(3))
                                                     .build();
@@ -135,7 +136,7 @@ public class ReservationServiceTest {
 
         ReservationSaveRequestDto requestDto = ReservationSaveRequestDto
                 .builder()
-                .serviceType("Bath")
+                .serviceType(ServiceType.BATH)
                 .startTime(reservationTime)
                 .endTime(reservationTime.plusHours(3))
                 .build();
