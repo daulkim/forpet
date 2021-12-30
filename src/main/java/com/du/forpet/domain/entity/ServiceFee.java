@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Entity
-public class ServiceFee extends BaseTimeEntity{
+public class ServiceFee extends BaseTimeEntity {
 
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "SERVICE_FEE_ID")
@@ -42,6 +42,15 @@ public class ServiceFee extends BaseTimeEntity{
 
     public boolean effectiveDate() {
         LocalDate now = LocalDate.now();
-        return 0<=this.startDate.compareTo(now)&&this.endDate.compareTo(now)<=0;
+        return 0<=this.startDate.compareTo(now) && this.endDate.compareTo(now)<=0;
+    }
+
+    public void update(ServiceType serviceType,
+                       Integer fee,
+                       LocalDate startDate,
+                       LocalDate endDate) {
+
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 }

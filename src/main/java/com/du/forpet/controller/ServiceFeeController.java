@@ -2,6 +2,7 @@ package com.du.forpet.controller;
 
 import com.du.forpet.domain.dto.ServiceFeeResponseDto;
 import com.du.forpet.domain.dto.ServiceFeeSaveRequestDto;
+import com.du.forpet.domain.dto.ServiceFeeUpdateRequestDto;
 import com.du.forpet.service.ServiceFeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,13 @@ public class ServiceFeeController {
         return serviceFeeService.save(requestDto);
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<ServiceFeeResponseDto> list() {
         return serviceFeeService.findAll();
+    }
+
+    @PutMapping("/{id}")
+    public Long update(@PathVariable Long id, @RequestBody ServiceFeeUpdateRequestDto updateDto) {
+        return serviceFeeService.update(id, updateDto);
     }
 }

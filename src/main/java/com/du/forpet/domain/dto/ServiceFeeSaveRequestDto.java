@@ -11,17 +11,17 @@ import java.time.LocalDate;
 public class ServiceFeeSaveRequestDto {
 
     private ServiceType serviceType;
-    private Integer price;
+    private Integer fee;
     private LocalDate startDate;
     private LocalDate endDate;
 
     @Builder
     public ServiceFeeSaveRequestDto(ServiceType serviceType,
-                                    Integer price,
+                                    Integer fee,
                                     LocalDate startDate,
                                     LocalDate endDate) {
         this.serviceType = serviceType;
-        this.price = price;
+        this.fee = fee;
         this.startDate = startDate;
         this.endDate = endDate;
 
@@ -31,7 +31,7 @@ public class ServiceFeeSaveRequestDto {
         return ServiceFee
                 .builder()
                 .serviceType(serviceType)
-                .price(price)
+                .fee(fee)
                 .startDate(startDate)
                 .endDate(endDate)
                 .build();
