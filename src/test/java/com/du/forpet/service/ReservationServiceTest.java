@@ -12,6 +12,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -43,8 +44,9 @@ public class ReservationServiceTest {
 //        assertThat(count).isEqualTo(1L);
 //    }
     @Test
+    @Transactional
     public void saveTest() {
-        LocalDateTime reservationTime = LocalDateTime.of(2021,12,14,16,00);
+        LocalDateTime reservationTime = LocalDateTime.of(2022,01,02,10,00);
 
         Helper helper = helperRepository.findById(1L).get();
         Pet pet = petRepository.findById(1L).get();
