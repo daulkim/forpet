@@ -1,6 +1,5 @@
 package com.du.forpet.controller;
 
-import com.du.forpet.domain.KakaoReadyResponseDto;
 import com.du.forpet.service.KakaoPayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
