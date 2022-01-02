@@ -6,7 +6,6 @@ import com.du.forpet.domain.entity.HelperSchedule;
 import com.du.forpet.domain.entity.Reservation;
 import com.du.forpet.domain.entity.ReservationHistory;
 import com.du.forpet.repository.HelperScheduleRepository;
-import com.du.forpet.repository.ReservationHistoryRepository;
 import com.du.forpet.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final HelperScheduleRepository helperScheduleRepository;
-    private final ReservationHistoryRepository reservationHistoryRepository;
 
     @Transactional
     public Long save(ReservationSaveRequestDto requestDto) {
@@ -52,7 +50,9 @@ public class ReservationService {
     @Transactional
     public void cancel(Long id, String memo) {
         Reservation reservation = getReservation(id);
-        HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(), reservation.getStartTime(),"C");
+        HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(),
+                                                            reservation.getStartTime(),
+                                                            "cancel");
 
         helperSchedule.cancelSchedule(reservation.getStartTime(), reservation.getEndTime());
         reservation.cancel(memo);
@@ -66,8 +66,11 @@ public class ReservationService {
     @Transactional
     public Long update(Long id, ReservationUpdateRequestDto requestDto) {
         Reservation reservation = getReservation(id);
-        HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(), requestDto.getStartTime(), "F");
-        boolean isReserved = !helperSchedule.checkTimeAvailability(requestDto.getStartTime(), requestDto.getEndTime());
+        HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(),
+                                                            requestDto.getStartTime(),
+                                                            "update");
+        boolean isReserved = !helperSchedule.checkTimeAvailability(requestDto.getStartTime(),
+                                                                    requestDto.getEndTime());
 
         if (isReserved) throw new RuntimeException("해당 시간은 예약이 불가능한 시간입니다.");
 
@@ -85,12 +88,12 @@ public class ReservationService {
     }
 
     private HelperSchedule getHelperSchedule(Helper helper, LocalDateTime startTime, String type) {
-        String errMsg = type.equals("C")?"해당일의 예약이 존재하지 않습니다.":"해당일은 예약이 불가능합니다.";
+        String errMsg = type.equalsIgnoreCase("cancel")? "해당일의 예약이 존재하지 않습니다.":"해당일은 예약이 불가능합니다.";
         return helperScheduleRepository
                 .findByHelper_idAndDate(helper.getId(),
                                         startTime.toLocalDate())
-                                        .orElseThrow(()->
-                                            new IllegalArgumentException(errMsg));
+                                            .orElseThrow(
+                                                    () -> new IllegalArgumentException(errMsg));
     }
 
     public Long approve(Long id) {
