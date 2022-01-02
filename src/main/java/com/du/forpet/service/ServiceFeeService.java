@@ -22,7 +22,7 @@ public class ServiceFeeService {
         return serviceFeeRepository.save(requestDto.toEntity()).getId();
     }
 
-    public List<ServiceFeeResponseDto> findAll() {
+    public List<ServiceFeeResponseDto> findEffectiveAll() {
         return serviceFeeRepository
                         .findAll()
                         .stream()

@@ -23,7 +23,7 @@ public class ServiceFeeController {
 
     @GetMapping()
     public List<ServiceFeeResponseDto> list() {
-        return serviceFeeService.findAll();
+        return serviceFeeService.findEffectiveAll();
     }
 
     @PutMapping("/{id}")
