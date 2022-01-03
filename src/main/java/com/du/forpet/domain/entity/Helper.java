@@ -76,7 +76,7 @@ public class Helper extends BaseTimeEntity {
             this.status = ActivityStatus.INACTIVE;
         }
         else {
-            throw new IllegalStateException("해당 회원은 탈퇴할 수 없는 상태입니다."+id);
+            throw new IllegalStateException("해당 회원은 이미 탈퇴한 회원입니다. id: "+id);
         }
     }
 
@@ -92,7 +92,6 @@ public class Helper extends BaseTimeEntity {
         }
         else {
             throw new IllegalStateException("해당 회원은 승인할 수 없는 상태입니다. id: "+this.getId());
-
         }
     }
 }
