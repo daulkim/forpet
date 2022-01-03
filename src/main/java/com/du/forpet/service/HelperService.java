@@ -30,6 +30,7 @@ public class HelperService {
         return new HelperResponseDto(helper);
     }
 
+    @Transactional
     public Long update(Long id, HelperUpdateRequestDto requestDto) {
         Helper helper = findByIdOrElseThrowException(id);
 
@@ -40,25 +41,27 @@ public class HelperService {
         return id;
     }
 
+    @Transactional
     public void withdraw(Long id) {
         Helper helper = findByIdOrElseThrowException(id);
         helper.withdraw(id);
     }
 
-    public Helper findByIdOrElseThrowException(Long id) {
-        return helperRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 아이디의 헬퍼가 존재하지 않습니다."+id));
-    }
-
+    @Transactional
     public List<ReservationListResponseDto> findReservationsById(Long id) {
-        Helper helper = helperRepository
-                            .findById(id)
-                            .orElseThrow(() -> new IllegalArgumentException("해당 아이디의 헬퍼가 존재하지 않습니다." + id));
-
+        Helper helper = findByIdOrElseThrowException(id);
         List<ReservationListResponseDto> reservationList = helper
                                                             .getReservations()
                                                             .stream()
                                                             .map(ReservationListResponseDto::new)
                                                             .collect(Collectors.toList());
         return reservationList;
+    }
+
+    private Helper findByIdOrElseThrowException(Long id) {
+        return helperRepository
+                    .findById(id)
+                    .orElseThrow(
+                            ()-> new IllegalArgumentException("해당 아이디의 헬퍼가 존재하지 않습니다. id: " + id));
     }
 }
