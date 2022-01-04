@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -22,9 +23,12 @@ public class Pay extends BaseTimeEntity {
 
     private Long price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESERVATION_ID")
     private Reservation reservation;
+
+    @OneToMany(mappedBy = "pay")
+    private List<PayHistory> histories;
 
     @Builder
     public Pay(PayStatus status, String payType, Long price, Reservation reservation) {
