@@ -23,7 +23,7 @@ public class Review extends BaseTimeEntity {
     private String comment;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "RESERVATION_ID")
     private Reservation reservation;
 
     @Builder
