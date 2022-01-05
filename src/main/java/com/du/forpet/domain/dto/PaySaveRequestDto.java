@@ -13,13 +13,13 @@ public class PaySaveRequestDto {
 
     private String payType;
     private PayStatus status;
-    private Long price;
+    private Integer price;
     private Reservation reservation;
 
     @Builder
     public PaySaveRequestDto(String payType,
                              PayStatus status,
-                             Long price,
+                             Integer price,
                              Reservation reservation) {
 
         this.payType = payType;

@@ -13,7 +13,7 @@ public class PayResponseDto {
 
     private PayStatus status;
 
-    private Long price;
+    private Integer price;
 
     public PayResponseDto(Pay entity) {
         this.payType = entity.getPayType();

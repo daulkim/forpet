@@ -21,7 +21,7 @@ public class Pay extends BaseTimeEntity {
 
     private PayStatus status;
 
-    private Long price;
+    private Integer price;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESERVATION_ID")
@@ -31,7 +31,7 @@ public class Pay extends BaseTimeEntity {
     private List<PayHistory> histories;
 
     @Builder
-    public Pay(PayStatus status, String payType, Long price, Reservation reservation) {
+    public Pay(PayStatus status, String payType, Integer price, Reservation reservation) {
         this.status = status;
         this.payType = payType;
         this.price = price;
@@ -40,5 +40,9 @@ public class Pay extends BaseTimeEntity {
 
     public void update() {
         this.status = PayStatus.CANCEL;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 }
