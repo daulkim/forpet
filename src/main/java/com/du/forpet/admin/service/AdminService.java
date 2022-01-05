@@ -7,6 +7,7 @@ import com.du.forpet.repository.HelperRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ public class AdminService {
 
     private final HelperRepository helperRepository;
 
+    @Transactional
     public Long approve(Long id) {
         Helper helper = helperRepository
                             .findById(id)
@@ -30,6 +32,7 @@ public class AdminService {
                                             .collect(Collectors.toList())
                                             .get(0);
         LocalDate date = LocalDate.now();
+        // 오늘 날짜가 이미 들어가 있는지 확인하고 insert 하도록 변경
         HelperScheduleSaveRequestDto helperSchedule = HelperScheduleSaveRequestDto
                                                             .builder()
                                                             .date(date)
