@@ -48,6 +48,9 @@ public class Reservation extends BaseTimeEntity {
     @JoinColumn(name="HELPER_ID")
     private Helper helper;
 
+    @OneToOne(mappedBy = "reservation", cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Pay pay;
+
     @OneToMany(mappedBy = "reservation", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<ReservationHistory> histories = new ArrayList<>();
 

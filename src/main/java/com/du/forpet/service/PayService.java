@@ -1,8 +1,10 @@
 package com.du.forpet.service;
 
+import com.du.forpet.domain.PayStatus;
 import com.du.forpet.domain.dto.PayResponseDto;
 import com.du.forpet.domain.dto.PaySaveRequestDto;
 import com.du.forpet.domain.entity.Pay;
+import com.du.forpet.domain.entity.PayHistory;
 import com.du.forpet.repository.PayRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,12 @@ public class PayService {
     private final PayRepository payRepository;
 
     public Long save(PaySaveRequestDto payDto) {
-        return payRepository.save(payDto.toEntity()).getId();
+        Pay pay = payRepository.save(payDto.toEntity());
+        pay.addHistory(PayHistory.builder()
+                                .status(PayStatus.REQUEST)
+                                .payType("C")
+                                .build());
+        return pay.getId();
     }
 
     public PayResponseDto findById(Long id) {

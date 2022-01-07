@@ -45,4 +45,9 @@ public class Pay extends BaseTimeEntity {
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
+
+    public void addHistory(PayHistory history) {
+        history.setPay(this);
+        histories.add(history);
+    }
 }
