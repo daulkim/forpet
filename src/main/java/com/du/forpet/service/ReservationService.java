@@ -19,6 +19,7 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final HelperScheduleRepository helperScheduleRepository;
+    private final MailService mailService;
 
     @Transactional
     public Long save(ReservationSaveRequestDto requestDto) {
@@ -32,13 +33,22 @@ public class ReservationService {
         helperSchedule.reserveSchedule(requestDto.getStartTime(), requestDto.getEndTime());
 
         Reservation savedReservation = reservationRepository.save(requestDto.toEntity());
+        Long id = savedReservation.getId();
         savedReservation.addHistory(ReservationHistory
                                         .builder()
                                         .status(savedReservation.getStatus())
                                         .reservation(savedReservation)
                                         .build());
+        // pay 완료
 
-        return savedReservation.getId();
+        // mail 발송
+        mailService.sendMail(MailSendDto.builder()
+                    .receiver(requestDto.getPet().getMember().getEmail())
+                    .subject("예약 요청")
+                    .text("예약번호:" + id + "의 예약이 요청되었습니다.")
+                    .build());
+
+        return id;
     }
 
     @Transactional
