@@ -15,6 +15,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public Long save(MemberSaveRequestDto requestDto) throws Exception {
+
         boolean present = memberRepository.findByEmail(requestDto.getEmail()).isPresent();
 
         if(present) {
@@ -25,18 +26,14 @@ public class MemberService {
     }
 
     public MemberResponseDto findById(Long id) {
-        Member entity = memberRepository.findById(id)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("해당 회원을 찾을 수 없습니다. id: " + id));
-        return new MemberResponseDto(entity);
+
+        Member member = findByIdOrElseThrowException(id);
+        return new MemberResponseDto(member);
     }
 
     public Long update(Long id, MemberUpdateRequestDto requestDto) {
 
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("해당 회원을 찾을 수 없습니다. id: " + id));
-
+        Member member = findByIdOrElseThrowException(id);
         member.update(requestDto.getPassword(),
                         requestDto.getName(),
                         requestDto.getPhoneNumber());
@@ -44,10 +41,13 @@ public class MemberService {
     }
 
     public void withdraw(Long id) {
-        Member member = memberRepository.findById(id)
+        Member member = findByIdOrElseThrowException(id);
+        member.resign(id);
+    }
+
+    private Member findByIdOrElseThrowException(Long id) {
+        return memberRepository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("해당 회원이 존재하지 않습니다. id: " + id));
-
-        member.resign(id);
     }
 }

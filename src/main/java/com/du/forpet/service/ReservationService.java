@@ -53,13 +53,15 @@ public class ReservationService {
 
     @Transactional
     public ReservationResponseDto findById(Long id) {
-        Reservation reservation = getReservation(id);
+
+        Reservation reservation = findByIdOrElseThrowException(id);
         return new ReservationResponseDto(reservation);
     }
 
     @Transactional
     public void cancel(Long id, String memo) {
-        Reservation reservation = getReservation(id);
+
+        Reservation reservation = findByIdOrElseThrowException(id);
         HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(),
                                                             reservation.getStartTime(),
                                                             "cancel");
@@ -75,7 +77,8 @@ public class ReservationService {
 
     @Transactional
     public Long update(Long id, ReservationUpdateRequestDto requestDto) {
-        Reservation reservation = getReservation(id);
+
+        Reservation reservation = findByIdOrElseThrowException(id);
         HelperSchedule helperSchedule = getHelperSchedule(reservation.getHelper(),
                                                             requestDto.getStartTime(),
                                                             "update");
@@ -90,7 +93,15 @@ public class ReservationService {
         return id;
     }
 
-    private Reservation getReservation(Long id){
+    public Long approve(Long id) {
+
+        Reservation reservation = findByIdOrElseThrowException(id);
+        reservation.approve();
+        return id;
+    }
+
+    private Reservation findByIdOrElseThrowException(Long id){
+
         return reservationRepository
                 .findById(id)
                 .orElseThrow(() ->
@@ -98,20 +109,10 @@ public class ReservationService {
     }
 
     private HelperSchedule getHelperSchedule(Helper helper, LocalDateTime startTime, String type) {
+
         String errMsg = type.equalsIgnoreCase("cancel")? "해당일의 예약이 존재하지 않습니다.":"해당일은 예약이 불가능합니다.";
         return helperScheduleRepository
-                .findByHelper_idAndDate(helper.getId(),
-                                        startTime.toLocalDate())
-                                            .orElseThrow(
-                                                    () -> new IllegalArgumentException(errMsg));
-    }
-
-    public Long approve(Long id) {
-        Reservation reservation = reservationRepository
-                                        .findById(id)
-                                        .orElseThrow(
-                                                () -> new IllegalArgumentException("해당 예약이 존재하지 않습니다. id: " + id));
-        reservation.approve();
-        return id;
+                .findByHelper_idAndDate(helper.getId(), startTime.toLocalDate())
+                .orElseThrow(() -> new IllegalArgumentException(errMsg));
     }
 }

@@ -15,6 +15,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     public Long save(ReviewSaveRequestDto requestDto) {
+
         boolean isCompleted = requestDto.checkComplete();
         boolean isExist = reviewRepository.countReviewsByReservationId(requestDto.getReservation().getId())>0;
 
@@ -24,27 +25,29 @@ public class ReviewService {
     }
 
     public ReviewResponseDto findById(Long id) {
-        Review review = reviewRepository
-                            .findById(id)
-                            .orElseThrow(
-                                    () -> new IllegalArgumentException("헤당 리뷰가 존재하지 않습니다. id: " + id));
+
+        Review review = findByIdOrElseThrowException(id);
         return new ReviewResponseDto(review);
     }
 
     public Long update(Long id, ReviewUpdateRequestDto requestDto) {
-        Review review = reviewRepository
-                            .findById(id)
-                            .orElseThrow(
-                                    () -> new IllegalArgumentException("헤당 리뷰가 존재하지 않습니다. id: " + id));
+
+        Review review = findByIdOrElseThrowException(id);
         review.update(requestDto.getRating(), requestDto.getComment());
         return id;
     }
 
     public void delete(Long id) {
-        Review review = reviewRepository
-                            .findById(id)
-                            .orElseThrow(
-                                    () -> new IllegalArgumentException("헤당 리뷰가 존재하지 않습니다. id: " + id));
+
+        Review review = findByIdOrElseThrowException(id);
         reviewRepository.delete(review);
+    }
+
+    private Review findByIdOrElseThrowException(Long id) {
+
+        return reviewRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("헤당 리뷰가 존재하지 않습니다. id: " + id));
     }
 }

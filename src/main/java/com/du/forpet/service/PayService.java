@@ -16,26 +16,32 @@ public class PayService {
     private final PayRepository payRepository;
 
     public Long save(PaySaveRequestDto payDto) {
+
         Pay pay = payRepository.save(payDto.toEntity());
         pay.addHistory(PayHistory.builder()
-                                .status(PayStatus.REQUEST)
-                                .payType("C")
-                                .build());
+                                    .status(PayStatus.REQUEST)
+                                    .payType("C")
+                                    .build());
         return pay.getId();
     }
 
     public PayResponseDto findById(Long id) {
-        Pay entity = payRepository
-                        .findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("해당 결제 건이 존재 하지 않습니다. id: " + id));
-        return new PayResponseDto(entity);
+
+        Pay pay = findByIdOrElseThrowException(id);
+        return new PayResponseDto(pay);
     }
 
     public Long cancel(Long id) {
-        Pay pay = payRepository
-                    .findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("해당 결제 건이 존재 하지 않습니다. id: " + id));
+
+        Pay pay = findByIdOrElseThrowException(id);
         pay.update();
         return id;
+    }
+
+    private Pay findByIdOrElseThrowException(Long id) {
+
+        return payRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 결제 건이 존재 하지 않습니다. id: " + id));
     }
 }
