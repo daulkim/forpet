@@ -3,6 +3,7 @@ package com.du.forpet.domain.entity;
 import javax.persistence.*;
 
 import com.du.forpet.domain.ActivityStatus;
+import com.du.forpet.domain.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,9 @@ public class Member extends BaseTimeEntity {
     @Column(name = "PENALTY")
     private int penalty;
 
+    @Column(name = "ROLE")
+    private Role role;
+
     @Embedded
     private Address address;
 
@@ -49,6 +53,7 @@ public class Member extends BaseTimeEntity {
                   String phoneNumber,
                   ActivityStatus status,
                   int penalty,
+                  Role role,
                   Address address){
         this.email = email;
         this.password = password;
@@ -56,6 +61,7 @@ public class Member extends BaseTimeEntity {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.penalty = penalty;
+        this.role = role;
         this.address = address;
     }
 
