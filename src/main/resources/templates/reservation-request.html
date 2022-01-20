@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header :: header"></div>
+    <title>forpet</title>
+</head>
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+<div class="w-75 p-3">
+<form>
+    <div class="form-group">
+    <label for="datePicker">예약일</label>
+        <input type="text" id="datePicker" class="form-control"  />
+    </div>
+    <div class="form-group">
+        <label for="member">회원아이디</label>
+        <input type="email" class="form-control" id="member" placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+        <label for="pet">반려동물</label>
+        <select class="form-control" id="pet">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect2">Example multiple select</label>
+        <select multiple class="form-control" id="exampleFormControlSelect2">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+</form>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+<script th:src="@{webjars/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('#datePicker').datepicker({
+                format: 'yyyy-mm-dd', // 날짜 포맷
+                startDate: '-10d', // 선택 가능한 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+                endDate: '+10d', // 선택 가능한 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
+                autoclose: true, // 날짜를 클릭시 캘린더 자동 닫힘
+                calendarWeeks: false, //캘린더 옆에 몇 주차인지 표시 기본값 false
+                clearBtn: false, // 날짜 선택한 값 초기화 기본값 false
+                datesDisabled: ['2019-06-24', '2019-06-26'], //선택 불가능한 날 설정 위의 format 과 동일한 형식으로
+                daysOfWeekDisabled: [0, 6], // 선택 불가능한 요일 설정 0 : 일요일 ~ 6 : 토요일
+                daysOfWeekHighlighted: [3], // 강조 요일 설정
+                disableTouchKeyboard: false, // 모바일에서 플러그인 작동 여부 기본값 false(작동)
+                immediateUpdates: false, // 사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false
+                multidate: false, // 여러 날짜 선택 기본값 false
+                multidateSeparator: ',', // 여러 날짜를 선택했을 때 구분자 2019-05-01,2019-06-01
+                templates: {
+                    leftArrow: '&laquo;',
+                    rightArrow: '&raquo;',
+                }, // 다음달 이전달로 넘어가는 화살표 모양 설정
+                showWeekDays: true, // 위에 요일 보여주는 옵션 기본값 : true
+                title: '테스트', // 캘린더 상단 타이틀
+                todayHighlight: true, // 오늘 날짜에 하이라이팅 기본값 :false
+                toggleActive: true, // 이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
+                weekStart: 0, // 달력 시작 요일 선택하는 것 기본값은 0인 일요일
+                language: 'ko', // 달력의 언어 선택, 그에 맞는 js로 교체
+            })
+    });
+</script>
+</html>
