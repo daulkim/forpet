@@ -2,7 +2,7 @@ var main = {
     init : function(){
         var _this = this;
         $('#btn-save').on('click', function(){
-            _this.save();
+           _this.save();
         });
 
         $('#btn-update').on('click', function(){
@@ -15,11 +15,12 @@ var main = {
     },
     save : function(){
         var data = {
-            serviceType: $('#serviceType$').val(),
-            startTime: $('#reserveDate$').val()+$('#startTime').val(),
-            endTime: $('#endTime').val()+$('#endTime').val(),
-            pet: $('#pet').val()
+            serviceType: $('#serviceType').val(),
+            startTime: $('#reserveDate').val()+"T"+$('#startTime').val(),
+            endTime: $('#reserveDate').val()+"T"+$('#endTime').val(),
+            pet: { id: $('#pet').val() }
         };
+        console.log(JSON.stringify(data));
 
         $.ajax({
             type: 'POST',
@@ -36,8 +37,8 @@ var main = {
     },
     changeTime : function(){
         var data = {
-            startTime: $('#reserveDate$').val()+$('#startTime').val(),
-            endTime: $('#endTime').val()+$('#endTime').val()
+            startTime: $('#reserveDate').val()+"T"+$('#startTime').val(),
+            endTime: $('#reserveDate').val()+"T"+$('#endTime').val(),
         };
 
         var id = $('#id').val();
