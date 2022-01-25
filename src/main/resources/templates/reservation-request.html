@@ -9,31 +9,35 @@
 <div class="container mt-5 mb-5">
 <form>
     <div class="form-group">
-        <label for="service-type">서비스 타입</label>
-        <select class="form-control" id="service-type">
-            <option>목욕</option>
-            <option>산책</option>
-            <option>미용</option>
-            <option>돌봄</option>
+        <label for="serviceType">서비스 타입</label>
+        <select class="form-control" id="serviceType">
+            <option value="BATH">목욕</option>
+            <option value="WALK">산책</option>
+            <option value="GROOMING">미용</option>
+            <option value="CARE">돌봄</option>
         </select>
     </div>
     <div class="form-group">
-    <label for="datePicker">예약일</label>
-        <input type="text" id="datePicker" class="form-control" />
+    <label for="reserveDate">예약일</label>
+        <input type="text" id="reserveDate" class="form-control" />
     </div>
     <div class="form-group">
-        <label for="time">예약시간</label>
-        <select class="form-control" id="time">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+        <label for="startTime">시작시간</label>
+        <select class="form-control" id="startTime">
+            <option>11:00</option>
+            <option>12:00</option>
+            <option>13:00</option>
+            <option>14:00</option>
+            <option>15:00</option>
         </select>
-    </div>
-    <div class="form-group">
-        <label for="member">회원아이디</label>
-        <input type="email" class="form-control" id="member" placeholder="name@example.com">
+        <label for="endTime">종료시간</label>
+        <select class="form-control" id="endTime">
+            <option>12:00</option>
+            <option>13:00</option>
+            <option>14:00</option>
+            <option>15:00</option>
+            <option>16:00</option>
+        </select>
     </div>
     <div class="form-group">
         <label for="pet">반려동물</label>
@@ -45,30 +49,22 @@
             <option>5</option>
         </select>
     </div>
-    <div class="form-group">
-        <label for="exampleFormControlSelect2">Example multiple select</label>
-        <select multiple class="form-control" id="exampleFormControlSelect2">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-    </div>
     <div class="row">
         <div class="col-12">
-            <input type="button" class="btn btn-primary float-right" value="예약요청">
+            <input type="button" class="btn btn-primary float-right" id="btn-save" value="예약요청">
         </div>
     </div>
 </form>
 </div>
+
 <div th:replace="fragments/footer :: footer"></div>
 </body>
+<script type="text/javascript" th:src="@{/js/reservation.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
 <script th:src="@{webjars/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js}"></script>
 <script>
     $(document).ready(function () {
-        $('#datePicker').datepicker({
+        $('#reserveDate').datepicker({
                 format: 'yyyy-mm-dd', // 날짜 포맷
                 startDate: '-10d', // 선택 가능한 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
                 endDate: '+10d', // 선택 가능한 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
@@ -94,5 +90,6 @@
                 language: 'ko', // 달력의 언어 선택, 그에 맞는 js로 교체
             })
     });
+
 </script>
 </html>

@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.du.forpet.domain.ReservationStatus;
 import com.du.forpet.domain.ServiceType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,11 +26,11 @@ public class Reservation extends BaseTimeEntity {
     @Column(name="SERVICE_TYPE")
     private ServiceType serviceType;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name="START_TIME")
     private LocalDateTime startTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name="END_TIME")
     private LocalDateTime endTime;
 
