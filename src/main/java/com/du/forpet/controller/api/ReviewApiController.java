@@ -1,4 +1,4 @@
-package com.du.forpet.controller;
+package com.du.forpet.controller.api;
 
 import com.du.forpet.domain.dto.ReviewResponseDto;
 import com.du.forpet.domain.dto.ReviewSaveRequestDto;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/reviews")
 @RequiredArgsConstructor
 @RestController
-public class ReviewController {
+public class ReviewApiController {
 
     private final ReviewService reviewService;
 

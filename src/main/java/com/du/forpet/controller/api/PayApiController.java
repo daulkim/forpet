@@ -1,4 +1,4 @@
-package com.du.forpet.controller;
+package com.du.forpet.controller.api;
 
 import com.du.forpet.domain.dto.PayResponseDto;
 import com.du.forpet.domain.dto.PaySaveRequestDto;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/pay")
 @RequiredArgsConstructor
 @RestController
-public class PayController {
+public class PayApiController {
 
     private final PayService payService;
 

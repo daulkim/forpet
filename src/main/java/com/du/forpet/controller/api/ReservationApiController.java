@@ -1,4 +1,4 @@
-package com.du.forpet.controller;
+package com.du.forpet.controller.api;
 
 import com.du.forpet.domain.dto.ReservationResponseDto;
 import com.du.forpet.domain.dto.ReservationSaveRequestDto;
@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/reservations")
 @RequiredArgsConstructor
 @RestController
-public class ReservationController {
+public class ReservationApiController {
 
     private final ReservationService reservationService;
 
     @PostMapping()
     public Long reserve(@RequestBody ReservationSaveRequestDto requestDto) {
+        System.out.println(requestDto.getServiceType().toString());
         return reservationService.save(requestDto);
     }
 

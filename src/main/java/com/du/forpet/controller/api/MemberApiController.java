@@ -1,4 +1,4 @@
-package com.du.forpet.controller;
+package com.du.forpet.controller.api;
 
 import com.du.forpet.domain.dto.HelperUpdateRequestDto;
 import com.du.forpet.domain.dto.MemberSaveRequestDto;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/members")
 @RequiredArgsConstructor
 @RestController
-public class MemberController {
+public class MemberApiController {
 
     private final MemberService memberService;
 

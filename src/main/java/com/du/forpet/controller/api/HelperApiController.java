@@ -1,4 +1,4 @@
-package com.du.forpet.controller;
+package com.du.forpet.controller.api;
 
 import com.du.forpet.domain.dto.*;
 import com.du.forpet.service.HelperService;
@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/helpers")
 @RequiredArgsConstructor
 @RestController
-public class HelperController {
+public class HelperApiController {
 
     private final HelperService helperService;
 

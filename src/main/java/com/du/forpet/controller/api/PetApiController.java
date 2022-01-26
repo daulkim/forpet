@@ -1,4 +1,4 @@
-package com.du.forpet.controller;
+package com.du.forpet.controller.api;
 
 import com.du.forpet.domain.dto.PetResponseDto;
 import com.du.forpet.domain.dto.PetSaveRequestDto;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/pets")
 @RequiredArgsConstructor
 @RestController
-public class PetController {
+public class PetApiController {
 
     private final PetService petService;
 

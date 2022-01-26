@@ -1,4 +1,4 @@
-package com.du.forpet.controller;
+package com.du.forpet.controller.api;
 
 import com.du.forpet.domain.dto.ServiceFeeResponseDto;
 import com.du.forpet.domain.dto.ServiceFeeSaveRequestDto;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/fees")
 @RequiredArgsConstructor
 @RestController
-public class ServiceFeeController {
+public class ServiceFeeApiController {
 
     private final ServiceFeeService serviceFeeService;
 
