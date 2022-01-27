@@ -24,7 +24,7 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/reservations',
+            url: '/api/reservations',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -45,7 +45,7 @@ var main = {
 
         $.ajax({
             type: 'PUT',
-            url: '/reservations/'+id,
+            url: '/api/reservations/'+id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -61,7 +61,7 @@ var main = {
 
         $.ajax({
             type: 'PATCH',
-            url: '/reservations/'+id+"/cancel",
+            url: '/api/reservations/'+id+"/cancel",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
         }).done(function(){
