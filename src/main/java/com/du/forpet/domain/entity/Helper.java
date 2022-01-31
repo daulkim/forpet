@@ -1,14 +1,11 @@
 package com.du.forpet.domain.entity;
 
 import com.du.forpet.domain.ActivityStatus;
-import com.du.forpet.domain.dto.HelperScheduleSaveRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -44,9 +41,6 @@ public class Helper extends BaseTimeEntity {
     @OneToMany(mappedBy = "helper")
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "helper", cascade=CascadeType.ALL, orphanRemoval = true)
-    private List<HelperSchedule> helperSchedules = new ArrayList<>();
-
     @Builder
     public Helper(String email,
                   String password,
@@ -78,11 +72,6 @@ public class Helper extends BaseTimeEntity {
         else {
             throw new IllegalStateException("해당 회원은 이미 탈퇴한 회원입니다. id: "+id);
         }
-    }
-
-    public void add(HelperScheduleSaveRequestDto scheduleSaveRequestDto, LocalDate date, String isDefault) {
-        scheduleSaveRequestDto.addHelperSchedule(this, date, isDefault);
-        helperSchedules.add(scheduleSaveRequestDto.toEntity());
     }
 
     public void approve() {

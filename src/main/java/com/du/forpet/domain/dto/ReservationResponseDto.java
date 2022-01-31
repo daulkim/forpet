@@ -6,19 +6,23 @@ import com.du.forpet.domain.entity.Pet;
 import com.du.forpet.domain.entity.Reservation;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 public class ReservationResponseDto {
 
     private ServiceType serviceType;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDate reservationDate;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private ReservationStatus status;
     private Pet pet;
 
     public ReservationResponseDto(Reservation entity) {
         this.serviceType = entity.getServiceType();
+        this.reservationDate = entity.getReservationDate();
         this.startTime = entity.getStartTime();
         this.endTime = entity.getEndTime();
         this.status = entity.getStatus();
