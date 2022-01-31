@@ -17,7 +17,6 @@ public class ReservationApiController {
 
     @PostMapping()
     public Long reserve(@RequestBody ReservationSaveRequestDto requestDto) {
-        System.out.println(requestDto.getServiceType().toString());
         return reservationService.save(requestDto);
     }
 

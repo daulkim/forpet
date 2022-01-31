@@ -19,7 +19,7 @@ public class AdminService {
                             .findById(id)
                             .orElseThrow(()
                                     -> new IllegalIdentifierException("해당 헬퍼는 존재하지 않습니다. id: "+id));
-        helper.approve();
+        helper.approve(id);
 
         return id;
     }

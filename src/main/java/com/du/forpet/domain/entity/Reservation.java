@@ -1,16 +1,13 @@
 package com.du.forpet.domain.entity;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
-
 import com.du.forpet.domain.ReservationStatus;
 import com.du.forpet.domain.ServiceType;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,15 +25,15 @@ public class Reservation extends BaseTimeEntity {
     @Column(name="SERVICE_TYPE")
     private ServiceType serviceType;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="RESERVATION_DATE")
     private LocalDate reservationDate;
 
-    @JsonFormat(pattern = "'T'HH:mm")
+    @DateTimeFormat(pattern = "'T'HH:mm")
     @Column(name="START_TIME")
     private LocalTime startTime;
 
-    @JsonFormat(pattern = "'T'HH:mm")
+    @DateTimeFormat(pattern = "'T'HH:mm")
     @Column(name="END_TIME")
     private LocalTime endTime;
 
@@ -109,7 +106,7 @@ public class Reservation extends BaseTimeEntity {
         this.endTime = endTime;
     }
 
-    public void approve() {
+    public void approve(Long id) {
         if(!(this.status == ReservationStatus.REQ)) {
             throw new RuntimeException("예약 승인이 불가능한 상태입니다.");
         }

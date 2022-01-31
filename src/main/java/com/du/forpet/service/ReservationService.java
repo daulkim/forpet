@@ -75,15 +75,15 @@ public class ReservationService {
     public Long approve(Long id) {
 
         Reservation reservation = findByIdOrElseThrowException(id);
-        reservation.approve();
+        reservation.approve(id);
         return id;
     }
 
     private Reservation findByIdOrElseThrowException(Long id){
 
         return reservationRepository
-                .findById(id)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("해당 예약을 찾을 수 없습니다. id: " + id));
+                    .findById(id)
+                    .orElseThrow(() ->
+                            new IllegalArgumentException("해당 예약을 찾을 수 없습니다. id: " + id));
     }
 }
