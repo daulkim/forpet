@@ -21,6 +21,7 @@ public enum ReservationStatus {
                 break;
         }
 
+
         return updatableStatus;
     }
 }

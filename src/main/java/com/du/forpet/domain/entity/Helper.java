@@ -80,18 +80,14 @@ public class Helper extends BaseTimeEntity {
         }
     }
 
-    public void add(HelperScheduleSaveRequestDto scheduleSaveRequestDto, LocalDate date, String isDefault) {
-        scheduleSaveRequestDto.addHelperSchedule(this, date, isDefault);
-        helperSchedules.add(scheduleSaveRequestDto.toEntity());
-    }
-
-    public void approve() {
+    public void approve(Long id) {
 
         if (status == ActivityStatus.UNAUTHORIZED) {
             this.status = ActivityStatus.ACTIVE;
         }
         else {
-            throw new IllegalStateException("해당 회원은 승인할 수 없는 상태입니다. id: "+this.getId());
+            throw new IllegalStateException("해당 회원은 승인할 수 없는 상태입니다."+id);
         }
+
     }
 }

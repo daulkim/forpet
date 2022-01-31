@@ -15,8 +15,8 @@ public class HelperApiController {
     private final HelperService helperService;
 
     @PostMapping()
-    public Long join(@RequestBody HelperSaveRequestDto requestDto, @RequestBody HelperScheduleSaveRequestDto scheduleRequestDto) {
-        return helperService.save(requestDto, scheduleRequestDto);
+    public Long join(@RequestBody HelperSaveRequestDto requestDto) {
+        return helperService.save(requestDto);
     }
 
     @GetMapping("/{id}")
