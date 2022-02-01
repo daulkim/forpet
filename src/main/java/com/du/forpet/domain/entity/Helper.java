@@ -1,14 +1,11 @@
 package com.du.forpet.domain.entity;
 
 import com.du.forpet.domain.ActivityStatus;
-import com.du.forpet.domain.dto.HelperScheduleSaveRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -43,9 +40,6 @@ public class Helper extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "helper")
     private List<Reservation> reservations;
-
-    @OneToMany(mappedBy = "helper", cascade=CascadeType.ALL, orphanRemoval = true)
-    private List<HelperSchedule> helperSchedules = new ArrayList<>();
 
     @Builder
     public Helper(String email,
