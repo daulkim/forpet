@@ -16,8 +16,9 @@ var main = {
     save : function(){
         var data = {
             serviceType: $('#serviceType').val(),
-            startTime: $('#reserveDate').val()+"T"+$('#startTime').val(),
-            endTime: $('#reserveDate').val()+"T"+$('#endTime').val(),
+            reservationDate: $('#reservationDate').val(),
+            startTime: "T"+$('#startTime').val(),
+            endTime: "T"+$('#endTime').val(),
             pet: { id: $('#pet').val() }
         };
         console.log(JSON.stringify(data));
@@ -37,8 +38,9 @@ var main = {
     },
     changeTime : function(){
         var data = {
-            startTime: $('#reserveDate').val()+"T"+$('#startTime').val(),
-            endTime: $('#reserveDate').val()+"T"+$('#endTime').val(),
+            reservationDate: $('#reservationDate').val(),
+            startTime: "T"+$('#startTime').val(),
+            endTime: "T"+$('#endTime').val(),
         };
 
         var id = $('#id').val();
