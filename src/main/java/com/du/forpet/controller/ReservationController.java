@@ -31,4 +31,10 @@ public class ReservationController {
         model.addAttribute("reservation", dto);
         return "reservation-update";
     }
+
+    @GetMapping("/{id}")
+    public String findById(@PathVariable Long id, Model model) {
+        model.addAttribute("reservation", reservationService.findById(id));
+        return "reservation";
+    }
 }
