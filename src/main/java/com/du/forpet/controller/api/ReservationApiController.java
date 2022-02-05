@@ -1,8 +1,10 @@
 package com.du.forpet.controller.api;
 
+import com.du.forpet.domain.dto.PaySaveRequestDto;
 import com.du.forpet.domain.dto.ReservationResponseDto;
 import com.du.forpet.domain.dto.ReservationSaveRequestDto;
 import com.du.forpet.domain.dto.ReservationUpdateRequestDto;
+import com.du.forpet.service.PayService;
 import com.du.forpet.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,10 @@ public class ReservationApiController {
     private final ReservationService reservationService;
 
     @PostMapping()
-    public Long reserve(@RequestBody ReservationSaveRequestDto requestDto) {
-        return reservationService.save(requestDto);
+    public Long reserve(@RequestBody ReservationSaveRequestDto reservationReqDto,
+                        @RequestBody PaySaveRequestDto payReqDto) {
+
+        return reservationService.save(reservationReqDto, payReqDto);
     }
 
     @GetMapping("/{id}")

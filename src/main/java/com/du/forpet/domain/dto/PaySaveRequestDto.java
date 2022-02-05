@@ -31,10 +31,14 @@ public class PaySaveRequestDto {
 
     public Pay toEntity() {
         return Pay.builder()
-                .payType(payType)
-                .status(status)
-                .price(price)
-                .reservation(reservation)
-                .build();
+                    .payType(payType)
+                    .status(status)
+                    .price(price)
+                    .reservation(reservation)
+                    .build();
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 }

@@ -14,16 +14,17 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final MailService mailService;
+    private final PayService payService;
 
     @Transactional
-    public Long save(ReservationSaveRequestDto requestDto) {
+    public Long save(ReservationSaveRequestDto reservationReqDto, PaySaveRequestDto payReqDto) {
 
-        boolean isPenaltyMember = requestDto.getPet().checkPenalty();
+        boolean isPenaltyMember = reservationReqDto.getPet().checkPenalty();
 
         if(isPenaltyMember)
             throw new RuntimeException("해당 회원은 예약이 불가능한 상태입니다.");
         
-        Reservation savedReservation = reservationRepository.save(requestDto.toEntity());
+        Reservation savedReservation = reservationRepository.save(reservationReqDto.toEntity());
         Long id = savedReservation.getId();
         savedReservation.addHistory(ReservationHistory
                                         .builder()
@@ -31,13 +32,14 @@ public class ReservationService {
                                         .reservation(savedReservation)
                                         .build());
         // pay 완료
+        payService.save(payReqDto);
 
         // mail 발송
         mailService.sendMail(MailSendDto.builder()
-                    .receiver(requestDto.getPet().getMember().getEmail())
-                    .subject("예약 요청")
-                    .text("예약번호:" + id + "의 예약이 요청되었습니다.")
-                    .build());
+                                        .receiver(reservationReqDto.getPet().getMember().getEmail())
+                                        .subject("예약 요청")
+                                        .text("예약번호:" + id + "의 예약이 요청되었습니다.")
+                                        .build());
 
         return id;
     }
