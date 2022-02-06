@@ -32,6 +32,7 @@ public class ReservationService {
                                         .reservation(savedReservation)
                                         .build());
         // pay 완료
+        payReqDto.setReservation(savedReservation);
         payService.save(payReqDto);
 
         // mail 발송

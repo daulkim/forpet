@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -28,7 +29,7 @@ public class Pay extends BaseTimeEntity {
     private Reservation reservation;
 
     @OneToMany(mappedBy = "pay")
-    private List<PayHistory> histories;
+    private List<PayHistory> histories = new ArrayList<>();
 
     @Builder
     public Pay(PayStatus status, String payType, Integer price, Reservation reservation) {

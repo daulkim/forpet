@@ -43,14 +43,14 @@ public class ReservationSaveRequestDto {
     public Reservation toEntity() {
 
         return Reservation
-                        .builder()
-                        .serviceType(serviceType)
-                        .reservationDate(reservationDate)
-                        .startTime(startTime)
-                        .endTime(endTime)
-                        .status(ReservationStatus.REQ)
-                        .pet(pet)
-                        .helper(helper)
-                        .build();
+                    .builder()
+                    .serviceType(serviceType)
+                    .reservationDate(reservationDate)
+                    .startTime(startTime)
+                    .endTime(endTime)
+                    .status(ReservationStatus.REQ)
+                    .pet(pet)
+                    .helper(helper)
+                    .build();
     }
 }
