@@ -1,14 +1,13 @@
 package com.du.forpet.service;
 
 import com.du.forpet.domain.ServiceType;
+import com.du.forpet.domain.dto.PaySaveRequestDto;
 import com.du.forpet.domain.dto.ReservationSaveRequestDto;
 import com.du.forpet.domain.entity.Pet;
 import com.du.forpet.repository.PetRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -37,6 +36,13 @@ public class ReservationServiceTest {
                                                         .pet(pet)
                                                         .build();
 
-        reservationService.save(dto);
+        PaySaveRequestDto payDto = PaySaveRequestDto
+                                        .builder()
+                                        .payType("CARD")
+                                        .price(2000)
+                                        .reservation(dto.toEntity())
+                                        .build();
+
+        reservationService.save(dto, payDto);
     }
 }
