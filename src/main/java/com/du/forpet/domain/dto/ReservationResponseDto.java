@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @Getter
 public class ReservationResponseDto {
 
+    private Long id;
     private ServiceType serviceType;
     private LocalDate reservationDate;
     private LocalTime startTime;
@@ -20,6 +21,7 @@ public class ReservationResponseDto {
     private Pet pet;
 
     public ReservationResponseDto(Reservation entity) {
+        this.id = entity.getId();
         this.serviceType = entity.getServiceType();
         this.reservationDate = entity.getReservationDate();
         this.startTime = entity.getStartTime();
