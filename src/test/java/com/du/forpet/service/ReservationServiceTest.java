@@ -1,48 +1,30 @@
 package com.du.forpet.service;
 
-import com.du.forpet.domain.ServiceType;
-import com.du.forpet.domain.dto.PaySaveRequestDto;
 import com.du.forpet.domain.dto.ReservationSaveRequestDto;
-import com.du.forpet.domain.entity.Pet;
-import com.du.forpet.repository.PetRepository;
+import com.du.forpet.domain.entity.ServiceType;
+import com.du.forpet.repository.ServiceTypeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @SpringBootTest
-public class ReservationServiceTest {
+class ReservationServiceTest {
+
+    @Autowired
+    private ServiceTypeRepository serviceTypeRepository;
 
     @Autowired
     private ReservationService reservationService;
 
-    @Autowired
-    private PetRepository petRepository;
-
-    @Transactional
     @Test
     public void save_test() {
-        Pet pet = petRepository.findById(1L).get();
-
-        ReservationSaveRequestDto dto = ReservationSaveRequestDto
-                                                        .builder()
-                                                        .serviceType(ServiceType.BATH)
-                                                        .reservationDate(LocalDate.now())
-                                                        .startTime(LocalTime.now())
-                                                        .endTime(LocalTime.now().plusHours(2))
-                                                        .pet(pet)
-                                                        .build();
-
-        PaySaveRequestDto payDto = PaySaveRequestDto
-                                        .builder()
-                                        .payType("CARD")
-                                        .price(2000)
-                                        .reservation(dto.toEntity())
-                                        .build();
-
-        reservationService.save(dto, payDto);
+        ServiceType serviceType = serviceTypeRepository.findById(1L).get();
+        ReservationSaveRequestDto requestDto = ReservationSaveRequestDto.builder()
+                                                                        .serviceType(serviceType)
+                                                                        .reservationTime(LocalDateTime.now())
+                                                                        .build();
+        reservationService.save(requestDto);
     }
 }
