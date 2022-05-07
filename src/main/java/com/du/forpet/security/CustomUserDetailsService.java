@@ -1,9 +1,8 @@
-package com.du.forpet.service;
+package com.du.forpet.security;
 
 import com.du.forpet.domain.ActivityStatus;
 import com.du.forpet.domain.entity.Member;
 import com.du.forpet.repository.MemberRepository;
-import com.du.forpet.security.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
