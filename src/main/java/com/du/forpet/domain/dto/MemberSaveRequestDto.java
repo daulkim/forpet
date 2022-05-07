@@ -1,46 +1,45 @@
 package com.du.forpet.domain.dto;
 
 import com.du.forpet.domain.ActivityStatus;
-import com.du.forpet.domain.Role;
-import com.du.forpet.domain.entity.Address;
+import com.du.forpet.domain.entity.Authority;
 import com.du.forpet.domain.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @NoArgsConstructor
 public class MemberSaveRequestDto {
 
-    private String email;
-    private String name;
+    private String loginId;
+    private String nickname;
     private String password;
     private String phoneNumber;
-    private Address address;
 
     @Builder
-    public MemberSaveRequestDto(String email,
-                                String name,
+    public MemberSaveRequestDto(String loginId,
+                                String nickname,
                                 String password,
-                                String phoneNumber,
-                                Address address) {
-        this.email = email;
-        this.name = name;
+                                String phoneNumber) {
+        this.loginId = loginId;
+        this.nickname = nickname;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.address = address;
     }
 
-    public Member toEntity() {
+    public Member toEntity(String encodedPassword) {
+        Set<Authority> authorities = new HashSet<Authority>(Arrays.asList(new Authority("ROLE_USER")));
         return Member.builder()
-                    .email(email)
-                    .name(name)
-                    .password(password)
+                    .loginId(loginId)
+                    .nickname(nickname)
+                    .password(encodedPassword)
                     .phoneNumber(phoneNumber)
                     .status(ActivityStatus.ACTIVE)
-                    .penalty(0)
-                    .role(Role.USER)
-                    .address(address)
+                    .authorities(authorities)
                     .build();
     }
 }

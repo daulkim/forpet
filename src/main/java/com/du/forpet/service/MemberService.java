@@ -1,53 +1,35 @@
 package com.du.forpet.service;
 
-import com.du.forpet.domain.dto.MemberResponseDto;
 import com.du.forpet.domain.dto.MemberSaveRequestDto;
-import com.du.forpet.domain.dto.MemberUpdateRequestDto;
-import com.du.forpet.domain.entity.Member;
 import com.du.forpet.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class MemberService {
 
+    private Logger logger = LoggerFactory.getLogger(MemberService.class);
+
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public Long save(MemberSaveRequestDto requestDto) throws Exception {
+    public Long save(MemberSaveRequestDto memberSaveRequestDto) {
 
-        boolean present = memberRepository.findByEmail(requestDto.getEmail()).isPresent();
+        boolean isExist = memberRepository.existsByLoginId(memberSaveRequestDto.getLoginId());
 
-        if(present) {
-            throw new Exception("이미 존재하는 email 입니다.");
+        try {
+            if(isExist)
+                throw new Exception("이미 존재하는 아이디 입니다. id: " + memberSaveRequestDto.getLoginId());
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+            return 0L;
         }
 
-        return memberRepository.save(requestDto.toEntity()).getId();
-    }
-
-    public MemberResponseDto findById(Long id) {
-
-        Member member = findByIdOrElseThrowException(id);
-        return new MemberResponseDto(member);
-    }
-
-    public Long update(Long id, MemberUpdateRequestDto requestDto) {
-
-        Member member = findByIdOrElseThrowException(id);
-        member.update(requestDto.getPassword(),
-                        requestDto.getName(),
-                        requestDto.getPhoneNumber());
-        return id;
-    }
-
-    public void withdraw(Long id) {
-        Member member = findByIdOrElseThrowException(id);
-        member.resign(id);
-    }
-
-    private Member findByIdOrElseThrowException(Long id) {
-        return memberRepository.findById(id)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("해당 회원이 존재하지 않습니다. id: " + id));
+        String encodedPassword = passwordEncoder.encode(memberSaveRequestDto.getPassword());
+        return memberRepository.save(memberSaveRequestDto.toEntity(encodedPassword)).getId();
     }
 }
