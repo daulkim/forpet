@@ -18,7 +18,7 @@ public class Pet extends BaseTimeEntity {
     private Long id;
 
     @Column(name="PET_NAME")
-    private String name;
+    private String petName;
 
     @Column( name="FURTYPE" )
     private String furtype;
@@ -26,6 +26,7 @@ public class Pet extends BaseTimeEntity {
     @Column(name="MEMO")
     private String memo;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="STATUS")
     private ActivityStatus status;
 
@@ -34,8 +35,12 @@ public class Pet extends BaseTimeEntity {
     private Member member;
 
     @Builder
-    public Pet(String name, String furtype, String memo, ActivityStatus status, Member member) {
-        this.name = name;
+    public Pet(String petName,
+               String furtype,
+               String memo,
+               ActivityStatus status,
+               Member member) {
+        this.petName = petName;
         this.furtype = furtype;
         this.memo = memo;
         this.status = status;

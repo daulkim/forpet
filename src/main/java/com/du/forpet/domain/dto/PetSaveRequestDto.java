@@ -11,20 +11,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PetSaveRequestDto {
 
-    private String name;
+    private String petName;
     private String memo;
     private Member member;
 
     @Builder
-    public PetSaveRequestDto(String name, String memo, Member member){
-        this.name = name;
+    public PetSaveRequestDto(String petName,
+                             String memo,
+                             Member member){
+        this.petName = petName;
         this.memo = memo;
         this.member = member;
     }
 
     public Pet toEntity(){
         return Pet.builder()
-                    .name(name)
+                    .petName(petName)
                     .memo(memo)
                     .status(ActivityStatus.ACTIVE)
                     .member(member)
