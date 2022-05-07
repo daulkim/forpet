@@ -43,6 +43,7 @@ dependencies {
     // spring security
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.security:spring-security-test'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
 //    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
 
