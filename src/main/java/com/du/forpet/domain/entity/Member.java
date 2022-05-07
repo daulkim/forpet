@@ -3,12 +3,12 @@ package com.du.forpet.domain.entity;
 import javax.persistence.*;
 
 import com.du.forpet.domain.ActivityStatus;
-import com.du.forpet.domain.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
@@ -19,14 +19,14 @@ public class Member extends BaseTimeEntity {
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(name = "EMAIL")
-    private String email;
+    @Column(name = "LOGIN_ID")
+    private String loginId;
 
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "NICKNAME")
+    private String nickname;
 
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
@@ -34,49 +34,28 @@ public class Member extends BaseTimeEntity {
     @Column(name = "STATUS")
     private ActivityStatus status;
 
-    @Column(name = "PENALTY")
-    private int penalty;
-
-    @Column(name = "ROLE")
-    private Role role;
-
-    @Embedded
-    private Address address;
-
     @OneToMany(mappedBy = "member")
     private List<Pet> pets;
 
+    @ManyToMany
+    @JoinTable(
+            name = "member_authority",
+            joinColumns = {@JoinColumn(name = "member_id", referencedColumnName = "member_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
+    private Set<Authority> authorities;
+
     @Builder
-    public Member(String email,
+    public Member(String loginId,
                   String password,
-                  String name,
+                  String nickname,
                   String phoneNumber,
                   ActivityStatus status,
-                  int penalty,
-                  Role role,
-                  Address address){
-        this.email = email;
+                  Set<Authority> authorities){
+        this.loginId = loginId;
         this.password = password;
-        this.name = name;
+        this.nickname = nickname;
         this.phoneNumber = phoneNumber;
         this.status = status;
-        this.penalty = penalty;
-        this.role = role;
-        this.address = address;
-    }
-
-    public void update(String password, String name, String phoneNumber) {
-        this.password = password;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void resign(Long id) {
-        if (status == ActivityStatus.ACTIVE) {
-            this.status = ActivityStatus.INACTIVE;
-        }
-        else {
-            throw new IllegalStateException("해당 회원은 탈퇴할 수 없는 상태입니다."+id);
-        }
+        this.authorities = authorities;
     }
 }

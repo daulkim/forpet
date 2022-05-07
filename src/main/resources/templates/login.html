@@ -10,23 +10,27 @@
     <div class="card px-1 py-4">
         <div class="card-body">
             <h6 class="card-title mb-3">login</h6>
+            <form action="/authenticate" method="POST">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <!-- <label for="name">Name</label> --> <input id="email" class="form-control" type="text" placeholder="email"> </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <div class="input-group"> <input id="password" class="form-control" type="text" placeholder="password"> </div>
+                        <input id="loginId" name="loginId" class="form-control" type="text" placeholder="loginId">
                     </div>
                 </div>
             </div>
-            <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"> <small class="agree-text">By Booking this appointment you agree to the</small> <a href="#" class="terms">Terms & Conditions</a> </div> <button class="btn btn-primary btn-block confirm-button">Confirm</button>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="input-group"> <input id="password" name="password" class="form-control" type="password" placeholder="password"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"> <small class="agree-text">By Booking this appointment you agree to the</small> <a href="#" class="terms">Terms & Conditions</a> </div> <button type="submit" class="btn btn-primary btn-block confirm-button">Login</button>
+            </form>
         </div>
     </div>
 </div>
+<!--<script type="text/javascript" th:src="@{/js/login.js}"></script>-->
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @NoArgsConstructor
 @Entity
@@ -19,11 +17,11 @@ public class Pet extends BaseTimeEntity {
     @Column(name="PET_ID")
     private Long id;
 
-    @Column(name="NAME")
+    @Column(name="PET_NAME")
     private String name;
 
-    @Column( name="FUR_TYPE" )
-    private String furType;
+    @Column( name="FURTYPE" )
+    private String furtype;
 
     @Column(name="MEMO")
     private String memo;
@@ -35,31 +33,13 @@ public class Pet extends BaseTimeEntity {
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "pet")
-    private List<Reservation> reservations;
-
     @Builder
-    public Pet(String name, String furType, String memo, ActivityStatus status, Member member) {
+    public Pet(String name, String furtype, String memo, ActivityStatus status, Member member) {
         this.name = name;
-        this.furType = furType;
+        this.furtype = furtype;
         this.memo = memo;
         this.status = status;
         this.member = member;
-    }
-
-    public void update(String name, String memo) {
-        this.name = name;
-        this.memo = memo;
-    }
-
-    public void withdraw() {
-        if (status == ActivityStatus.ACTIVE) {
-            this.status = ActivityStatus.INACTIVE;
-        }
-    }
-
-    public boolean checkPenalty() {
-        return this.getMember().getPenalty() >= 3;
     }
 }
 
