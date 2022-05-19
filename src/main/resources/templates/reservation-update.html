@@ -7,45 +7,50 @@
 <body>
 <div th:replace="fragments/nav :: nav"></div>
 <div class="container mt-5 mb-5">
-    <form>
-        <div class="form-group">
-            <label for="serviceType">서비스 타입</label>
-            <input type="text" id="serviceType" class="form-control" th:value="${reservation.serviceType}" />
-        </div>
-        <div class="form-group">
-            <label for="reservationDate">예약일</label>
-            <input type="text" id="reservationDate" class="form-control" th:value="${reservation.reservationDate}" />
-        </div>
-        <div class="form-group">
-            <label for="startTime">시작시간</label>
-            <input type="text" id="startTime" class="form-control" th:value="${reservation.startTime}" />
-            <label for="endTime">종료시간</label>
-            <input type="text" id="endTime" class="form-control" th:value="${reservation.endTime}" />
-        </div>
-        <div class="form-group">
-            <label for="pet">반려동물</label>
-            <input type="text" id="pet" class="form-control" th:value="${reservation.pet.name}" />
-        </div>
-        <div class="form-group">
-            <label for="dips">Select dips</label>
-            <select class="form-control selectpicker" th:field="*{dips}" id="dips" >
-
-                <option th:each="dip : ${T(com.frontbackend.thymeleaf.bootstrap.model.Dip).values()}"
-                        th:value="${dip}"
-                        th:text="${dip}">dip
-                </option>
-
-            </select>
-        </div>
-    </form>
-
-
-
-        <div class="row">
+    <div class="col-sm-7 m-auto">
+        <div class="row mb-5">
             <div class="col-12">
-                <input type="button" class="btn btn-primary float-right" id="btn-save" value="예약수정">
+                <h3>예약 수정</h3>
             </div>
         </div>
+        <form>
+            <input type="hidden" id="reservationId" class="form-control" th:value="${reservation.id}" />
+            <div class="form-group">
+                <label for="serviceType">예약 서비스</label>
+                <input type="text" id="serviceType" class="form-control" th:value="${reservation.serviceType.serviceName}" />
+            </div>
+            <div class="form-group">
+                <label for="reservationDate">예약시간</label>
+                <input type="text" id="reservationDate" class="form-control"th:value="${#temporals.format(reservation.reservationDate, 'yyyy-MM-dd')}" />
+            </div>
+            <div class="form-group">
+                <label for="reservationTime">예약시간</label>
+                <select class="form-control" id="reservationTime" th:with="reservationTime = ${#temporals.format(reservation.reservationTime, 'HH:mm')}">
+                    <option th:selected="${reservationTime == '11:00'}">11:00</option>
+                    <option th:selected="${reservationTime == '12:00'}">12:00</option>
+                    <option th:selected="${reservationTime == '13:00'}">13:00</option>
+                    <option th:selected="${reservationTime == '14:00'}">14:00</option>
+                    <option th:selected="${reservationTime == '15:00'}">15:00</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pet">반려동물</label>
+                <input type="text" id="pet" class="form-control" th:value="${reservation.petName.petName}" />
+            </div>
+            <div class="form-group">
+                <label for="status">예약상태</label>
+                <input type="text" id="status" class="form-control" th:value="${reservation.status}" />
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-10">
+                <input type="submit" id="btn-update" class="btn btn-primary float-right" value="예약 수정">
+            </div>
+            <div class="col-md-2">
+                <input type="submit" id="btn-cancel" class="btn btn-danger float-right" value="예약 취소">
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
@@ -55,16 +60,13 @@
 <script th:src="@{/webjars/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js}"></script>
 <script>
     $(document).ready(function () {
-        $('#reserveDate').datepicker({
+        $('#reservationDate').datepicker({
             format: 'yyyy-mm-dd', // 날짜 포맷
-            startDate: '-10d', // 선택 가능한 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+            startDate: '1d', // 선택 가능한 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
             endDate: '+10d', // 선택 가능한 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
             autoclose: true, // 날짜를 클릭시 캘린더 자동 닫힘
             calendarWeeks: false, //캘린더 옆에 몇 주차인지 표시 기본값 false
             clearBtn: false, // 날짜 선택한 값 초기화 기본값 false
-            datesDisabled: ['2019-06-24', '2019-06-26'], //선택 불가능한 날 설정 위의 format 과 동일한 형식으로
-            daysOfWeekDisabled: [0, 6], // 선택 불가능한 요일 설정 0 : 일요일 ~ 6 : 토요일
-            daysOfWeekHighlighted: [3], // 강조 요일 설정
             disableTouchKeyboard: false, // 모바일에서 플러그인 작동 여부 기본값 false(작동)
             immediateUpdates: false, // 사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false
             multidate: false, // 여러 날짜 선택 기본값 false
@@ -74,13 +76,11 @@
                 rightArrow: '&raquo;',
             }, // 다음달 이전달로 넘어가는 화살표 모양 설정
             showWeekDays: true, // 위에 요일 보여주는 옵션 기본값 : true
-            title: '테스트', // 캘린더 상단 타이틀
             todayHighlight: true, // 오늘 날짜에 하이라이팅 기본값 :false
             toggleActive: true, // 이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
             weekStart: 0, // 달력 시작 요일 선택하는 것 기본값은 0인 일요일
             language: 'ko', // 달력의 언어 선택, 그에 맞는 js로 교체
         })
     });
-
 </script>
 </html>

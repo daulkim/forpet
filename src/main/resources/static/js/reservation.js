@@ -6,7 +6,7 @@ var main = {
         });
 
         $('#btn-update').on('click', function(){
-            _this.changeTime();
+            _this.update();
         });
 
         $('#btn-cancel').on('click', function(){
@@ -15,10 +15,8 @@ var main = {
     },
     save : function(){
         var data = {
-            serviceType: $('#serviceType').val(),
-            reservationDate: $('#reservationDate').val(),
-            startTime: "T"+$('#startTime').val(),
-            endTime: "T"+$('#endTime').val(),
+            serviceType: { id: $('#serviceType').val() },
+            reservationDateTime: $('#reservationDate').val()+"T"+$('#reservationTime').val(),
             pet: { id: $('#pet').val() }
         };
         console.log(JSON.stringify(data));
@@ -36,18 +34,16 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-    changeTime : function(){
+    update : function(){
         var data = {
-            reservationDate: $('#reservationDate').val(),
-            startTime: "T"+$('#startTime').val(),
-            endTime: "T"+$('#endTime').val(),
+            reservationDateTime: $('#reservationDate').val() + "T"+$('#reservationTime').val(),
         };
 
-        var id = $('#id').val();
+        var reservationId = $('#reservationId').val();
 
         $.ajax({
-            type: 'PUT',
-            url: '/api/reservations/'+id,
+            type: 'PATCH',
+            url: '/api/reservations/'+reservationId,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -59,11 +55,11 @@ var main = {
         });
     },
     cancel :  function(){
-        var id = $('#id').val();
+        var reservationId = $('#reservationId').val();
 
         $.ajax({
             type: 'PATCH',
-            url: '/api/reservations/'+id+"/cancel",
+            url: '/api/reservations/'+reservationId+"/cancel",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
         }).done(function(){

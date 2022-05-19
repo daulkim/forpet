@@ -1,6 +1,7 @@
 package com.du.forpet.domain.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.du.forpet.domain.ReservationStatus;
@@ -17,8 +18,8 @@ public class Reservation extends BaseTimeEntity {
     @Column(name="RESERVATION_ID")
     private Long id;
 
-    @Column(name="RESERVATION_DATE")
-    private LocalDateTime reservationTime;
+    @Column(name="RESERVATION_DATETIME")
+    private LocalDateTime reservationDateTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name="STATUS")
@@ -33,44 +34,36 @@ public class Reservation extends BaseTimeEntity {
     private ServiceType serviceType;
 
     @Builder
-    public Reservation(LocalDateTime reservationTime,
+    public Reservation(LocalDateTime reservationDateTime,
                        ReservationStatus status,
                        Pet pet,
                        ServiceType serviceType) {
 
-        this.reservationTime = reservationTime;
+        this.reservationDateTime = reservationDateTime;
         this.status = status;
         this.pet = pet;
         this.serviceType = serviceType;
     }
 
-//    public void cancel(String memo) {
-//
-//        final LocalDate REVOCABLEDATE = LocalDate.now().plusDays(1);
-//
-//        if(reservationDate.isBefore(REVOCABLEDATE)) {
-//            throw new RuntimeException("예약 취소는 예약일 기준 하루전까지만 가능합니다.");
-//        }
-//
-//        this.status = ReservationStatus.CANCEL;
-//        this.memo = memo;
-//    }
-//
-//    public void update(LocalDate reservationDate, LocalTime startTime, LocalTime endTime) {
-//
-//        final LocalDate REVOCABLEDATE = LocalDate.now().plusDays(1);
-//
-//        if(!ReservationStatus.updatableStatus(status)) {
-//            throw new RuntimeException("예약 변경이 불가능한 상태입니다.");
-//        }
-//
-//        if(this.reservationDate.isBefore(REVOCABLEDATE)) {
-//            throw new RuntimeException("예약 변경은 예약일 기준 하루전까지만 가능합니다.");
-//        }
-//
-//        this.startTime = startTime;
-//        this.endTime = endTime;
-//    }
+    public void update(LocalDateTime reservationDateTime) {
+
+        if(!ReservationStatus.updatableStatus(status)) {
+            throw new RuntimeException("예약 변경이 불가능한 상태입니다.");
+        }
+
+        this.reservationDateTime = reservationDateTime;
+    }
+
+    public void cancel() {
+
+        if(!ReservationStatus.updatableStatus(status)) {
+            throw new RuntimeException("예약 취소가 불가능한 상태입니다.");
+        }
+
+        this.status = ReservationStatus.CANCEL;
+    }
+
+
 //
 //    public void approve(Long id) {
 //        if(!(this.status == ReservationStatus.REQ)) {

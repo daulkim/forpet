@@ -23,7 +23,7 @@ class ReservationServiceTest {
         ServiceType serviceType = serviceTypeRepository.findById(1L).get();
         ReservationSaveRequestDto requestDto = ReservationSaveRequestDto.builder()
                                                                         .serviceType(serviceType)
-                                                                        .reservationTime(LocalDateTime.now())
+                                                                        .reservationDateTime(LocalDateTime.now())
                                                                         .build();
         reservationService.save(requestDto);
     }

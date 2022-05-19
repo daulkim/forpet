@@ -1,10 +1,8 @@
 package com.du.forpet.controller.api;
 
-import com.du.forpet.domain.dto.PaySaveRequestDto;
 import com.du.forpet.domain.dto.ReservationResponseDto;
 import com.du.forpet.domain.dto.ReservationSaveRequestDto;
 import com.du.forpet.domain.dto.ReservationUpdateRequestDto;
-import com.du.forpet.service.PayService;
 import com.du.forpet.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +16,9 @@ public class ReservationApiController {
     private final ReservationService reservationService;
 
     @PostMapping()
-    public Long reserve(@RequestBody ReservationSaveRequestDto reservationReqDto,
-                        @RequestBody PaySaveRequestDto payReqDto) {
+    public Long reserve(@RequestBody ReservationSaveRequestDto reservationReqDto) {
 
-        return reservationService.save(reservationReqDto, payReqDto);
+        return reservationService.save(reservationReqDto);
     }
 
     @GetMapping("/{id}")
@@ -29,18 +26,18 @@ public class ReservationApiController {
         return reservationService.findById(id);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public Long changeTime(@PathVariable Long id, @RequestBody ReservationUpdateRequestDto requestDto) {
         return reservationService.update(id, requestDto);
     }
 
     @PatchMapping("/{id}/cancel")
-    public void cancel(@PathVariable Long id, String memo) {
-        reservationService.cancel(id, memo);
+    public Long cancel(@PathVariable Long id) {
+        return reservationService.cancel(id);
     }
-
-    @PatchMapping("/{id}/approval")
-    public void approval(@PathVariable Long id) {
-        reservationService.approve(id);
-    }
+//
+//    @PatchMapping("/{id}/approval")
+//    public void approval(@PathVariable Long id) {
+//        reservationService.approve(id);
+//    }
 }

@@ -1,25 +1,21 @@
 package com.du.forpet.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public class ReservationUpdateRequestDto {
 
-    private LocalDate reservationDate;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
+    private LocalDateTime reservationDateTime;
 
     @Builder
-    public ReservationUpdateRequestDto(LocalDate reservationDate,
-                                       LocalTime startTime,
-                                       LocalTime endTime) {
-        this.reservationDate = reservationDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public ReservationUpdateRequestDto(LocalDateTime reservationDateTime) {
+        this.reservationDateTime = reservationDateTime;
     }
-
 }
