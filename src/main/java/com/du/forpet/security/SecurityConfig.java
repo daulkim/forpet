@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .expiredUrl("/login");
 
         http.authorizeRequests()
-                .antMatchers("/login", "/logout", "/home").permitAll()
+                .antMatchers("/login", "/logout", "/").permitAll()
                 .anyRequest().authenticated();
 
         http.formLogin()
@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/authenticate")
                 .usernameParameter("loginId")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and();
 
