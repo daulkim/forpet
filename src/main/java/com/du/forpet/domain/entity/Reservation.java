@@ -1,7 +1,7 @@
 package com.du.forpet.domain.entity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 import com.du.forpet.domain.ReservationStatus;
@@ -30,7 +30,7 @@ public class Reservation extends BaseTimeEntity {
     private Pet pet;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="SERVICE_TYPE_ID")
+    @JoinColumn(name="SERVICE_NAME")
     private ServiceType serviceType;
 
     @Builder

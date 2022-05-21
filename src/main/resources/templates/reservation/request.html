@@ -17,7 +17,7 @@
     <div class="form-group">
         <label for="serviceType">예약 서비스</label>
         <select class="form-control" id="serviceType">
-            <option th:each="serviceType : ${serviceTypeList}" th:value="${serviceType.id}" th:text="${serviceType.serviceName}">
+            <option th:each="serviceType : ${serviceTypeList}" th:value="${serviceType.serviceName}" th:text="${serviceType.serviceName}">
             </option>
         </select>
     </div>

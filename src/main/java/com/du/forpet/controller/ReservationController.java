@@ -11,13 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/reservations")
 @Controller
 public class ReservationController {
 
@@ -25,7 +24,7 @@ public class ReservationController {
     private final ServiceTypeService serviceTypeService;
     private final MemberService memberService;
 
-    @GetMapping("/reserve")
+    @GetMapping("/reservations/reserve")
     public String reserve(Model model, Principal principal) {
         List<ServiceTypeResponseDto> serviceTypeList = serviceTypeService.findAllServiceName();
         List<PetResponseDto> petList = memberService.findPetByLoginId(principal.getName());
@@ -33,20 +32,19 @@ public class ReservationController {
         model.addAttribute("serviceTypeList", serviceTypeList);
         model.addAttribute("petList", petList);
 
-        return "reservation-request";
+        return "reservation/request";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/reservations/{id}")
     public String findById(@PathVariable Long id, Model model) {
         model.addAttribute("reservation", reservationService.findById(id));
-        return "reservation";
+        return "reservation/reservation";
     }
 
-    @GetMapping("/update/{id}")
+    @GetMapping("/reservations/update/{id}")
     public String update(@PathVariable Long id, Model model) {
         ReservationResponseDto dto = reservationService.findById(id);
         model.addAttribute("reservation", dto);
-        return "reservation-update";
+        return "reservation/update";
     }
-
 }
