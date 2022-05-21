@@ -47,4 +47,11 @@ public class ReservationController {
         model.addAttribute("reservation", dto);
         return "reservation/update";
     }
+
+    @GetMapping("/reservations/request-list")
+    public String reservationReqListByServiceType(@RequestParam List<String> serviceType,
+                                                    Model model) {
+        model.addAttribute("list", reservationService.findAllByServiceType(serviceType));
+        return "reservation/request-list";
+    }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>forpet</title>
+    <div th:replace="/fragments/header :: header"></div>
+</head>
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+
+<div class="container mt-5 mb-5">
+    <div class="col-sm-7 m-auto">
+        <th:block th:each="reservation: ${list}">
+        <div class="card mb-2">
+            <div class="card-header">
+                <div class="d-inline" th:text="${#temporals.format(reservation.reservationDateTime, 'yyyy-MM-dd HH:ss')}"></div>  <div class="d-inline float-right" th:text="|￦${reservation.serviceFee}|"><b class="text-danger">h</b></div>
+            </div>
+            <div class="card-body">
+                <b th:text="${reservation.serviceName}"></b>
+                <p>서울특별시 강동구 천중로 77 </p>
+            </div>
+        </div>
+        <div class="card mb-2">
+            <div class="card-header">
+                <div class="d-inline" th:text="${#temporals.format(reservation.reservationDateTime, 'yyyy-MM-dd HH:ss')}"></div> <div class="d-inline float-right" th:text="|￦${reservation.serviceFee}|"></div>
+            </div>
+            <div class="card-body">
+                <b th:text="${reservation.serviceName}"></b>
+                <p>서울특별시 강동구 천중로 77 </p>
+            </div>
+        </div>
+        </th:block>
+    </div>
+</div>
+
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

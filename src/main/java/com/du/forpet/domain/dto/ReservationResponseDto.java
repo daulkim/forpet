@@ -17,15 +17,19 @@ public class ReservationResponseDto {
     private ServiceType serviceType;
     private LocalDate reservationDate;
     private LocalTime reservationTime;
+    private String from;
+    private String to;
     private String status;
-    private Pet petName;
+    private String petName;
 
     public ReservationResponseDto(Reservation entity) {
         this.id = entity.getId();
         this.serviceType = entity.getServiceType();
         this.reservationDate = entity.getReservationDateTime().toLocalDate();
         this.reservationTime = entity.getReservationDateTime().toLocalTime();
+        this.from = entity.getFrom().getAddress1() + entity.getFrom().getAddress2();
+        this.to = entity.getTo().getAddress1() + entity.getTo().getAddress2();
         this.status = entity.getStatus().toString();
-        this.petName = entity.getPet();
+        this.petName = entity.getPet().getPetName();
     }
 }

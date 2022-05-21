@@ -1,5 +1,7 @@
 package com.du.forpet.service;
 
+import com.du.forpet.domain.ReservationStatus;
+import com.du.forpet.domain.dto.ReservationRequestList;
 import com.du.forpet.domain.dto.ReservationResponseDto;
 import com.du.forpet.domain.dto.ReservationSaveRequestDto;
 import com.du.forpet.domain.dto.ReservationUpdateRequestDto;
@@ -10,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -48,10 +53,20 @@ public class ReservationService {
         return reservation.getId();
     }
 
+    @Transactional
+    public List<ReservationRequestList> findAllByServiceType(List<String> serviceName) {
+        return reservationRepository.findAllByServiceType(serviceName)
+                                    .stream()
+                                    .filter(reservation -> reservation.getStatus().equals(ReservationStatus.REQ))
+                                    .map(reservation -> new ReservationRequestList(reservation))
+                                    .collect(Collectors.toList());
+    }
+
     private Reservation findByIdOrElseThrowException(Long id){
 
         return reservationRepository.findById(id)
                                     .orElseThrow(() ->
                                             new IllegalArgumentException("해당 예약을 찾을 수 없습니다. id: " + id));
     }
+
 }
