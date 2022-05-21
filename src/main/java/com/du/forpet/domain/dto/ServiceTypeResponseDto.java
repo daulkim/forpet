@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ServiceTypeResponseDto {
 
-    private Long id;
     private String serviceName;
 
     @Builder
     public ServiceTypeResponseDto(ServiceType entity) {
-        this.id = entity.getId();
         this.serviceName = entity.getServiceName();
     }
 }

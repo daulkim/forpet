@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 public class ServiceTypeSaveRequestDto {
 
     private String serviceName;
-    private Integer serviceFee;
+    private Long serviceFee;
 
     @Builder
     public ServiceTypeSaveRequestDto(String serviceName,
-                                     Integer serviceFee) {
+                                     Long serviceFee) {
         this.serviceName = serviceName;
         this.serviceFee = serviceFee;
     }

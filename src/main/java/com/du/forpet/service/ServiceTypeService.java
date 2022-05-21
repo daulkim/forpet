@@ -15,8 +15,8 @@ public class ServiceTypeService {
 
     private final ServiceTypeRepository serviceTypeRepository;
 
-    public Long save(ServiceTypeSaveRequestDto serviceTypeSaveRequestDto) {
-        return serviceTypeRepository.save(serviceTypeSaveRequestDto.toEntity()).getId();
+    public String save(ServiceTypeSaveRequestDto serviceTypeSaveRequestDto) {
+        return serviceTypeRepository.save(serviceTypeSaveRequestDto.toEntity()).getServiceName();
     }
 
     public List<ServiceTypeResponseDto> findAllServiceName() {

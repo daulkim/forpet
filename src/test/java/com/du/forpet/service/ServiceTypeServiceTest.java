@@ -14,8 +14,8 @@ public class ServiceTypeServiceTest {
     @Test
     public void save_test() {
         ServiceTypeSaveRequestDto requestDto = ServiceTypeSaveRequestDto.builder()
-                                                                        .serviceName("목욕")
-                                                                        .serviceFee(10000)
+                                                                        .serviceName("ㄴ")
+                                                                        .serviceFee(20000)
                                                                         .build();
         serviceTypeService.save(requestDto);
     }
