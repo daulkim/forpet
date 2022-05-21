@@ -1,46 +1,50 @@
 package com.du.forpet.domain.dto;
 
 import com.du.forpet.domain.ActivityStatus;
+import com.du.forpet.domain.entity.Authority;
 import com.du.forpet.domain.entity.Helper;
+import com.du.forpet.domain.entity.ServiceType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
 public class HelperSaveRequestDto {
 
-    private String email;
+    private String loginId;
     private String password;
-    private String name;
+    private String nickname;
     private String phoneNumber;
-    private String helperType;
-    private String district;
+    private Set<ServiceType> serviceTypes;
 
     @Builder
-    public HelperSaveRequestDto(String email,
+    public HelperSaveRequestDto(String loginId,
                                 String password,
-                                String name,
+                                String nickname,
                                 String phoneNumber,
-                                String helperType,
-                                String district){
-        this.email = email;
+                                Set<ServiceType> serviceTypes){
+        this.loginId = loginId;
         this.password = password;
-        this.name = name;
+        this.nickname = nickname;
         this.phoneNumber = phoneNumber;
-        this.helperType = helperType;
-        this.district = district;
+        this.serviceTypes = serviceTypes;
     }
 
-    public Helper toEntity() {
+    public Helper toEntity(String encodedPassword) {
+        Set<Authority> authorities = new HashSet<Authority>(Arrays.asList(new Authority("ROLE_HELPER")));
         return Helper.builder()
-                .email(email)
-                .password(password)
-                .name(name)
-                .phoneNumber(phoneNumber)
-                .helperType(helperType)
-                .status(ActivityStatus.UNAUTHORIZED)
-                .district(district)
-                .build();
+                    .loginId(loginId)
+                    .password(encodedPassword)
+                    .nickname(nickname)
+                    .phoneNumber(phoneNumber)
+                    .status(ActivityStatus.UNAUTHORIZED)
+                    .authorities(authorities)
+                    .serviceTypes(serviceTypes)
+                    .build();
     }
 }

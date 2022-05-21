@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
@@ -17,71 +17,79 @@ public class Helper extends BaseTimeEntity {
     @Column(name = "HELPER_ID")
     private Long id;
 
-    @Column(name = "EMAIL")
-    private String email;
+    @Column(name = "LOGIN_ID")
+    private String loginId;
 
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "NICKNAME")
+    private String nickname;
 
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    @Column(name = "HELPER_TYPE")
-    private String helperType;
-
     @Column(name="STATUS")
     private ActivityStatus status;
 
-    @Column(name="DISTRICT")
-    private String district;
+//    @Column(name="DISTRICT")
+//    private String district;
 
-    @OneToMany(mappedBy = "helper")
-    private List<Reservation> reservations;
+    @ManyToMany
+    @JoinTable(
+            name = "HELPER_AUTHORITY",
+            joinColumns = {@JoinColumn(name = "HELPER_ID", referencedColumnName = "HELPER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_NAME", referencedColumnName = "AUTHORITY_NAME")})
+    private Set<Authority> authorities;
+
+    @ManyToMany
+    @JoinTable(
+            name = "HELPER_SERVICETYPE",
+            joinColumns = {@JoinColumn(name = "HELPER_ID", referencedColumnName = "HELPER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "SERVICE_NAME", referencedColumnName = "SERVICE_NAME")})
+    private Set<ServiceType> serviceTypes;
 
     @Builder
-    public Helper(String email,
+    public Helper(String loginId,
                   String password,
-                  String name,
+                  String nickname,
                   String phoneNumber,
-                  String helperType,
                   ActivityStatus status,
-                  String district) {
+                  Set<Authority> authorities,
+                  Set<ServiceType> serviceTypes) {
 
-        this.email = email;
+        this.loginId = loginId;
         this.password = password;
-        this.name = name;
+        this.nickname = nickname;
         this.phoneNumber = phoneNumber;
-        this.helperType = helperType;
         this.status = status;
-        this.district = district;
+        this.authorities = authorities;
+        this.serviceTypes = serviceTypes;
     }
 
-    public void update(String name, String phoneNumber, String district) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.district = district;
-    }
-
-    public void withdraw(Long id) {
-        if (status == ActivityStatus.ACTIVE || status == ActivityStatus.UNAUTHORIZED ) {
-            this.status = ActivityStatus.INACTIVE;
-        }
-        else {
-            throw new IllegalStateException("해당 회원은 이미 탈퇴한 회원입니다. id: "+id);
-        }
-    }
-
-    public void approve(Long id) {
-
-        if (status == ActivityStatus.UNAUTHORIZED) {
-            this.status = ActivityStatus.ACTIVE;
-        }
-        else {
-            throw new IllegalStateException("해당 회원은 승인할 수 없는 상태입니다."+id);
-        }
-
-    }
+//    public void update(String name, String phoneNumber, String district) {
+//        this.name = name;
+//        this.phoneNumber = phoneNumber;
+//        this.district = district;
+//    }
+//
+//    public void withdraw(Long id) {
+//        if (status == ActivityStatus.ACTIVE || status == ActivityStatus.UNAUTHORIZED ) {
+//            this.status = ActivityStatus.INACTIVE;
+//        }
+//        else {
+//            throw new IllegalStateException("해당 회원은 이미 탈퇴한 회원입니다. id: "+id);
+//        }
+//    }
+//
+//    public void approve(Long id) {
+//
+//        if (status == ActivityStatus.UNAUTHORIZED) {
+//            this.status = ActivityStatus.ACTIVE;
+//        }
+//        else {
+//            throw new IllegalStateException("해당 회원은 승인할 수 없는 상태입니다."+id);
+//        }
+//
+//    }
 }
