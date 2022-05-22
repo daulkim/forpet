@@ -17,16 +17,8 @@
             </div>
             <div class="card-body">
                 <b th:text="${reservation.serviceName}"></b>
-                <p>서울특별시 강동구 천중로 77 </p>
-            </div>
-        </div>
-        <div class="card mb-2">
-            <div class="card-header">
-                <div class="d-inline" th:text="${#temporals.format(reservation.reservationDateTime, 'yyyy-MM-dd HH:ss')}"></div> <div class="d-inline float-right" th:text="|￦${reservation.serviceFee}|"></div>
-            </div>
-            <div class="card-body">
-                <b th:text="${reservation.serviceName}"></b>
-                <p>서울특별시 강동구 천중로 77 </p>
+                <span class="d-block" th:if="${not #strings.isEmpty(reservation.from)}" th:text="${reservation.from}"></span>
+                <span class="d-block" th:if="${not #strings.isEmpty(reservation.to)}" th:text="${reservation.to}"></span>
             </div>
         </div>
         </th:block>

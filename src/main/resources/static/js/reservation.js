@@ -15,8 +15,10 @@ var main = {
     },
     save : function(){
         var data = {
-            serviceType: { id: $('#serviceType').val() },
+            serviceType: { serviceName: $('#serviceType').val() },
             reservationDateTime: $('#reservationDate').val()+"T"+$('#reservationTime').val(),
+            from: { address1: $('#from').val()},
+            to:  { address1: $('#to').val()},
             pet: { id: $('#pet').val() }
         };
         console.log(JSON.stringify(data));
@@ -36,7 +38,7 @@ var main = {
     },
     update : function(){
         var data = {
-            reservationDateTime: $('#reservationDate').val() + "T"+$('#reservationTime').val(),
+            reservationDateTime: $('#reservationDate').val()+"T"+$('#reservationTime').val(),
         };
 
         var reservationId = $('#reservationId').val();

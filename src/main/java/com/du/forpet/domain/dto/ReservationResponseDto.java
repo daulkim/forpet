@@ -27,8 +27,8 @@ public class ReservationResponseDto {
         this.serviceType = entity.getServiceType();
         this.reservationDate = entity.getReservationDateTime().toLocalDate();
         this.reservationTime = entity.getReservationDateTime().toLocalTime();
-        this.from = entity.getFrom().getAddress1() + entity.getFrom().getAddress2();
-        this.to = entity.getTo().getAddress1() + entity.getTo().getAddress2();
+        this.from = entity.getFrom();
+        this.to = entity.getTo();
         this.status = entity.getStatus().toString();
         this.petName = entity.getPet().getPetName();
     }

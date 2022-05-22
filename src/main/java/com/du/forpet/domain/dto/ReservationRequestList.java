@@ -1,6 +1,5 @@
 package com.du.forpet.domain.dto;
 
-import com.du.forpet.domain.entity.Address;
 import com.du.forpet.domain.entity.Reservation;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,8 +13,8 @@ public class ReservationRequestList {
 
     private Long reservationId;
     private LocalDateTime reservationDateTime;
-    private Address from;
-    private Address to;
+    private String from;
+    private String to;
     private String pet;
     private String serviceName;
     private Long serviceFee;

@@ -21,6 +21,12 @@ public class Reservation extends BaseTimeEntity {
     @Column(name="RESERVATION_DATETIME")
     private LocalDateTime reservationDateTime;
 
+    @Column(name = "FROM_ADDRESS")
+    private String from;
+
+    @Column(name = "TO_ADDRESS")
+    private String to;
+
     @Enumerated(EnumType.STRING)
     @Column(name="STATUS")
     private ReservationStatus status;
@@ -36,11 +42,15 @@ public class Reservation extends BaseTimeEntity {
     @Builder
     public Reservation(LocalDateTime reservationDateTime,
                        ReservationStatus status,
+                       String from,
+                       String to,
                        Pet pet,
                        ServiceType serviceType) {
 
         this.reservationDateTime = reservationDateTime;
         this.status = status;
+        this.from = from;
+        this.to = to;
         this.pet = pet;
         this.serviceType = serviceType;
     }
@@ -62,19 +72,5 @@ public class Reservation extends BaseTimeEntity {
 
         this.status = ReservationStatus.CANCEL;
     }
-
-
-//
-//    public void approve(Long id) {
-//        if(!(this.status == ReservationStatus.REQ)) {
-//            throw new RuntimeException("예약 승인이 불가능한 상태입니다.");
-//        }
-//        this.status = ReservationStatus.APPROVE;
-//    }
-//
-//    public void addHistory(ReservationHistory history) {
-//        history.setReservation(this);
-//        histories.add(history);
-//    }
 }
 
