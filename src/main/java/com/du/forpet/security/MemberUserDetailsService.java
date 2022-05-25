@@ -21,10 +21,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Component("userDetailsService")
-public class CustomUserDetailsService implements UserDetailsService {
+@Component
+public class MemberUserDetailsService implements UserDetailsService {
 
-    private Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
+    private Logger logger = LoggerFactory.getLogger(MemberUserDetailsService.class);
 
     private final MemberRepository memberRepository;
     private final HttpSession httpSession;
