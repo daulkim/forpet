@@ -17,8 +17,8 @@ var main = {
         var data = {
             serviceType: { serviceName: $('#serviceType').val() },
             reservationDateTime: $('#reservationDate').val()+"T"+$('#reservationTime').val(),
-            from: { address1: $('#from').val()},
-            to:  { address1: $('#to').val()},
+            from: $('#from').val(),
+            to:  $('#to').val(),
             pet: { id: $('#pet').val() }
         };
         console.log(JSON.stringify(data));
