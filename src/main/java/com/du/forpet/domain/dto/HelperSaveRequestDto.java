@@ -42,7 +42,7 @@ public class HelperSaveRequestDto {
                     .password(encodedPassword)
                     .nickname(nickname)
                     .phoneNumber(phoneNumber)
-                    .status(ActivityStatus.UNAUTHORIZED)
+                    .status(ActivityStatus.ACTIVE)
                     .authorities(authorities)
                     .serviceTypes(serviceTypes)
                     .build();
