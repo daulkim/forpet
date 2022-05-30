@@ -3,22 +3,29 @@ package com.du.forpet.controller;
 import com.du.forpet.domain.dto.PetResponseDto;
 import com.du.forpet.domain.dto.ReservationResponseDto;
 import com.du.forpet.domain.dto.ServiceTypeResponseDto;
+import com.du.forpet.domain.entity.ServiceType;
+import com.du.forpet.security.HelperUserDetails;
 import com.du.forpet.service.MemberService;
 import com.du.forpet.service.ReservationService;
 import com.du.forpet.service.ServiceTypeService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
 public class ReservationController {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final ReservationService reservationService;
     private final ServiceTypeService serviceTypeService;
@@ -48,10 +55,15 @@ public class ReservationController {
         return "reservation/update";
     }
 
-    @GetMapping("/reservations/request-list")
-    public String reservationReqListByServiceType(@RequestParam List<String> serviceType,
+    @GetMapping("/helpers/reservations/request-list")
+    public String reservationReqListByServiceType(@AuthenticationPrincipal HelperUserDetails user,
                                                     Model model) {
-        model.addAttribute("list", reservationService.findAllByServiceType(serviceType));
+        List<String> serviceTypes = user.getServiceTypes()
+                                        .stream()
+                                        .map(ServiceType::getServiceName)
+                                        .collect(Collectors.toList());
+
+        model.addAttribute("list", reservationService.findAllByServiceType(serviceTypes));
         return "reservation/request-list";
     }
 }
