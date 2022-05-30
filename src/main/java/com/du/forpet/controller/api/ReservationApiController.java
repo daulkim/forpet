@@ -7,37 +7,31 @@ import com.du.forpet.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-
-@RequestMapping("/api/reservations")
 @RequiredArgsConstructor
 @RestController
 public class ReservationApiController {
 
     private final ReservationService reservationService;
 
-    @PostMapping()
+    @PostMapping("/api/reservations")
     public Long reserve(@RequestBody ReservationSaveRequestDto reservationReqDto) {
-
         return reservationService.save(reservationReqDto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/reservations/{id}")
     public ReservationResponseDto findById(@PathVariable Long id) {
         return reservationService.findById(id);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/api/reservations/{id}")
     public Long changeTime(@PathVariable Long id, @RequestBody ReservationUpdateRequestDto requestDto) {
         return reservationService.update(id, requestDto);
     }
 
-    @PatchMapping("/{id}/cancel")
+    @PatchMapping("/api/reservations/{id}/cancel")
     public Long cancel(@PathVariable Long id) {
         return reservationService.cancel(id);
     }
-//
-//    @PatchMapping("/{id}/approval")
-//    public void approval(@PathVariable Long id) {
-//        reservationService.approve(id);
-//    }
+
+
 }
