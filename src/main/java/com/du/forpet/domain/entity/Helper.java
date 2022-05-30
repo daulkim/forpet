@@ -29,6 +29,7 @@ public class Helper extends BaseTimeEntity {
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="STATUS")
     private ActivityStatus status;
 
