@@ -17,9 +17,20 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("/helpers/login")
+    public String helperLogin() {
+        return "helper/login";
+    }
+
     @PostMapping("/authenticate")
     public String auth() {
         return "login";
     }
+
+    @PostMapping("/helpers/authenticate")
+    public String helperAuth() {
+        return "helper/login";
+    }
+
 }
 
